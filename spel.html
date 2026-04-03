@@ -7,46 +7,57 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="game">
-  <div class="container">
-    <h1>Steen Papier Schaar</h1>
-
-    <!-- Knoppen om een keuze te maken -->
-    <div class="knoppen">
-      <button onclick="speel('steen')">✊ Steen</button>
-      <button onclick="speel('papier')">✋ Papier</button>
-      <button onclick="speel('schaar')">✌️ Schaar</button>
-    </div>
-
-    <!-- Twee handen animatie -->
-    <div class="handen">
-      <div class="hand-blok">
-        <div class="hand-label">Jij</div>
-        <div class="hand" id="handSpeler">✊</div>
+  <main class="game-main">
+    <section class="game-top">
+      <div>
+        <h1>Steen Papier Schaar</h1>
+        <p class="game-subtitle">Speel een snelle ronde tegen de computer.</p>
       </div>
-      <div class="hand-blok">
-        <div class="hand-label">Computer</div>
-        <div class="hand computer" id="handComputer">✊</div>
+      <a class="back-home" href="index.html">Terug naar home</a>
+    </section>
+
+    <section class="container game-card">
+      <!-- Knoppen om een keuze te maken -->
+      <div class="knoppen">
+        <button onclick="speel('steen')">✊ Steen</button>
+        <button onclick="speel('papier')">✋ Papier</button>
+        <button onclick="speel('schaar')">✌️ Schaar</button>
       </div>
-    </div>
 
-    <!-- Uitslag wordt hier getoond -->
-    <div class="uitslag" id="uitslag">
-      <p id="jouwKeuze">Jouw keuze: —</p>
-      <p id="computerKeuze">Computer keuze: —</p>
-      <p id="resultaat" class="resultaat">Maak een keuze om te beginnen!</p>
-    </div>
+      <!-- Twee handen animatie -->
+      <div class="handen">
+        <div class="hand-blok">
+          <div class="hand-label">Jij</div>
+          <div class="hand" id="handSpeler">✊</div>
+        </div>
+        <div class="hand-blok">
+          <div class="hand-label">Computer</div>
+          <div class="hand computer" id="handComputer">✊</div>
+        </div>
+      </div>
 
-    <!-- Scorebord -->
-    <div class="score">
-      <span>Jij: <strong id="scoreSpeler">0</strong></span>
-      <span>Computer: <strong id="scoreComputer">0</strong></span>
-    </div>
+      <!-- Uitslag wordt hier getoond -->
+      <div class="uitslag" id="uitslag">
+        <p id="jouwKeuze">Jouw keuze: —</p>
+        <p id="computerKeuze">Computer keuze: —</p>
+        <p id="resultaat" class="resultaat">Maak een keuze om te beginnen!</p>
+      </div>
 
-    <!-- Resetknop -->
-    <button class="reset" onclick="reset()">🔄 Reset score</button>
+      <!-- Scorebord -->
+      <div class="score">
+        <span>Jij: <strong id="scoreSpeler">0</strong></span>
+        <span>Computer: <strong id="scoreComputer">0</strong></span>
+      </div>
 
-    <p class="made-by">Made by Frans Poorter</p>
-  </div>
+      <div class="game-actions">
+        <!-- Resetknop -->
+        <button class="reset" onclick="reset()">🔄 Reset score</button>
+        <a class="back-home secondary" href="index.html">🏠 Terug naar home</a>
+      </div>
+
+      <p class="made-by">Made by Frans Poorter</p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>

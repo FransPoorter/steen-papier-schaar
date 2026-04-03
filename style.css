@@ -396,4 +396,277 @@ body.home {
   }
 }
 
+/* Game pagina in dezelfde stijl als home */
+body.game {
+  display: block;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(20, 100, 170, 0.28), transparent 44%),
+    radial-gradient(circle at 85% 15%, rgba(16, 188, 206, 0.24), transparent 38%),
+    #091425;
+  color: #eff5ff;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+.game-main {
+  width: min(1100px, 92vw);
+  margin: 30px auto 48px;
+}
+
+.game-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(12, 26, 45, 0.75), rgba(15, 48, 83, 0.44));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  animation: rise-in 700ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.game-top h1 {
+  margin: 0;
+  color: #f3f8ff;
+  font-family: "Archivo", "Trebuchet MS", sans-serif;
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+}
+
+.game-subtitle {
+  margin: 8px 0 0;
+  color: #cfe3ff;
+}
+
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #f5fbff;
+  background: linear-gradient(130deg, #0f7fd8, #10b3c6);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700;
+  box-shadow: 0 10px 26px rgba(15, 145, 200, 0.35);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.back-home:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(16, 178, 198, 0.42);
+}
+
+.game .game-card {
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(20px, 3.5vw, 38px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(145deg, rgba(13, 35, 59, 0.88), rgba(11, 21, 40, 0.78));
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.32);
+  color: #dce9fc;
+  animation: hero-slam 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.game .knoppen {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.game .knoppen button {
+  background: linear-gradient(125deg, #1479d3, #1a9ed4);
+  color: #f4fbff;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(8, 79, 143, 0.33);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.game .knoppen button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(10, 108, 179, 0.4);
+  filter: saturate(1.1);
+}
+
+.handen {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.hand-blok {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(5, 15, 29, 0.45);
+  padding: 14px;
+}
+
+.hand-label {
+  color: #aac5e9;
+  font-size: 0.92rem;
+  margin-bottom: 8px;
+}
+
+.hand {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1;
+  min-height: 56px;
+}
+
+.hand.computer {
+  transform: scaleX(-1);
+}
+
+.schudden {
+  animation: hand-shake 340ms linear 0s 3;
+}
+
+@keyframes hand-shake {
+  0% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-5px) rotate(-8deg); }
+  50% { transform: translateX(5px) rotate(8deg); }
+  75% { transform: translateX(-5px) rotate(-8deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+.game .hand.computer.schudden {
+  animation: hand-shake-computer 340ms linear 0s 3;
+}
+
+@keyframes hand-shake-computer {
+  0% { transform: scaleX(-1) translateX(0) rotate(0deg); }
+  25% { transform: scaleX(-1) translateX(-5px) rotate(-8deg); }
+  50% { transform: scaleX(-1) translateX(5px) rotate(8deg); }
+  75% { transform: scaleX(-1) translateX(-5px) rotate(-8deg); }
+  100% { transform: scaleX(-1) translateX(0) rotate(0deg); }
+}
+
+.game .uitslag {
+  background: rgba(8, 22, 40, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 18px;
+  color: #cfe3ff;
+}
+
+.game .resultaat {
+  color: #eff5ff;
+}
+
+.game .score {
+  color: #e7f1ff;
+  margin-bottom: 18px;
+}
+
+.game .reset {
+  background: linear-gradient(125deg, #1b304d, #22486f);
+  color: #eaf4ff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 11px 20px;
+}
+
+.game .reset:hover {
+  background: linear-gradient(125deg, #22446a, #2b5d90);
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.game .back-home.secondary {
+  padding: 11px 20px;
+  background: linear-gradient(125deg, #18344f, #24557a);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 24px rgba(10, 50, 85, 0.35);
+}
+
+.game .back-home.secondary:hover {
+  box-shadow: 0 14px 32px rgba(19, 86, 138, 0.42);
+}
+
+body.game::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+}
+
+body.game.game-win::before {
+  background: radial-gradient(circle at 50% 35%, rgba(56, 194, 124, 0.25), transparent 62%);
+  animation: result-pulse 760ms ease-out;
+}
+
+body.game.game-lose::before {
+  background: radial-gradient(circle at 50% 35%, rgba(236, 89, 89, 0.25), transparent 62%);
+  animation: result-pulse 760ms ease-out;
+}
+
+body.game.game-draw::before {
+  background: radial-gradient(circle at 50% 35%, rgba(245, 196, 84, 0.2), transparent 62%);
+  animation: result-pulse 760ms ease-out;
+}
+
+@keyframes result-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  35% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+.game .made-by {
+  color: #8fb0d8;
+}
+
+body.loaded .game-top,
+body.loaded .game-card {
+  will-change: transform, opacity;
+}
+
+@media (max-width: 760px) {
+  .game-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .game .knoppen {
+    grid-template-columns: 1fr;
+  }
+
+  .handen {
+    grid-template-columns: 1fr;
+  }
+
+  .game-actions {
+    flex-direction: column;
+  }
+}
+
 

@@ -16,6 +16,24 @@ const emoji = {
 
 const keuzes = ["steen", "papier", "schaar"];
 
+function toonResultaatPulse(uitslag) {
+  if (!document.body.classList.contains("game")) return;
+
+  document.body.classList.remove("game-win", "game-lose", "game-draw");
+
+  if (uitslag === "gewonnen") {
+    document.body.classList.add("game-win");
+  } else if (uitslag === "verloren") {
+    document.body.classList.add("game-lose");
+  } else {
+    document.body.classList.add("game-draw");
+  }
+
+  setTimeout(() => {
+    document.body.classList.remove("game-win", "game-lose", "game-draw");
+  }, 780);
+}
+
 // ── Helpers ─────────────────────────────────────────────────
 function spelElementenBestaan() {
   return (
@@ -62,6 +80,7 @@ function speel(spelerKeuze) {
     const uitslag = bepaalUitslag(spelerKeuze, computerKeuze);
     werkScoreBij(uitslag);
     toonResultaat(spelerKeuze, computerKeuze, uitslag);
+    toonResultaatPulse(uitslag);
 
     bezig = false;
   }, 1200);
