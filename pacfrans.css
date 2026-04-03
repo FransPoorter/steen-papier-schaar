@@ -93,6 +93,7 @@ body.pac-page {
 .final-board {
   position: absolute;
   inset: 0;
+  z-index: 3;
   display: grid;
   place-content: center;
   text-align: center;
@@ -110,6 +111,12 @@ body.pac-page {
   inset: 0;
   background: radial-gradient(circle, rgba(78, 210, 255, 0.22), transparent 58%);
   opacity: 0;
+  pointer-events: none;
+}
+
+.final-board > * {
+  position: relative;
+  z-index: 1;
 }
 
 .final-board.show {

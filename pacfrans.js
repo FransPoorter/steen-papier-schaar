@@ -418,7 +418,21 @@
   }, { passive: true });
 
   restartBtn.addEventListener("click", resetGame);
-  restartFinalBtn.addEventListener("click", resetGame);
+
+  if (restartFinalBtn) {
+    restartFinalBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      resetGame();
+    });
+  }
+
+  // Fallback: klik op de overlay (buiten de knop) start ook opnieuw.
+  finalBoardEl.addEventListener("click", (event) => {
+    if (!finalBoardEl.classList.contains("show")) return;
+    if (event.target && event.target.id === "restartFinalBtn") return;
+    resetGame();
+  });
 
   headImg.addEventListener("load", () => {
     imageReady = true;
