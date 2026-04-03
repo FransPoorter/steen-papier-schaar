@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steen Papier Schaar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Steen Papier Schaar</h1>
+
+    <!-- Knoppen om een keuze te maken -->
+    <div class="knoppen">
+      <button onclick="speel('steen')">✊ Steen</button>
+      <button onclick="speel('papier')">✋ Papier</button>
+      <button onclick="speel('schaar')">✌️ Schaar</button>
+    </div>
+
+    <!-- Twee handen animatie -->
+    <div class="handen">
+      <div class="hand-blok">
+        <div class="hand-label">Jij</div>
+        <div class="hand" id="handSpeler">✊</div>
+      </div>
+      <div class="hand-blok">
+        <div class="hand-label">Computer</div>
+        <div class="hand computer" id="handComputer">✊</div>
+      </div>
+    </div>
+
+    <!-- Uitslag wordt hier getoond -->
+    <div class="uitslag" id="uitslag">
+      <p id="jouwKeuze">Jouw keuze: —</p>
+      <p id="computerKeuze">Computer keuze: —</p>
+      <p id="resultaat" class="resultaat">Maak een keuze om te beginnen!</p>
+    </div>
+
+    <!-- Scorebord -->
+    <div class="score">
+      <span>Jij: <strong id="scoreSpeler">0</strong></span>
+      <span>Computer: <strong id="scoreComputer">0</strong></span>
+    </div>
+
+    <!-- Resetknop -->
+    <button class="reset" onclick="reset()">🔄 Reset score</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
