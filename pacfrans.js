@@ -62,6 +62,7 @@
 
   let ghosts = [];
   let imageReady = false;
+  let ghostImageReady = false;
   let touchStartX = 0;
   let touchStartY = 0;
   let accumulator = 0;
@@ -70,6 +71,9 @@
 
   const headImg = new Image();
   headImg.src = "hoofd.png";
+
+  const ghostHeadImg = new Image();
+  ghostHeadImg.src = "spookhoofd.png";
 
   let audioCtx = null;
 
@@ -196,20 +200,29 @@
     ghosts.forEach((ghost) => {
       const gx = ghost.x * TILE;
       const gy = ghost.y * TILE;
+      const facingLeft = ghost.dir === "ArrowLeft";
 
-      ctx.fillStyle = frightenedTicks > 0 ? "#4f8fff" : "#ff6a88";
-      ctx.fillRect(gx + 6, gy + 8, TILE - 12, TILE - 10);
-      ctx.beginPath();
-      ctx.arc(gx + 10, gy + 12, 6, Math.PI, 0);
-      ctx.arc(gx + 16, gy + 12, 6, Math.PI, 0);
-      ctx.arc(gx + 22, gy + 12, 6, Math.PI, 0);
-      ctx.fill();
+      if (ghostImageReady) {
+        // In power mode een subtiele gloed achter het spookhoofd.
+        if (frightenedTicks > 0) {
+          ctx.fillStyle = "rgba(79, 143, 255, 0.4)";
+          ctx.beginPath();
+          ctx.arc(gx + TILE / 2, gy + TILE / 2, TILE / 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
 
-      ctx.fillStyle = "#ffffff";
-      ctx.beginPath();
-      ctx.arc(gx + 12, gy + 14, 3.5, 0, Math.PI * 2);
-      ctx.arc(gx + 20, gy + 14, 3.5, 0, Math.PI * 2);
-      ctx.fill();
+        ctx.save();
+        ctx.translate(gx + TILE / 2, gy + TILE / 2);
+        if (facingLeft) {
+          ctx.scale(-1, 1);
+        }
+        ctx.drawImage(ghostHeadImg, -TILE / 2 + 2, -TILE / 2 + 2, TILE - 4, TILE - 4);
+        ctx.restore();
+      } else {
+        // Fallback als de png nog niet klaar is.
+        ctx.fillStyle = frightenedTicks > 0 ? "#4f8fff" : "#ff6a88";
+        ctx.fillRect(gx + 6, gy + 6, TILE - 12, TILE - 12);
+      }
     });
 
     drawPacman();
@@ -494,6 +507,16 @@
     imageReady = true;
     statusEl.textContent = "Spelen";
     drawBoard();
+  });
+
+  ghostHeadImg.addEventListener("load", () => {
+    ghostImageReady = true;
+    drawBoard();
+  });
+
+  ghostHeadImg.addEventListener("error", () => {
+    ghostImageReady = false;
+    console.warn("spookhoofd.png niet geladen");
   });
 
   headImg.addEventListener("error", () => {
