@@ -120,212 +120,21 @@ h1 {
   color: #888;
 }
 
-/* Home hero::before */
-.home .hero::before {
-  background-image: url("hero-bg.jpg");
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+/* Homepagina moet niet de flex-layout van de game erven */
+body.home {
+  display: block;
+  min-height: 100vh;
+  background-color: #000;
 }
 
-/* Zorg dat de hero zichtbaar fullscreen is */
+/* Robuuste hero-achtergrond op het element zelf */
 .home .hero {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
-/* Achtergrondafbeelding */
-.home .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("hero-bg.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: 0;
-}
-
-/* Overlay en content boven de afbeelding */
-.home .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 1;
-}
-
-.home .hero-content,
-.home .scroll-indicator {
-  position: relative;
-  z-index: 2;
-}/* Algemene opmaak */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
-}
-
-/* Alles staat in een gecentreerde kaart */
-.container {
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-  text-align: center;
-  max-width: 420px;
   width: 100%;
-}
-
-h1 {
-  color: #2d3748;
-  margin-bottom: 24px;
-  font-size: 1.8rem;
-}
-
-/* De drie keuze-knoppen */
-.knoppen {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
-}
-
-.knoppen button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.knoppen button:hover {
-  background-color: #357abd;
-  transform: scale(1.05);
-}
-
-.knoppen button:active {
-  transform: scale(0.97);
-}
-
-/* Het uitslag-blok */
-.uitslag {
-  background-color: #f7fafc;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 24px;
-  font-size: 1rem;
-  color: #4a5568;
-}
-
-.uitslag p {
-  margin: 6px 0;
-}
-
-/* De uitslag-tekst: gekleurd op basis van resultaat */
-.resultaat {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 12px !important;
-  color: #2d3748;
-}
-
-.resultaat.gewonnen {
-  color: #38a169; /* groen */
-}
-
-.resultaat.verloren {
-  color: #e53e3e; /* rood */
-}
-
-.resultaat.gelijk {
-  color: #d69e2e; /* geel */
-}
-
-/* Scorebord */
-.score {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  font-size: 1.1rem;
-  color: #2d3748;
-  margin-bottom: 20px;
-}
-
-/* Resetknop */
-.reset {
-  background-color: #e2e8f0;
-  color: #4a5568;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 24px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.reset:hover {
-  background-color: #cbd5e0;
-}
-
-.made-by {
-  margin-top: 18px;
-  font-size: 0.9rem;
-  color: #888;
-}
-
-/* Home hero::before */
-.home .hero::before {
-  background-image: url("hero-bg.jpg");
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* Zorg dat de hero zichtbaar fullscreen is */
-.home .hero {
-  position: relative;
   min-height: 100vh;
-  overflow: hidden;
-}
-
-/* Achtergrondafbeelding */
-.home .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("hero-bg.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("hero-bg.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 0;
-}
-
-/* Overlay en content boven de afbeelding */
-.home .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 1;
 }
 
 .home .hero-content,
