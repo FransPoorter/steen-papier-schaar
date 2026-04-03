@@ -25,12 +25,14 @@
 			<div class="pac-hud">
 				<p class="hud-item">Score: <strong id="score">0</strong></p>
 				<p class="hud-item">Status: <strong id="status">Spelen</strong></p>
+				<button id="fullscreenBtn" class="reset" type="button">Fullscreen</button>
 				<button id="restartBtn" class="reset" type="button">Herstart</button>
 			</div>
 
 			<div class="pac-canvas-wrap">
 				<canvas id="gameCanvas" width="672" height="544" aria-label="PacFrans speelveld"></canvas>
 				<div id="finalBoard" class="final-board" aria-live="polite">
+					<div id="finalConfetti" class="final-confetti" aria-hidden="true"></div>
 					<p class="final-label">Eindscore</p>
 					<p class="final-score"><span id="finalScore">0</span> punten</p>
 					<p class="final-message">Volgende keer beter.</p>

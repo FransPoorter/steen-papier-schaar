@@ -26,9 +26,13 @@
   const ctx = canvas.getContext("2d");
   const scoreEl = document.getElementById("score");
   const statusEl = document.getElementById("status");
+  const fullscreenBtn = document.getElementById("fullscreenBtn");
   const restartBtn = document.getElementById("restartBtn");
   const finalBoardEl = document.getElementById("finalBoard");
+  const finalConfettiEl = document.getElementById("finalConfetti");
   const finalScoreEl = document.getElementById("finalScore");
+  const finalMessageEl = finalBoardEl.querySelector(".final-message");
+  const finalSubMessageEl = finalBoardEl.querySelector(".final-submessage");
   const restartFinalBtn = document.getElementById("restartFinalBtn");
 
   const rows = MAP.length;
@@ -68,6 +72,7 @@
   let accumulator = 0;
   let lastFrameTime = 0;
   let stepCount = 0;
+  let pseudoFullscreen = false;
 
   const headImg = new Image();
   headImg.src = "hoofd.png";
@@ -77,15 +82,104 @@
 
   let audioCtx = null;
 
-  function showFinalBoard() {
+  function isNativeFullscreenActive() {
+    return Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+  }
+
+  function updateFullscreenButtonLabel() {
+    if (!fullscreenBtn) return;
+    fullscreenBtn.textContent = isNativeFullscreenActive() || pseudoFullscreen ? "Verlaat fullscreen" : "Fullscreen";
+  }
+
+  async function enterFullscreen() {
+    try {
+      const el = document.documentElement;
+      if (el.requestFullscreen) {
+        await el.requestFullscreen();
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else {
+        pseudoFullscreen = true;
+        document.body.classList.add("pseudo-fullscreen");
+      }
+    } catch (err) {
+      pseudoFullscreen = true;
+      document.body.classList.add("pseudo-fullscreen");
+    }
+
+    updateFullscreenButtonLabel();
+  }
+
+  async function exitFullscreen() {
+    try {
+      if (document.exitFullscreen && document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else if (document.webkitExitFullscreen && document.webkitFullscreenElement) {
+        document.webkitExitFullscreen();
+      }
+    } catch (err) {
+      // Ignore and continue with pseudo mode fallback.
+    }
+
+    pseudoFullscreen = false;
+    document.body.classList.remove("pseudo-fullscreen");
+    updateFullscreenButtonLabel();
+  }
+
+  async function toggleFullscreenMode() {
+    if (isNativeFullscreenActive() || pseudoFullscreen) {
+      await exitFullscreen();
+      return;
+    }
+
+    await enterFullscreen();
+  }
+
+  function spawnConfetti() {
+    if (!finalConfettiEl) return;
+
+    const colors = ["#ffdb5b", "#6be8ff", "#7dff93", "#ff8fe0", "#ffffff"];
+    finalConfettiEl.innerHTML = "";
+
+    for (let i = 0; i < 42; i += 1) {
+      const piece = document.createElement("span");
+      piece.className = "confetti-piece";
+      piece.style.setProperty("--x", `${Math.random() * 100}%`);
+      piece.style.setProperty("--delay", `${Math.random() * 280}ms`);
+      piece.style.setProperty("--rot", `${Math.floor(Math.random() * 360)}deg`);
+      piece.style.setProperty("--color", colors[Math.floor(Math.random() * colors.length)]);
+      finalConfettiEl.appendChild(piece);
+    }
+  }
+
+  function showFinalBoard(mode) {
     finalScoreEl.textContent = String(score);
+    finalBoardEl.classList.remove("win");
+
+    if (mode === "win") {
+      finalMessageEl.textContent = "SKIBIDIPAPA";
+      finalSubMessageEl.textContent = "Volgende keer beter. Frans is meer dan alleen een taal.";
+      finalBoardEl.classList.add("win");
+      spawnConfetti();
+    } else {
+      finalMessageEl.textContent = "Volgende keer beter.";
+      finalSubMessageEl.textContent = "Frans is meer dan alleen een taal.";
+      if (finalConfettiEl) {
+        finalConfettiEl.innerHTML = "";
+      }
+    }
+
     finalBoardEl.classList.remove("show");
     void finalBoardEl.offsetWidth;
     finalBoardEl.classList.add("show");
   }
 
   function hideFinalBoard() {
+    finalBoardEl.classList.remove("win");
     finalBoardEl.classList.remove("show");
+    if (finalConfettiEl) {
+      finalConfettiEl.innerHTML = "";
+    }
   }
 
   function key(x, y) {
@@ -334,6 +428,7 @@
     if (dots.size === 0 && powerPellets.size === 0) {
       statusEl.textContent = "Gewonnen";
       gameOver = true;
+      showFinalBoard("win");
     }
 
     return { from, to };
@@ -373,7 +468,7 @@
     gameOver = true;
     statusEl.textContent = "Game over";
     document.body.classList.add("pac-game-over");
-    showFinalBoard();
+    showFinalBoard("lose");
   }
 
   function checkCollision(pacFrom, pacTo, ghostFromPositions) {
@@ -488,6 +583,12 @@
 
   restartBtn.addEventListener("click", resetGame);
 
+  if (fullscreenBtn) {
+    fullscreenBtn.addEventListener("click", () => {
+      toggleFullscreenMode();
+    });
+  }
+
   if (restartFinalBtn) {
     restartFinalBtn.addEventListener("click", (event) => {
       event.preventDefault();
@@ -526,6 +627,9 @@
 
   parseMap();
   statusEl.textContent = "Laden...";
+  document.addEventListener("fullscreenchange", updateFullscreenButtonLabel);
+  document.addEventListener("webkitfullscreenchange", updateFullscreenButtonLabel);
+  updateFullscreenButtonLabel();
   drawBoard();
   window.requestAnimationFrame(gameLoop);
 })();
