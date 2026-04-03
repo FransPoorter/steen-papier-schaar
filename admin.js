@@ -148,10 +148,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     toonLoginStatus("Inloggen…", "info");
 
-    const { error } = await adminClient.auth.signInWithPassword({ email, password });
+    const { data, error } = await adminClient.auth.signInWithPassword({ email, password });
 
     if (error) {
       toonLoginStatus("Inloggen mislukt. Controleer je gegevens.", "error");
+      return;
+    }
+
+    if (data.user) {
+      toonAdminPanel(data.user);
     }
   });
 
