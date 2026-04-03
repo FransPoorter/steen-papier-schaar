@@ -165,6 +165,17 @@ body.home {
   max-width: 680px;
 }
 
+.home .hero-logo-link {
+  display: inline-block;
+  line-height: 0;
+}
+
+.home .hero-logo {
+  height: clamp(36px, 5vw, 60px);
+  width: auto;
+  display: block;
+}
+
 .home .hero h1 {
   margin: 0;
   color: #f3f8ff;
