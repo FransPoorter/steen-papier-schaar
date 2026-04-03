@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Beheer — franstastisch.nl</title>
+  <title>Inloggen — franstastisch.nl</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="admin">
 
-  <!-- Inlogscherm -->
-  <div id="adminLogin" class="admin-login">
+  <div class="admin-login">
     <div class="admin-login-card">
       <h1>Beheer</h1>
       <p>Log in om recensies te bekijken en goed te keuren.</p>
@@ -24,37 +23,6 @@
         <p class="admin-status" id="loginStatus" aria-live="polite"></p>
       </form>
     </div>
-  </div>
-
-  <!-- Beheerpaneel (verborgen tot ingelogd) -->
-  <div id="adminPanel" class="admin-panel" hidden>
-    <header class="admin-header">
-      <div class="admin-header-inner">
-        <div>
-          <h1>Recensiebeheer</h1>
-          <p id="adminUser" class="admin-user"></p>
-        </div>
-        <div class="admin-header-actions">
-          <a href="index.html" class="admin-btn admin-btn--secondary">← Terug naar site</a>
-          <button id="logoutBtn" class="admin-btn admin-btn--secondary">Uitloggen</button>
-        </div>
-      </div>
-    </header>
-
-    <main class="admin-main">
-      <div class="admin-tabs">
-        <button class="admin-tab admin-tab--active" id="tabPending" data-tab="pending">
-          Te beoordelen <span id="pendingCount" class="admin-badge">…</span>
-        </button>
-        <button class="admin-tab" id="tabApproved" data-tab="approved">
-          Goedgekeurd <span id="approvedCount" class="admin-badge">…</span>
-        </button>
-      </div>
-
-      <div id="reviewsContainer" class="admin-reviews" aria-live="polite">
-        <p class="admin-loading">Laden…</p>
-      </div>
-    </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
