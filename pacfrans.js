@@ -82,6 +82,11 @@
 
   let audioCtx = null;
 
+  function focusGameCanvas() {
+    if (!canvas || typeof canvas.focus !== "function") return;
+    canvas.focus({ preventScroll: true });
+  }
+
   function isNativeFullscreenActive() {
     return Boolean(document.fullscreenElement || document.webkitFullscreenElement);
   }
@@ -158,7 +163,7 @@
 
     if (mode === "win") {
       finalMessageEl.textContent = "SKIBIDIPAPA";
-      finalSubMessageEl.textContent = "Volgende keer beter. Frans is meer dan alleen een taal.";
+      finalSubMessageEl.textContent = "Nog een potje? let op;";
       finalBoardEl.classList.add("win");
       spawnConfetti();
     } else {
@@ -551,9 +556,26 @@
     hideFinalBoard();
     parseMap();
     drawBoard();
+    focusGameCanvas();
   }
 
-  document.addEventListener("keydown", (event) => {
+  window.addEventListener("keydown", (event) => {
+    const restartKey =
+      event.key === "Enter" ||
+      event.key === " " ||
+      event.key.toLowerCase() === "r" ||
+      Boolean(DIRS[event.key]);
+
+    if (gameOver && restartKey) {
+      event.preventDefault();
+      resetGame();
+
+      if (DIRS[event.key]) {
+        pacman.nextDir = event.key;
+      }
+      return;
+    }
+
     if (DIRS[event.key]) {
       event.preventDefault();
       pacman.nextDir = event.key;
@@ -586,6 +608,7 @@
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener("click", () => {
       toggleFullscreenMode();
+      window.setTimeout(focusGameCanvas, 80);
     });
   }
 
@@ -629,7 +652,10 @@
   statusEl.textContent = "Laden...";
   document.addEventListener("fullscreenchange", updateFullscreenButtonLabel);
   document.addEventListener("webkitfullscreenchange", updateFullscreenButtonLabel);
+  document.addEventListener("fullscreenchange", focusGameCanvas);
+  document.addEventListener("webkitfullscreenchange", focusGameCanvas);
   updateFullscreenButtonLabel();
   drawBoard();
+  focusGameCanvas();
   window.requestAnimationFrame(gameLoop);
 })();
