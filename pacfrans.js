@@ -27,6 +27,9 @@
   const scoreEl = document.getElementById("score");
   const statusEl = document.getElementById("status");
   const restartBtn = document.getElementById("restartBtn");
+  const finalBoardEl = document.getElementById("finalBoard");
+  const finalScoreEl = document.getElementById("finalScore");
+  const restartFinalBtn = document.getElementById("restartFinalBtn");
 
   const rows = MAP.length;
   const cols = MAP[0].length;
@@ -63,6 +66,17 @@
   headImg.src = "hoofd.png";
 
   let audioCtx = null;
+
+  function showFinalBoard() {
+    finalScoreEl.textContent = String(score);
+    finalBoardEl.classList.remove("show");
+    void finalBoardEl.offsetWidth;
+    finalBoardEl.classList.add("show");
+  }
+
+  function hideFinalBoard() {
+    finalBoardEl.classList.remove("show");
+  }
 
   function key(x, y) {
     return `${x},${y}`;
@@ -334,6 +348,7 @@
       gameOver = true;
       statusEl.textContent = "Game over";
       document.body.classList.add("pac-game-over");
+      showFinalBoard();
     });
   }
 
@@ -369,6 +384,7 @@
     scoreEl.textContent = "0";
     statusEl.textContent = "Spelen";
     document.body.classList.remove("pac-game-over");
+    hideFinalBoard();
     parseMap();
     drawBoard();
   }
@@ -402,6 +418,7 @@
   }, { passive: true });
 
   restartBtn.addEventListener("click", resetGame);
+  restartFinalBtn.addEventListener("click", resetGame);
 
   headImg.addEventListener("load", () => {
     imageReady = true;

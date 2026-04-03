@@ -54,6 +54,7 @@ body.pac-page {
 }
 
 .pac-card {
+  position: relative;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: linear-gradient(145deg, rgba(13, 35, 59, 0.9), rgba(11, 21, 40, 0.82));
@@ -81,11 +82,109 @@ body.pac-page {
 }
 
 .pac-canvas-wrap {
+  position: relative;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: #050e1b;
   touch-action: none;
+}
+
+.final-board {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 6px;
+  padding: 16px;
+  background: radial-gradient(circle at 50% 50%, rgba(23, 57, 93, 0.92), rgba(6, 16, 31, 0.95));
+  color: #eff5ff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.final-board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(78, 210, 255, 0.22), transparent 58%);
+  opacity: 0;
+}
+
+.final-board.show {
+  pointer-events: auto;
+  animation: board-boom 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.final-board.show::before {
+  animation: burst-ring 620ms ease-out both;
+}
+
+.final-label {
+  margin: 0;
+  color: #9fcbf4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.final-score {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.4vw, 2.3rem);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.final-message,
+.final-submessage {
+  margin: 0;
+}
+
+.final-message {
+  color: #ffe08f;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.final-submessage {
+  color: #c7ddf7;
+}
+
+#restartFinalBtn {
+  margin: 10px auto 0;
+}
+
+@keyframes board-boom {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(-10deg);
+    filter: blur(7px);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0);
+  }
+}
+
+@keyframes burst-ring {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
 }
 
 #gameCanvas {
