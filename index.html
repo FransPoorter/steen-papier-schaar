@@ -3,51 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Steen Papier Schaar</title>
+  <title>franstastisch.nl</title>
+  <meta name="description" content="Welkom op franstastisch.nl" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="home">
+  <header class="hero" id="top">
+    <div class="hero-overlay"></div>
 
-  <div class="container">
-    <h1>Steen Papier Schaar</h1>
+    <div class="hero-content">
+      <h1>franstastisch.nl</h1>
+      <p class="subtitle">Welkom op mijn website</p>
 
-    <!-- Knoppen om een keuze te maken -->
-    <div class="knoppen">
-      <button onclick="speel('steen')">✊ Steen</button>
-      <button onclick="speel('papier')">✋ Papier</button>
-      <button onclick="speel('schaar')">✌️ Schaar</button>
-    </div>
-
-    <!-- Twee handen animatie -->
-    <div class="handen">
-      <div class="hand-blok">
-        <div class="hand-label">Jij</div>
-        <div class="hand" id="handSpeler">✊</div>
-      </div>
-      <div class="hand-blok">
-        <div class="hand-label">Computer</div>
-        <div class="hand computer" id="handComputer">✊</div>
+      <div class="hero-actions">
+        <a class="cta-button" href="spel.html">Speel Steen Papier Schaar</a>
       </div>
     </div>
 
-    <!-- Uitslag wordt hier getoond -->
-    <div class="uitslag" id="uitslag">
-      <p id="jouwKeuze">Jouw keuze: —</p>
-      <p id="computerKeuze">Computer keuze: —</p>
-      <p id="resultaat" class="resultaat">Maak een keuze om te beginnen!</p>
-    </div>
+    <a href="#meer" class="scroll-indicator" aria-label="Scroll naar beneden">
+      <span></span>
+    </a>
+  </header>
 
-    <!-- Scorebord -->
-    <div class="score">
-      <span>Jij: <strong id="scoreSpeler">0</strong></span>
-      <span>Computer: <strong id="scoreComputer">0</strong></span>
-    </div>
-
-    <!-- Resetknop -->
-    <button class="reset" onclick="reset()">🔄 Reset score</button>
-
-    <p class="made-by">Made by Frans Poorter</p>
-  </div>
+  <main>
+    <section id="meer" class="coming-soon">
+      <h2>Meer komt eraan</h2>
+      <p>Deze sectie is alvast klaar voor toekomstige uitbreidingen.</p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
