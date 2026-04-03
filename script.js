@@ -1,7 +1,176 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Fade-in voor alle pagina's
   document.body.classList.add("loaded");
+
+  if (document.body.classList.contains("home")) {
+    initialiseerRecensies();
+  }
 });
+
+const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
+
+function heeftReviewElementen() {
+  return document.getElementById("reviewForm") && document.getElementById("reviewList");
+}
+
+function heeftSupabaseConfig() {
+  return (
+    SUPABASE_URL !== "VUL_HIER_JE_SUPABASE_URL_IN" &&
+    SUPABASE_ANON_KEY !== "VUL_HIER_JE_SUPABASE_ANON_KEY_IN"
+  );
+}
+
+function escapeHtml(waarde) {
+  return String(waarde).replace(/[&<>"']/g, (teken) => {
+    const vertaling = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    };
+
+    return vertaling[teken];
+  });
+}
+
+function maakSterren(rating) {
+  const veiligeRating = Math.max(1, Math.min(5, Number(rating) || 0));
+  return "★".repeat(veiligeRating) + "☆".repeat(5 - veiligeRating);
+}
+
+function formatteerReviewDatum(waarde) {
+  const datum = new Date(waarde);
+
+  if (Number.isNaN(datum.getTime())) {
+    return "Onbekende datum";
+  }
+
+  return new Intl.DateTimeFormat("nl-NL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(datum);
+}
+
+function toonReviewStatus(tekst, type = "info") {
+  const statusEl = document.getElementById("reviewFormStatus");
+  if (!statusEl) return;
+
+  statusEl.textContent = tekst;
+  statusEl.className = `form-status form-status--${type}`;
+}
+
+function renderReviews(reviews, melding) {
+  const reviewList = document.getElementById("reviewList");
+  if (!reviewList) return;
+
+  if (melding) {
+    reviewList.innerHTML = `
+      <article class="review-card review-card--empty">
+        <p>${melding}</p>
+      </article>
+    `;
+    return;
+  }
+
+  if (!reviews.length) {
+    reviewList.innerHTML = `
+      <article class="review-card review-card--empty">
+        <p>Er staan nog geen goedgekeurde recensies online.</p>
+      </article>
+    `;
+    return;
+  }
+
+  reviewList.innerHTML = reviews
+    .map(
+      (review) => `
+        <article class="review-card">
+          <div class="review-card-top">
+            <strong>${escapeHtml(review.name)}</strong>
+            <span class="review-rating" aria-label="${Number(review.rating) || 0} van de 5 sterren">${maakSterren(review.rating)}</span>
+          </div>
+          <p>${escapeHtml(review.message)}</p>
+          <time datetime="${escapeHtml(review.created_at)}">${formatteerReviewDatum(review.created_at)}</time>
+        </article>
+      `
+    )
+    .join("");
+}
+
+async function laadRecensies(client) {
+  const { data, error } = await client
+    .from("reviews")
+    .select("name, message, rating, created_at")
+    .eq("is_approved", true)
+    .order("created_at", { ascending: false })
+    .limit(6);
+
+  if (error) {
+    renderReviews([], "Recensies konden niet worden geladen.");
+    return;
+  }
+
+  renderReviews(data ?? []);
+}
+
+async function verwerkReviewFormulier(client) {
+  const reviewForm = document.getElementById("reviewForm");
+  if (!reviewForm) return;
+
+  reviewForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(reviewForm);
+    const naam = String(formData.get("name") || "").trim();
+    const bericht = String(formData.get("message") || "").trim();
+    const rating = Number(formData.get("rating"));
+
+    if (!naam || !bericht || !rating) {
+      toonReviewStatus("Vul alle velden in voordat je verzendt.", "error");
+      return;
+    }
+
+    toonReviewStatus("Recensie wordt verzonden...", "info");
+
+    const { error } = await client.from("reviews").insert({
+      name: naam,
+      message: bericht,
+      rating,
+      is_approved: false
+    });
+
+    if (error) {
+      toonReviewStatus("Verzenden mislukt. Controleer later opnieuw.", "error");
+      return;
+    }
+
+    reviewForm.reset();
+    toonReviewStatus("Bedankt. Je recensie is ontvangen en wacht op goedkeuring.", "success");
+  });
+}
+
+function initialiseerRecensies() {
+  if (!heeftReviewElementen()) return;
+
+  if (!window.supabase || typeof window.supabase.createClient !== "function") {
+    renderReviews([], "Supabase-bibliotheek kon niet worden geladen.");
+    toonReviewStatus("Supabase is nog niet beschikbaar op deze pagina.", "error");
+    return;
+  }
+
+  if (!heeftSupabaseConfig()) {
+    renderReviews([], "Vul eerst je Supabase-config in om recensies te tonen.");
+    toonReviewStatus("Voeg eerst je Supabase URL en anon key toe in script.js.", "info");
+    return;
+  }
+
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  laadRecensies(client);
+  verwerkReviewFormulier(client);
+}
 
 // ── Variabelen spel ─────────────────────────────────────────
 let scoreSpeler = 0;

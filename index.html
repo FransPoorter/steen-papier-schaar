@@ -34,8 +34,63 @@
       <h2>Meer komt eraan</h2>
       <p>Nieuwe projecten, tools en experimenten worden hier binnenkort toegevoegd. Probeer nu ook PacFrans.</p>
     </section>
+
+    <section class="reviews-section" id="reviews">
+      <div class="section-heading">
+        <p class="section-kicker">Recensies</p>
+        <h2>Laat weten wat je van de site vindt</h2>
+        <p>
+          Bezoekers kunnen hieronder een recensie achterlaten. Nieuwe reacties worden eerst opgeslagen voor controle,
+          daarna kun je ze in Supabase op zichtbaar zetten.
+        </p>
+      </div>
+
+      <div class="reviews-layout">
+        <form class="review-form" id="reviewForm">
+          <label for="reviewName">Naam</label>
+          <input id="reviewName" name="name" type="text" maxlength="60" placeholder="Je naam" required />
+
+          <label for="reviewRating">Beoordeling</label>
+          <select id="reviewRating" name="rating" required>
+            <option value="" selected disabled>Kies een score</option>
+            <option value="5">5 sterren</option>
+            <option value="4">4 sterren</option>
+            <option value="3">3 sterren</option>
+            <option value="2">2 sterren</option>
+            <option value="1">1 ster</option>
+          </select>
+
+          <label for="reviewMessage">Bericht</label>
+          <textarea
+            id="reviewMessage"
+            name="message"
+            rows="5"
+            maxlength="500"
+            placeholder="Wat vind je van Frans en van de site?"
+            required
+          ></textarea>
+
+          <button class="cta-button" type="submit">Verstuur recensie</button>
+          <p class="form-status" id="reviewFormStatus" aria-live="polite"></p>
+        </form>
+
+        <div class="reviews-panel">
+          <div class="reviews-panel-top">
+            <h3>Wat bezoekers zeggen</h3>
+            <p>Alleen goedgekeurde recensies worden hier getoond.</p>
+          </div>
+
+          <div class="review-list" id="reviewList" aria-live="polite">
+            <article class="review-card review-card--empty">
+              <p>Recensies laden...</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
