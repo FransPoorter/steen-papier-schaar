@@ -116,14 +116,39 @@ async function laadRecensies(client) {
   renderReviews(data ?? []);
 }
 
+const REVIEW_COOLDOWN_MS = 60 * 60 * 1000; // 1 uur per browser
+const REVIEW_MIN_FILL_MS = 3000;            // minimaal 3 seconden invultijd
+const REVIEW_LS_KEY = "review_last_sent";
+
 async function verwerkReviewFormulier(client) {
   const reviewForm = document.getElementById("reviewForm");
   if (!reviewForm) return;
+
+  const laadtijd = Date.now();
 
   reviewForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(reviewForm);
+
+    // 1. Honeypot-controle: bots vullen het verborgen veld in
+    const honeypot = String(formData.get("website") || "").trim();
+    if (honeypot) return; // stil afwijzen, geen foutmelding geven aan bots
+
+    // 2. Minimale invultijd: te snel = bot
+    if (Date.now() - laadtijd < REVIEW_MIN_FILL_MS) {
+      toonReviewStatus("Vul het formulier in voordat je verzendt.", "error");
+      return;
+    }
+
+    // 3. Cooldown: maximaal 1 recensie per uur per browser
+    const laatsteVerzending = Number(localStorage.getItem(REVIEW_LS_KEY) || 0);
+    if (Date.now() - laatsteVerzending < REVIEW_COOLDOWN_MS) {
+      const minuten = Math.ceil((REVIEW_COOLDOWN_MS - (Date.now() - laatsteVerzending)) / 60000);
+      toonReviewStatus(`Je kunt over ${minuten} minuten opnieuw een recensie sturen.`, "error");
+      return;
+    }
+
     const naam = String(formData.get("name") || "").trim();
     const bericht = String(formData.get("message") || "").trim();
     const rating = Number(formData.get("rating"));
@@ -147,6 +172,7 @@ async function verwerkReviewFormulier(client) {
       return;
     }
 
+    localStorage.setItem(REVIEW_LS_KEY, String(Date.now()));
     reviewForm.reset();
     toonReviewStatus("Bedankt. Je recensie is ontvangen en wacht op goedkeuring.", "success");
   });

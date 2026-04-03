@@ -30,15 +30,10 @@
   </header>
 
   <main class="home-main">
-    <section id="meer" class="coming-soon">
-      <h2>Meer komt eraan</h2>
-      <p>Nieuwe projecten, tools en experimenten worden hier binnenkort toegevoegd. Probeer nu ook PacFrans.</p>
-    </section>
-
     <section class="reviews-section" id="reviews">
       <div class="section-heading">
         <p class="section-kicker">Recensies</p>
-        <h2>Laat weten wat je van de site vindt</h2>
+        <h2>Guestbook</h2>
         <p>
           Bezoekers kunnen hieronder een recensie achterlaten. Nieuwe reacties worden eerst opgeslagen voor controle,
           daarna kun je ze in Supabase op zichtbaar zetten.
@@ -47,6 +42,10 @@
 
       <div class="reviews-layout">
         <form class="review-form" id="reviewForm">
+          <!-- Honeypot: verborgen voor mensen, ingevuld door bots -->
+          <label class="review-honeypot" for="reviewWebsite" aria-hidden="true">Website</label>
+          <input class="review-honeypot" id="reviewWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
           <label for="reviewName">Naam</label>
           <input id="reviewName" name="name" type="text" maxlength="60" placeholder="Je naam" required />
 
@@ -87,6 +86,11 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <section id="meer" class="coming-soon">
+      <h2>Meer komt eraan</h2>
+      <p>Nieuwe projecten, tools en experimenten worden hier binnenkort toegevoegd. Probeer nu ook PacFrans.</p>
     </section>
   </main>
 
