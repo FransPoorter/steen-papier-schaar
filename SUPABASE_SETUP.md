@@ -48,4 +48,37 @@ Belangrijk:
 - Laat reviews eerst op `is_approved = false` binnenkomen.
 - Keur reviews handmatig goed in Supabase voordat ze zichtbaar worden.
 
-Voor moderatie kun je in Supabase Table Editor per review `is_approved` op `true` zetten.
+Voor moderatie gebruik je de beheerpagina op `/admin.html`.
+
+---
+
+## Extra policies voor de beheerpagina
+
+Maak eerst een gebruiker aan in Supabase via Authentication → Users → Invite user (of Add user). Gebruik dan het e-mailadres en wachtwoord waarmee je op `admin.html` inlogt.
+
+Voer daarna deze drie policies uit zodat de ingelogde beheerder alle reviews kan lezen, goedkeuren en verwijderen:
+
+```sql
+create policy "Authenticated users can read all reviews"
+on public.reviews
+for select
+to authenticated
+using (true);
+```
+
+```sql
+create policy "Authenticated users can update reviews"
+on public.reviews
+for update
+to authenticated
+using (true)
+with check (true);
+```
+
+```sql
+create policy "Authenticated users can delete reviews"
+on public.reviews
+for delete
+to authenticated
+using (true);
+```
