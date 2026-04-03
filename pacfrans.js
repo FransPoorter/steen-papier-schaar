@@ -43,6 +43,9 @@
     ArrowRight: { x: 1, y: 0, angle: 0 }
   };
 
+  const STEP_MS = 90;
+  const GHOST_STEP_EVERY = 2;
+
   let walls = new Set();
   let dots = new Set();
   let powerPellets = new Set();
@@ -61,6 +64,9 @@
   let imageReady = false;
   let touchStartX = 0;
   let touchStartY = 0;
+  let accumulator = 0;
+  let lastFrameTime = 0;
+  let stepCount = 0;
 
   const headImg = new Image();
   headImg.src = "hoofd.png";
@@ -277,6 +283,7 @@
   }
 
   function movePacman() {
+    const from = { x: pacman.x, y: pacman.y };
     const wanted = DIRS[pacman.nextDir];
 
     if (wanted && canMove(pacman.x + wanted.x, pacman.y + wanted.y)) {
@@ -291,6 +298,8 @@
       pacman.x = nx;
       pacman.y = ny;
     }
+
+    const to = { x: pacman.x, y: pacman.y };
 
     const dotKey = key(pacman.x, pacman.y);
     if (dots.has(dotKey)) {
@@ -313,9 +322,13 @@
       statusEl.textContent = "Gewonnen";
       gameOver = true;
     }
+
+    return { from, to };
   }
 
   function moveGhosts() {
+    const previous = ghosts.map((ghost) => ({ x: ghost.x, y: ghost.y }));
+
     ghosts.forEach((ghost) => {
       const options = Object.values(DIRS).filter((d) => canMove(ghost.x + d.x, ghost.y + d.y));
       if (options.length === 0) return;
@@ -330,42 +343,66 @@
       ghost.y += choice.y;
       ghost.dir = Object.keys(DIRS).find((k) => DIRS[k] === choice) || ghost.dir;
     });
+
+    return previous;
   }
 
-  function checkCollision() {
-    ghosts.forEach((ghost) => {
-      if (ghost.x !== pacman.x || ghost.y !== pacman.y) return;
+  function applyGhostHit(ghost) {
+    if (frightenedTicks > 0) {
+      score += 200;
+      scoreEl.textContent = String(score);
+      ghost.x = ghost.startX;
+      ghost.y = ghost.startY;
+      ghost.dir = "ArrowLeft";
+      return;
+    }
 
-      if (frightenedTicks > 0) {
-        score += 200;
-        scoreEl.textContent = String(score);
-        ghost.x = ghost.startX;
-        ghost.y = ghost.startY;
-        ghost.dir = "ArrowLeft";
-        return;
-      }
+    gameOver = true;
+    statusEl.textContent = "Game over";
+    document.body.classList.add("pac-game-over");
+    showFinalBoard();
+  }
 
-      gameOver = true;
-      statusEl.textContent = "Game over";
-      document.body.classList.add("pac-game-over");
-      showFinalBoard();
+  function checkCollision(pacFrom, pacTo, ghostFromPositions) {
+    ghosts.forEach((ghost, index) => {
+      const sameTile = ghost.x === pacTo.x && ghost.y === pacTo.y;
+
+      const ghostFrom = ghostFromPositions[index] || { x: ghost.x, y: ghost.y };
+      const swappedTiles =
+        ghostFrom.x === pacTo.x &&
+        ghostFrom.y === pacTo.y &&
+        ghost.x === pacFrom.x &&
+        ghost.y === pacFrom.y;
+
+      if (!sameTile && !swappedTiles) return;
+
+      applyGhostHit(ghost);
     });
   }
 
-  function tick() {
+  function stepSimulation() {
     if (!imageReady) {
-      drawBoard();
       return;
     }
 
     if (gameOver) {
-      drawBoard();
       return;
     }
 
-    movePacman();
-    moveGhosts();
-    checkCollision();
+    const pacMove = movePacman();
+
+    // Botsing direct na spelerbeweging (op een bestaand spook lopen).
+    const ghostCurrentPositions = ghosts.map((ghost) => ({ x: ghost.x, y: ghost.y }));
+    checkCollision(pacMove.from, pacMove.to, ghostCurrentPositions);
+
+    if (gameOver) return;
+
+    stepCount += 1;
+    if (stepCount % GHOST_STEP_EVERY === 0) {
+      const ghostPreviousPositions = moveGhosts();
+      // Botsing na spookbeweging, inclusief kruisen van tegels.
+      checkCollision(pacMove.from, pacMove.to, ghostPreviousPositions);
+    }
 
     if (frightenedTicks > 0) {
       frightenedTicks -= 1;
@@ -374,13 +411,32 @@
       }
     }
 
+  }
+
+  function gameLoop(timestamp) {
+    if (!lastFrameTime) {
+      lastFrameTime = timestamp;
+    }
+
+    const delta = Math.min(120, timestamp - lastFrameTime);
+    lastFrameTime = timestamp;
+    accumulator += delta;
+
+    while (accumulator >= STEP_MS) {
+      stepSimulation();
+      accumulator -= STEP_MS;
+    }
+
     drawBoard();
+    window.requestAnimationFrame(gameLoop);
   }
 
   function resetGame() {
     score = 0;
     gameOver = false;
     frightenedTicks = 0;
+    accumulator = 0;
+    stepCount = 0;
     scoreEl.textContent = "0";
     statusEl.textContent = "Spelen";
     document.body.classList.remove("pac-game-over");
@@ -448,5 +504,5 @@
   parseMap();
   statusEl.textContent = "Laden...";
   drawBoard();
-  window.setInterval(tick, 145);
+  window.requestAnimationFrame(gameLoop);
 })();
