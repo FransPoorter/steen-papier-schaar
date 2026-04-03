@@ -171,9 +171,10 @@ body.home {
 }
 
 .home .hero-logo {
-  height: clamp(60px, 8vw, 100px);
+  height: clamp(80px, 11vw, 140px);
   width: auto;
   display: block;
+  mix-blend-mode: multiply;
 }
 
 .home .hero h1 {
