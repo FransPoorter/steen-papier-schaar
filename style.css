@@ -113,3 +113,9 @@ h1 {
 .reset:hover {
   background-color: #cbd5e0;
 }
+
+.made-by {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  color: #888;
+}
