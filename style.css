@@ -141,11 +141,13 @@ body.home {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 24px;
-  padding: 28px 4.5vw 36px;
+  padding: 28px 0 36px;
   box-sizing: border-box;
 }
 
 .home .hero-top {
+  width: min(1200px, 91vw);
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -206,13 +208,16 @@ body.home {
 
 .home .hero-media {
   position: relative;
-  width: 100%;
-  border-radius: 24px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.36);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.33);
   min-height: clamp(360px, 64vh, 760px);
-  animation: reveal-hero 1000ms cubic-bezier(0.2, 0.9, 0.2, 1) 90ms both;
+  animation: hero-slam 1200ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
 }
 
 .home .hero-media::before {
@@ -225,7 +230,7 @@ body.home {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  transform: scale(1.03);
+  transform: scale(1.08);
   animation: ken-burns 16s ease-in-out infinite alternate;
 }
 
@@ -316,6 +321,24 @@ body.home {
   }
 }
 
+@keyframes hero-slam {
+  0% {
+    opacity: 0;
+    transform: translateY(90px) scale(1.08);
+    filter: saturate(0.7) contrast(0.9);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.01);
+    filter: saturate(1.15) contrast(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: saturate(1) contrast(1);
+  }
+}
+
 @keyframes ken-burns {
   from {
     transform: scale(1.03) translateY(0);
@@ -350,11 +373,12 @@ body.home {
 
 @media (max-width: 760px) {
   .home .hero {
-    padding: 16px 16px 24px;
+    padding: 16px 0 24px;
     gap: 16px;
   }
 
   .home .hero-top {
+    width: 92vw;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -369,17 +393,6 @@ body.home {
 
   .home .hero-media {
     min-height: 62vh;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home .hero-top,
-  .home .hero-media,
-  .home .coming-soon,
-  .home .hero-media::before,
-  .home .hero-glow,
-  .home .scroll-indicator span {
-    animation: none;
   }
 }
 
