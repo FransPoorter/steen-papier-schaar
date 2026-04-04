@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
+const REVIEWS_PER_PAGE = 5;
+
+let huidigeReviewPagina = 1;
+let totaalReviewPaginas = 1;
+let reviewClient;
 
 function heeftReviewElementen() {
   return document.getElementById("reviewForm") && document.getElementById("reviewList");
@@ -62,6 +67,25 @@ function toonReviewStatus(tekst, type = "info") {
   statusEl.className = `form-status form-status--${type}`;
 }
 
+function updateReviewPaginering(totaalReviews = 0) {
+  const prevBtn = document.getElementById("reviewPrev");
+  const nextBtn = document.getElementById("reviewNext");
+  const pageInfo = document.getElementById("reviewPageInfo");
+  const pagination = document.getElementById("reviewPagination");
+
+  if (!prevBtn || !nextBtn || !pageInfo || !pagination) return;
+
+  if (totaalReviews <= REVIEWS_PER_PAGE) {
+    pagination.style.display = "none";
+  } else {
+    pagination.style.display = "flex";
+  }
+
+  pageInfo.textContent = `Pagina ${huidigeReviewPagina} van ${totaalReviewPaginas}`;
+  prevBtn.disabled = huidigeReviewPagina <= 1;
+  nextBtn.disabled = huidigeReviewPagina >= totaalReviewPaginas;
+}
+
 function renderReviews(reviews, melding) {
   const reviewList = document.getElementById("reviewList");
   if (!reviewList) return;
@@ -100,20 +124,52 @@ function renderReviews(reviews, melding) {
     .join("");
 }
 
-async function laadRecensies(client) {
-  const { data, error } = await client
+async function laadRecensies(client, pagina = 1) {
+  const start = (pagina - 1) * REVIEWS_PER_PAGE;
+  const einde = start + REVIEWS_PER_PAGE - 1;
+
+  const { data, error, count } = await client
     .from("reviews")
-    .select("name, message, rating, created_at")
+    .select("name, message, rating, created_at", { count: "exact" })
     .eq("is_approved", true)
     .order("created_at", { ascending: false })
-    .limit(6);
+    .range(start, einde);
 
   if (error) {
     renderReviews([], "Recensies konden niet worden geladen.");
+    updateReviewPaginering(0);
     return;
   }
 
+  const totaalReviews = Number(count) || 0;
+  totaalReviewPaginas = Math.max(1, Math.ceil(totaalReviews / REVIEWS_PER_PAGE));
+  huidigeReviewPagina = Math.min(Math.max(1, pagina), totaalReviewPaginas);
+
+  // Als de huidige pagina niet meer bestaat (bijv. na verwijderingen), laad opnieuw met geldige pagina.
+  if (pagina !== huidigeReviewPagina) {
+    await laadRecensies(client, huidigeReviewPagina);
+    return;
+  }
+
+  updateReviewPaginering(totaalReviews);
   renderReviews(data ?? []);
+}
+
+function koppelReviewPaginering() {
+  const prevBtn = document.getElementById("reviewPrev");
+  const nextBtn = document.getElementById("reviewNext");
+
+  if (!prevBtn || !nextBtn) return;
+
+  prevBtn.addEventListener("click", async () => {
+    if (!reviewClient || huidigeReviewPagina <= 1) return;
+    await laadRecensies(reviewClient, huidigeReviewPagina - 1);
+  });
+
+  nextBtn.addEventListener("click", async () => {
+    if (!reviewClient || huidigeReviewPagina >= totaalReviewPaginas) return;
+    await laadRecensies(reviewClient, huidigeReviewPagina + 1);
+  });
 }
 
 const REVIEW_COOLDOWN_MS = 60 * 60 * 1000; // 1 uur per browser
@@ -193,9 +249,10 @@ function initialiseerRecensies() {
     return;
   }
 
-  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  laadRecensies(client);
-  verwerkReviewFormulier(client);
+  reviewClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  koppelReviewPaginering();
+  laadRecensies(reviewClient, 1);
+  verwerkReviewFormulier(reviewClient);
 }
 
 // ── Variabelen spel ─────────────────────────────────────────

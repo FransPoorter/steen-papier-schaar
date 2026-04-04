@@ -174,7 +174,6 @@ body.home {
   height: clamp(80px, 11vw, 140px);
   width: auto;
   display: block;
-  mix-blend-mode: multiply;
 }
 
 .home .hero h1 {
@@ -463,6 +462,44 @@ body.home {
 .home .review-list {
   display: grid;
   gap: 14px;
+}
+
+.home .review-pagination {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.home .review-page-btn {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(14, 43, 71, 0.9);
+  color: #eaf4ff;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.home .review-page-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.12);
+}
+
+.home .review-page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.home .review-page-info {
+  margin: 0;
+  color: #b7d0ee;
+  font-weight: 700;
+  min-width: 120px;
+  text-align: center;
 }
 
 .home .review-card {
