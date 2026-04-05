@@ -6,6 +6,7 @@
   <title>franstastisch.nl</title>
   <meta name="description" content="Welkom op franstastisch.nl" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body class="home">
   <header class="hero" id="top">
@@ -70,6 +71,8 @@
             placeholder="Wat vind je van Frans en van de site?"
             required
           ></textarea>
+
+          <div class="cf-turnstile" id="reviewTurnstile" data-sitekey="0x4AAAAAAC05EOELD_q3Sc0a" data-theme="light"></div>
 
           <button class="cta-button" type="submit">Verstuur recensie</button>
           <p class="form-status" id="reviewFormStatus" aria-live="polite"></p>

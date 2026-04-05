@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
+const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/submit-review`;
 const REVIEWS_PER_PAGE = 5;
 
 let huidigeReviewPagina = 1;
@@ -214,22 +215,42 @@ async function verwerkReviewFormulier(client) {
       return;
     }
 
+    // 4. Turnstile-controle
+    const turnstileToken = window.turnstile?.getResponse();
+    if (!turnstileToken) {
+      toonReviewStatus("Bevestig eerst dat je geen robot bent.", "error");
+      return;
+    }
+
     toonReviewStatus("Recensie wordt verzonden...", "info");
 
-    const { error } = await client.from("reviews").insert({
-      name: naam,
-      message: bericht,
-      rating,
-      is_approved: false
-    });
+    let res;
+    try {
+      res = await fetch(EDGE_FUNCTION_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ name: naam, message: bericht, rating, token: turnstileToken }),
+      });
+    } catch {
+      toonReviewStatus("Verbindingsfout. Controleer je internetverbinding.", "error");
+      window.turnstile?.reset();
+      return;
+    }
 
-    if (error) {
-      toonReviewStatus("Verzenden mislukt. Controleer later opnieuw.", "error");
+    const resultaat = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      toonReviewStatus(resultaat.error || "Verzenden mislukt. Probeer later opnieuw.", "error");
+      window.turnstile?.reset();
       return;
     }
 
     localStorage.setItem(REVIEW_LS_KEY, String(Date.now()));
     reviewForm.reset();
+    window.turnstile?.reset();
     toonReviewStatus("Bedankt. Je recensie is ontvangen en wacht op goedkeuring.", "success");
   });
 }
