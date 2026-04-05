@@ -241,7 +241,7 @@ body.home {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.33);
-  min-height: clamp(360px, 64vh, 760px);
+  min-height: clamp(400px, 68vh, 800px);
   animation: hero-slam 1200ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both;
 }
 
@@ -708,7 +708,7 @@ body.home {
   }
 
   .home .hero-media {
-    min-height: 62vh;
+    min-height: 68vh;
   }
 
   .home .reviews-layout {
