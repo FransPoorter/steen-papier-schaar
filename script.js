@@ -20,13 +20,6 @@ function heeftReviewElementen() {
   return document.getElementById("reviewForm") && document.getElementById("reviewList");
 }
 
-function heeftSupabaseConfig() {
-  return (
-    SUPABASE_URL !== "VUL_HIER_JE_SUPABASE_URL_IN" &&
-    SUPABASE_ANON_KEY !== "VUL_HIER_JE_SUPABASE_ANON_KEY_IN"
-  );
-}
-
 function escapeHtml(waarde) {
   return String(waarde).replace(/[&<>"']/g, (teken) => {
     const vertaling = {
@@ -231,7 +224,13 @@ async function verwerkReviewFormulier(client) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: naam, message: bericht, rating, token: turnstileToken }),
+        body: JSON.stringify({
+          name: naam,
+          message: bericht,
+          rating,
+          token: turnstileToken,
+          website: honeypot,
+        }),
       });
     } catch {
       toonReviewStatus("Verbindingsfout. Controleer je internetverbinding.", "error");
@@ -260,12 +259,6 @@ function initialiseerRecensies() {
   if (!window.supabase || typeof window.supabase.createClient !== "function") {
     renderReviews([], "Supabase-bibliotheek kon niet worden geladen.");
     toonReviewStatus("Supabase is nog niet beschikbaar op deze pagina.", "error");
-    return;
-  }
-
-  if (!heeftSupabaseConfig()) {
-    renderReviews([], "Vul eerst je Supabase-config in om recensies te tonen.");
-    toonReviewStatus("Voeg eerst je Supabase URL en anon key toe in script.js.", "info");
     return;
   }
 
