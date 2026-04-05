@@ -80,8 +80,8 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: "Naam is ongeldig (max 60 tekens)." }, 400);
   }
 
-  if (!berichtStr || berichtStr.length < 8 || berichtStr.length > 500) {
-    return jsonResponse({ error: "Bericht is ongeldig (max 500 tekens)." }, 400);
+  if (!berichtStr || berichtStr.length < 1 || berichtStr.length > 500) {
+    return jsonResponse({ error: "Bericht moet tussen 1 en 500 tekens zijn." }, 400);
   }
 
   if (!Number.isInteger(ratingNum) || ratingNum < 1 || ratingNum > 5) {

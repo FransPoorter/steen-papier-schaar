@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Al ingelogd? Direct doorsturen.
   const { data: sessionData } = await loginClient.auth.getSession();
   if (sessionData.session) {
-    window.location.replace("admin-beheer.html");
+    window.location.replace("/admin-beheer");
     return;
   }
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (data.user) {
-      window.location.replace("admin-beheer.html");
+      window.location.replace("/admin-beheer");
     }
   });
 });

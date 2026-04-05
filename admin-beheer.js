@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Sessie controleren — niet ingelogd → terug naar login
   const { data } = await beheerClient.auth.getSession();
   if (!data.session) {
-    window.location.replace("admin.html");
+    window.location.replace("/admin");
     return;
   }
 
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Uitloggen
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     await beheerClient.auth.signOut();
-    window.location.replace("admin.html");
+    window.location.replace("/admin");
   });
 
   // Tabs
