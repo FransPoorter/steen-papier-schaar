@@ -1031,6 +1031,124 @@ body.admin {
   }
 }
 
+/* FlappyFrans pagina */
+body.flappy {
+  display: block;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(18, 130, 209, 0.28), transparent 44%),
+    radial-gradient(circle at 84% 12%, rgba(55, 189, 147, 0.24), transparent 40%),
+    #081528;
+  color: #eef7ff;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+}
+
+.flappy-main {
+  width: min(1150px, 93vw);
+  margin: 30px auto 48px;
+}
+
+.flappy-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(12, 26, 45, 0.75), rgba(15, 48, 83, 0.44));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  animation: rise-in 700ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.flappy-top h1 {
+  margin: 0;
+  color: #f3f8ff;
+  font-family: "Archivo", "Trebuchet MS", sans-serif;
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+}
+
+.flappy-subtitle {
+  margin: 8px 0 0;
+  color: #cfe3ff;
+}
+
+.flappy-card {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(145deg, rgba(13, 35, 59, 0.88), rgba(11, 21, 40, 0.78));
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.32);
+  color: #dce9fc;
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.flappy-scoreboard {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  color: #f1f7ff;
+}
+
+.flappy-scoreboard p {
+  margin: 0;
+  font-size: 1.04rem;
+}
+
+.flappy-canvas-wrap {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  box-shadow: 0 14px 32px rgba(3, 15, 29, 0.4);
+  margin-bottom: 14px;
+}
+
+#flappyCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 3;
+  background: #7ed0ff;
+}
+
+.flappy-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  margin: 0;
+  background: rgba(7, 18, 35, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ebf6ff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.flappy-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+  .flappy-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .flappy-actions {
+    width: 100%;
+  }
+}
+
 /* Game pagina in dezelfde stijl als home */
 body.game {
   display: block;

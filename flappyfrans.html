@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlappyFrans</title>
+  <meta name="description" content="Speel FlappyFrans met hoofd.png en stokbrood-buizen" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="flappy">
+  <main class="flappy-main">
+    <section class="flappy-top">
+      <div>
+        <h1>FlappyFrans</h1>
+        <p class="flappy-subtitle">Klik, tik of druk op spatie om Frans omhoog te laten vliegen.</p>
+      </div>
+      <a class="back-home" href="index.html">Terug naar home</a>
+    </section>
+
+    <section class="flappy-card">
+      <div class="flappy-scoreboard">
+        <p>Score: <strong id="flappyScore">0</strong></p>
+        <p>Highscore: <strong id="flappyBest">0</strong></p>
+      </div>
+
+      <div class="flappy-canvas-wrap">
+        <canvas id="flappyCanvas" width="900" height="540" aria-label="FlappyFrans speelveld"></canvas>
+        <p id="flappyHint" class="flappy-hint">Druk op spatie of klik om te starten</p>
+      </div>
+
+      <div class="flappy-actions">
+        <button id="flappyRestart" class="reset" type="button">Opnieuw spelen</button>
+        <a class="back-home secondary" href="spel.html">Naar Steen Papier Frans</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="flappyfrans.js"></script>
+</body>
+</html>
