@@ -263,10 +263,20 @@ let bezig = false;
 const emoji = {
   steen: "✊",
   papier: "✋",
-  schaar: "✌️"
+  frans: '<img src="hoofd.png" alt="Frans" class="keuze-icon" />'
 };
 
-const keuzes = ["steen", "papier", "schaar"];
+const keuzes = ["steen", "papier", "frans"];
+
+const keuzeNamen = {
+  steen: "Steen",
+  papier: "Papier",
+  frans: "Frans"
+};
+
+function keuzeWeergave(keuze) {
+  return emoji[keuze] || "";
+}
 
 function toonResultaatPulse(uitslag) {
   if (!document.body.classList.contains("game")) return;
@@ -326,8 +336,8 @@ function speel(spelerKeuze) {
     handSpeler.classList.remove("schudden");
     handComputer.classList.remove("schudden");
 
-    handSpeler.textContent = emoji[spelerKeuze];
-    handComputer.textContent = emoji[computerKeuze];
+    handSpeler.innerHTML = keuzeWeergave(spelerKeuze);
+    handComputer.innerHTML = keuzeWeergave(computerKeuze);
 
     const uitslag = bepaalUitslag(spelerKeuze, computerKeuze);
     werkScoreBij(uitslag);
@@ -343,9 +353,9 @@ function bepaalUitslag(speler, computer) {
   if (speler === computer) return "gelijk";
 
   if (
-    (speler === "steen" && computer === "schaar") ||
+    (speler === "steen" && computer === "frans") ||
     (speler === "papier" && computer === "steen") ||
-    (speler === "schaar" && computer === "papier")
+    (speler === "frans" && computer === "papier")
   ) {
     return "gewonnen";
   }
@@ -364,11 +374,11 @@ function werkScoreBij(uitslag) {
 
 // ── Resultaat tonen ─────────────────────────────────────────
 function toonResultaat(speler, computer, uitslag) {
-  document.getElementById("jouwKeuze").textContent =
-    "Jouw keuze: " + emoji[speler] + " " + speler;
+  document.getElementById("jouwKeuze").innerHTML =
+    "Jouw keuze: " + keuzeWeergave(speler) + " " + keuzeNamen[speler];
 
-  document.getElementById("computerKeuze").textContent =
-    "Computer keuze: " + emoji[computer] + " " + computer;
+  document.getElementById("computerKeuze").innerHTML =
+    "Computer keuze: " + keuzeWeergave(computer) + " " + keuzeNamen[computer];
 
   const resultaatEl = document.getElementById("resultaat");
   resultaatEl.className = "resultaat";
