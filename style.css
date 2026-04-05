@@ -146,7 +146,7 @@ body.home {
 }
 
 .home .hero-top {
-  width: min(1200px, 91vw);
+  width: min(1020px, 84vw);
   margin: 0 auto;
   display: flex;
   flex-direction: row;
