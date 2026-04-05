@@ -230,7 +230,6 @@ async function verwerkReviewFormulier(client) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ name: naam, message: bericht, rating, token: turnstileToken }),
       });
