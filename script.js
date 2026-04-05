@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
-const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/submit-review`;
+const EDGE_FUNCTION_URL = `${SUPABASE_URL}/functions/v1/clever-worker`;
 const REVIEWS_PER_PAGE = 5;
 
 let huidigeReviewPagina = 1;
