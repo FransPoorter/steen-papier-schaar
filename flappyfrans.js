@@ -17,6 +17,7 @@ const PIPE_GAP = 170;
 const PIPE_INTERVAL = 1150;
 const BIRD_SIZE = 58;
 const GROUND_HEIGHT = 76;
+const ALPHA_THRESHOLD = 18;
 
 let bird;
 let pipes;
@@ -26,8 +27,87 @@ let isRunning;
 let isGameOver;
 let lastPipeTime;
 let lastTime;
+let birdOpaquePixels = [];
+let birdMaskBounds = {
+  minX: 0,
+  maxX: BIRD_SIZE - 1,
+  minY: 0,
+  maxY: BIRD_SIZE - 1
+};
 
 bestEl.textContent = bestScore;
+
+function maakStandaardMask() {
+  const radius = BIRD_SIZE * 0.34;
+  const cx = BIRD_SIZE / 2;
+  const cy = BIRD_SIZE / 2;
+
+  birdOpaquePixels = [];
+
+  for (let y = 0; y < BIRD_SIZE; y++) {
+    for (let x = 0; x < BIRD_SIZE; x++) {
+      const dx = x - cx;
+      const dy = y - cy;
+      if (dx * dx + dy * dy <= radius * radius) {
+        birdOpaquePixels.push([x, y]);
+      }
+    }
+  }
+
+  birdMaskBounds = {
+    minX: Math.floor(cx - radius),
+    maxX: Math.ceil(cx + radius),
+    minY: Math.floor(cy - radius),
+    maxY: Math.ceil(cy + radius)
+  };
+}
+
+function bouwBirdPixelMask() {
+  const offscreen = document.createElement("canvas");
+  offscreen.width = BIRD_SIZE;
+  offscreen.height = BIRD_SIZE;
+
+  const offCtx = offscreen.getContext("2d", { willReadFrequently: true });
+  offCtx.clearRect(0, 0, BIRD_SIZE, BIRD_SIZE);
+  offCtx.drawImage(hoofdImg, 0, 0, BIRD_SIZE, BIRD_SIZE);
+
+  const imageData = offCtx.getImageData(0, 0, BIRD_SIZE, BIRD_SIZE).data;
+  let minX = BIRD_SIZE;
+  let minY = BIRD_SIZE;
+  let maxX = 0;
+  let maxY = 0;
+
+  birdOpaquePixels = [];
+
+  for (let y = 0; y < BIRD_SIZE; y++) {
+    for (let x = 0; x < BIRD_SIZE; x++) {
+      const i = (y * BIRD_SIZE + x) * 4;
+      const alpha = imageData[i + 3];
+
+      if (alpha >= ALPHA_THRESHOLD) {
+        birdOpaquePixels.push([x, y]);
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+
+  if (!birdOpaquePixels.length) {
+    maakStandaardMask();
+    return;
+  }
+
+  birdMaskBounds = { minX, maxX, minY, maxY };
+}
+
+hoofdImg.addEventListener("load", bouwBirdPixelMask);
+if (hoofdImg.complete) {
+  bouwBirdPixelMask();
+} else {
+  maakStandaardMask();
+}
 
 function resetGame() {
   bird = {
@@ -134,10 +214,6 @@ function tekenBird() {
   ctx.rotate(bird.rotation);
 
   if (hoofdImg.complete) {
-    ctx.beginPath();
-    ctx.arc(0, 0, BIRD_SIZE / 2, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
     ctx.drawImage(hoofdImg, -BIRD_SIZE / 2, -BIRD_SIZE / 2, BIRD_SIZE, BIRD_SIZE);
   } else {
     ctx.fillStyle = "#ffffff";
@@ -147,6 +223,61 @@ function tekenBird() {
   }
 
   ctx.restore();
+}
+
+function birdTopLeft() {
+  return {
+    x: bird.x - BIRD_SIZE / 2,
+    y: bird.y - BIRD_SIZE / 2
+  };
+}
+
+function raaktWereldRandOpPixelNiveau() {
+  const topLeft = birdTopLeft();
+  const grondStart = canvas.height - GROUND_HEIGHT;
+
+  for (const [px, py] of birdOpaquePixels) {
+    const wy = topLeft.y + py;
+
+    if (wy <= 0 || wy >= grondStart) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function raaktPijpOpPixelNiveau(pipe) {
+  const topLeft = birdTopLeft();
+  const birdLeft = topLeft.x + birdMaskBounds.minX;
+  const birdRight = topLeft.x + birdMaskBounds.maxX;
+  const birdTop = topLeft.y + birdMaskBounds.minY;
+  const birdBottom = topLeft.y + birdMaskBounds.maxY;
+
+  const pipeLeft = pipe.x;
+  const pipeRight = pipe.x + PIPE_WIDTH;
+  const gapTop = pipe.topHeight;
+  const gapBottom = pipe.topHeight + PIPE_GAP;
+
+  if (birdRight < pipeLeft || birdLeft > pipeRight) {
+    return false;
+  }
+
+  if (birdTop >= gapTop && birdBottom <= gapBottom) {
+    return false;
+  }
+
+  for (const [px, py] of birdOpaquePixels) {
+    const wx = topLeft.x + px;
+    if (wx < pipeLeft || wx > pipeRight) continue;
+
+    const wy = topLeft.y + py;
+    if (wy < gapTop || wy > gapBottom) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 function update(dt, now) {
@@ -173,16 +304,13 @@ function update(dt, now) {
 
   pipes = pipes.filter((pipe) => pipe.x + PIPE_WIDTH > -20);
 
-  if (bird.y + BIRD_SIZE / 2 >= canvas.height - GROUND_HEIGHT || bird.y - BIRD_SIZE / 2 <= 0) {
+  if (raaktWereldRandOpPixelNiveau()) {
     gameOver();
+    return;
   }
 
   for (const pipe of pipes) {
-    const inXRange = bird.x + BIRD_SIZE / 2 > pipe.x && bird.x - BIRD_SIZE / 2 < pipe.x + PIPE_WIDTH;
-    const hitsTop = bird.y - BIRD_SIZE / 2 < pipe.topHeight;
-    const hitsBottom = bird.y + BIRD_SIZE / 2 > pipe.topHeight + PIPE_GAP;
-
-    if (inXRange && (hitsTop || hitsBottom)) {
+    if (raaktPijpOpPixelNiveau(pipe)) {
       gameOver();
       break;
     }
