@@ -176,7 +176,7 @@ body.home {
 }
 
 .home .hero-logo {
-  height: clamp(86px, 10vw, 138px);
+  height: clamp(52px, 7vw, 80px);
   width: auto;
   display: block;
 }
@@ -707,7 +707,7 @@ body.home {
   }
 
   .home .hero-logo {
-    height: clamp(102px, 26vw, 168px);
+    height: clamp(48px, 14vw, 68px);
   }
 
   .home .hero-actions {
