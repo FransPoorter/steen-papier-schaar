@@ -1150,6 +1150,109 @@ body.flappy {
   flex-wrap: wrap;
 }
 
+.flappy-leaderboard-section {
+  width: min(700px, 91vw);
+  margin: 32px auto 48px;
+}
+
+.flappy-leaderboard-section h2 {
+  color: #eff5ff;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  margin: 0 0 4px;
+}
+
+.flappy-leaderboard-sub {
+  color: #8ab4d8;
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+}
+
+.flappy-score-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.flappy-score-form input {
+  flex: 1;
+  min-width: 160px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(12, 26, 45, 0.75);
+  color: #eff5ff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.flappy-score-form input:focus {
+  border-color: rgba(16, 178, 198, 0.7);
+}
+
+.flappy-form-status {
+  width: 100%;
+  font-size: 0.9rem;
+  color: #8ab4d8;
+  margin: 4px 0 0;
+}
+
+.flappy-leaderboard-laden {
+  color: #8ab4d8;
+  font-size: 0.95rem;
+}
+
+.flappy-leaderboard-lijst {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flappy-leaderboard-rij {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: rgba(12, 26, 45, 0.65);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.flappy-leaderboard-rij--goud  { border-color: rgba(255, 210, 60, 0.6); }
+.flappy-leaderboard-rij--zilver { border-color: rgba(192, 192, 192, 0.5); }
+.flappy-leaderboard-rij--brons  { border-color: rgba(205, 127, 50, 0.5); }
+
+.flappy-lb-positie {
+  font-weight: 700;
+  font-size: 1.1rem;
+  width: 28px;
+  text-align: center;
+  color: #cfe3ff;
+}
+
+.flappy-leaderboard-rij--goud  .flappy-lb-positie { color: #ffd23c; }
+.flappy-leaderboard-rij--zilver .flappy-lb-positie { color: #c0c0c0; }
+.flappy-leaderboard-rij--brons  .flappy-lb-positie { color: #cd7f32; }
+
+.flappy-lb-naam {
+  flex: 1;
+  color: #eff5ff;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flappy-lb-score {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #10b3c6;
+}
+
 @media (max-width: 760px) {
   .flappy-top {
     flex-direction: column;

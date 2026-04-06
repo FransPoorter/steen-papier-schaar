@@ -6,6 +6,9 @@ const bestEl = document.getElementById("flappyBest");
 const hintEl = document.getElementById("flappyHint");
 const restartBtn = document.getElementById("flappyRestart");
 
+const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
+const SCORES_EDGE_URL = `${SUPABASE_URL}/functions/v1/flappy-scores`;
+
 const hoofdImg = new Image();
 hoofdImg.src = "hoofd.png";
 
@@ -327,6 +330,11 @@ function gameOver() {
     localStorage.setItem("flappyfrans_best", String(bestScore));
     bestEl.textContent = String(bestScore);
   }
+
+  // Unlock het scoreformulier zodat de speler zijn score kan insturen
+  if (score > 0) {
+    toonScoreFormulier(score);
+  }
 }
 
 function tekenOverlay() {
@@ -375,3 +383,106 @@ function initInput() {
 resetGame();
 initInput();
 requestAnimationFrame(loop);
+
+// ── Leaderboard ──────────────────────────────────────────────
+
+let huidigScoreOmInSturen = 0;
+
+function toonScoreFormulier(eindscore) {
+  huidigScoreOmInSturen = eindscore;
+  const form = document.getElementById("flappyScoreForm");
+  const status = document.getElementById("flappyFormStatus");
+  if (form) {
+    form.style.display = "flex";
+    if (status) status.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
+  }
+}
+
+async function laadLeaderboard() {
+  const container = document.getElementById("flappyLeaderboard");
+  if (!container) return;
+
+  container.innerHTML = `<p class="flappy-leaderboard-laden">Laden…</p>`;
+
+  let res;
+  try {
+    res = await fetch(SCORES_EDGE_URL);
+  } catch {
+    container.innerHTML = `<p class="flappy-leaderboard-laden">Leaderboard kon niet worden geladen.</p>`;
+    return;
+  }
+
+  const result = await res.json().catch(() => ({}));
+  const scores = result.data ?? [];
+
+  if (!scores.length) {
+    container.innerHTML = `<p class="flappy-leaderboard-laden">Nog geen scores. Wees de eerste!</p>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <ol class="flappy-leaderboard-lijst">
+      ${scores.map((s, i) => `
+        <li class="flappy-leaderboard-rij${i === 0 ? " flappy-leaderboard-rij--goud" : i === 1 ? " flappy-leaderboard-rij--zilver" : i === 2 ? " flappy-leaderboard-rij--brons" : ""}">
+          <span class="flappy-lb-positie">${i + 1}</span>
+          <span class="flappy-lb-naam">${escapeLeaderboard(s.naam)}</span>
+          <span class="flappy-lb-score">${Number(s.score)}</span>
+        </li>
+      `).join("")}
+    </ol>
+  `;
+}
+
+function escapeLeaderboard(tekst) {
+  return String(tekst).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[c]);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  laadLeaderboard();
+
+  const form = document.getElementById("flappyScoreForm");
+  const statusEl = document.getElementById("flappyFormStatus");
+  if (!form) return;
+
+  // Formulier begint verborgen — alleen zichtbaar na game over met score > 0
+  form.style.display = "none";
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const naam = document.getElementById("flappyNaam").value.trim();
+    if (!naam || huidigScoreOmInSturen < 1) return;
+
+    const submitBtn = form.querySelector("button[type=submit]");
+    submitBtn.disabled = true;
+    statusEl.textContent = "Bezig met insturen…";
+
+    let res;
+    try {
+      res = await fetch(SCORES_EDGE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ naam, score: huidigScoreOmInSturen }),
+      });
+    } catch {
+      statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";
+      submitBtn.disabled = false;
+      return;
+    }
+
+    const result = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      statusEl.textContent = result.error || "Insturen mislukt.";
+      submitBtn.disabled = false;
+      return;
+    }
+
+    statusEl.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
+    form.style.display = "none";
+    huidigScoreOmInSturen = 0;
+    laadLeaderboard();
+  });
+});
