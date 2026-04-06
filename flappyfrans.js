@@ -388,13 +388,62 @@ requestAnimationFrame(loop);
 
 let huidigScoreOmInSturen = 0;
 
+// Script staat onderaan body, DOM is al klaar — geen DOMContentLoaded nodig.
+const flappyScoreForm = document.getElementById("flappyScoreForm");
+const flappyFormStatus = document.getElementById("flappyFormStatus");
+
+// Formulier begint verborgen — alleen zichtbaar na game over met score > 0
+if (flappyScoreForm) {
+  flappyScoreForm.style.display = "none";
+
+  flappyScoreForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const naam = document.getElementById("flappyNaam").value.trim();
+    if (!naam || huidigScoreOmInSturen < 1) return;
+
+    const submitBtn = flappyScoreForm.querySelector("button[type=submit]");
+    submitBtn.disabled = true;
+    flappyFormStatus.textContent = "Bezig met insturen…";
+
+    let res;
+    try {
+      res = await fetch(SCORES_EDGE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ naam, score: huidigScoreOmInSturen }),
+      });
+    } catch {
+      flappyFormStatus.textContent = "Verbindingsfout. Probeer opnieuw.";
+      submitBtn.disabled = false;
+      return;
+    }
+
+    const result = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      flappyFormStatus.textContent = result.error || "Insturen mislukt.";
+      submitBtn.disabled = false;
+      return;
+    }
+
+    flappyFormStatus.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
+    flappyScoreForm.style.display = "none";
+    huidigScoreOmInSturen = 0;
+    laadLeaderboard();
+  });
+}
+
 function toonScoreFormulier(eindscore) {
   huidigScoreOmInSturen = eindscore;
-  const form = document.getElementById("flappyScoreForm");
-  const status = document.getElementById("flappyFormStatus");
-  if (form) {
-    form.style.display = "flex";
-    if (status) status.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
+  if (flappyScoreForm) {
+    flappyScoreForm.style.display = "flex";
+    document.getElementById("flappyNaam").value = "";
+    if (flappyFormStatus) {
+      flappyFormStatus.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
+    }
+    const submitBtn = flappyScoreForm.querySelector("button[type=submit]");
+    if (submitBtn) submitBtn.disabled = false;
   }
 }
 
@@ -439,50 +488,4 @@ function escapeLeaderboard(tekst) {
   })[c]);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  laadLeaderboard();
-
-  const form = document.getElementById("flappyScoreForm");
-  const statusEl = document.getElementById("flappyFormStatus");
-  if (!form) return;
-
-  // Formulier begint verborgen — alleen zichtbaar na game over met score > 0
-  form.style.display = "none";
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    const naam = document.getElementById("flappyNaam").value.trim();
-    if (!naam || huidigScoreOmInSturen < 1) return;
-
-    const submitBtn = form.querySelector("button[type=submit]");
-    submitBtn.disabled = true;
-    statusEl.textContent = "Bezig met insturen…";
-
-    let res;
-    try {
-      res = await fetch(SCORES_EDGE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ naam, score: huidigScoreOmInSturen }),
-      });
-    } catch {
-      statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";
-      submitBtn.disabled = false;
-      return;
-    }
-
-    const result = await res.json().catch(() => ({}));
-
-    if (!res.ok) {
-      statusEl.textContent = result.error || "Insturen mislukt.";
-      submitBtn.disabled = false;
-      return;
-    }
-
-    statusEl.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
-    form.style.display = "none";
-    huidigScoreOmInSturen = 0;
-    laadLeaderboard();
-  });
-});
+laadLeaderboard();
