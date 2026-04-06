@@ -1,5 +1,6 @@
 const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
+const ADMIN_EMAIL = "poorterfrans@gmail.com";
 
 let beheerClient;
 let huidigTabblad = "pending";
@@ -108,6 +109,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Sessie controleren — niet ingelogd → terug naar login
   const { data } = await beheerClient.auth.getSession();
   if (!data.session) {
+    window.location.replace("/admin");
+    return;
+  }
+
+  // Extra check: alleen het admin-account heeft toegang
+  if (data.session.user.email !== ADMIN_EMAIL) {
+    await beheerClient.auth.signOut();
     window.location.replace("/admin");
     return;
   }
