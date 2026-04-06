@@ -1168,16 +1168,36 @@ body.flappy {
 }
 
 .flappy-score-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 8px;
+  text-align: center;
+  background: rgba(7, 18, 35, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 28px 32px 22px;
+  min-width: 260px;
+  max-width: 90%;
+  backdrop-filter: blur(6px);
+}
+
+.flappy-score-form-titel {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffe066;
+  letter-spacing: 0.01em;
 }
 
 .flappy-score-form input {
-  flex: 1;
-  min-width: 160px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 10px 14px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.22);

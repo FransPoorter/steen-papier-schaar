@@ -26,6 +26,19 @@
       <div class="flappy-canvas-wrap">
         <canvas id="flappyCanvas" width="900" height="540" aria-label="FlappyFrans speelveld"></canvas>
         <p id="flappyHint" class="flappy-hint">Druk op spatie of klik om te starten</p>
+        <form class="flappy-score-form" id="flappyScoreForm" style="display:none">
+          <p class="flappy-score-form-titel">Nieuw persoonlijk record!</p>
+          <input
+            id="flappyNaam"
+            type="text"
+            maxlength="30"
+            placeholder="Jouw naam"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="cta-button">Score insturen</button>
+          <p class="flappy-form-status" id="flappyFormStatus" aria-live="polite"></p>
+        </form>
       </div>
 
       <div class="flappy-actions">
@@ -36,19 +49,6 @@
     <section class="flappy-leaderboard-section">
       <h2>Leaderboard</h2>
       <p class="flappy-leaderboard-sub">Top 10 scores van alle spelers</p>
-
-      <form class="flappy-score-form" id="flappyScoreForm" style="display:none">
-        <input
-          id="flappyNaam"
-          type="text"
-          maxlength="30"
-          placeholder="Jouw naam"
-          autocomplete="off"
-          required
-        />
-        <button type="submit" class="cta-button">Score insturen</button>
-        <p class="flappy-form-status" id="flappyFormStatus" aria-live="polite"></p>
-      </form>
 
       <div class="flappy-leaderboard" id="flappyLeaderboard" aria-live="polite">
         <p class="flappy-leaderboard-laden">Leaderboard laden…</p>

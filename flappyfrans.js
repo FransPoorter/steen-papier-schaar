@@ -329,10 +329,7 @@ function gameOver() {
     bestScore = score;
     localStorage.setItem("flappyfrans_best", String(bestScore));
     bestEl.textContent = String(bestScore);
-  }
-
-  // Unlock het scoreformulier zodat de speler zijn score kan insturen
-  if (score > 0) {
+    // Alleen tonen als je een nieuwe persoonlijke highscore hebt gehaald
     toonScoreFormulier(score);
   }
 }
