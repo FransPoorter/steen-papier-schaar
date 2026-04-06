@@ -1,4 +1,4 @@
-const canvas = document.getElementById("flappyCanvas");
+﻿const canvas = document.getElementById("flappyCanvas");
 const ctx = canvas.getContext("2d");
 
 const scoreEl = document.getElementById("flappyScore");
@@ -30,6 +30,8 @@ let isRunning;
 let isGameOver;
 let lastPipeTime;
 let lastTime;
+let huidigScoreOmInSturen = 0;
+let huidigScoreToken = "";
 let birdOpaquePixels = [];
 let birdMaskBounds = {
   minX: 0,
@@ -129,6 +131,17 @@ function resetGame() {
 
   scoreEl.textContent = "0";
   hintEl.textContent = "Druk op spatie of klik om te starten";
+
+  const form = document.getElementById("flappyScoreForm");
+  const statusEl = document.getElementById("flappyFormStatus");
+  const submitBtn = form?.querySelector("button[type=submit]");
+
+  if (form) form.style.display = "none";
+  if (statusEl) statusEl.textContent = "";
+  if (submitBtn) submitBtn.disabled = true;
+
+  huidigScoreOmInSturen = 0;
+  huidigScoreToken = "";
 }
 
 function flap() {
@@ -320,7 +333,7 @@ function update(dt, now) {
   }
 }
 
-function gameOver() {
+async function gameOver() {
   isGameOver = true;
   isRunning = false;
   hintEl.textContent = "Game over. Klik, tik of druk op spatie om opnieuw te starten.";
@@ -329,8 +342,8 @@ function gameOver() {
     bestScore = score;
     localStorage.setItem("flappyfrans_best", String(bestScore));
     bestEl.textContent = String(bestScore);
-    // Alleen tonen als je een nieuwe persoonlijke highscore hebt gehaald
-    toonScoreFormulier(score);
+    // Haal server-gesignde token op â€” score is daarna niet meer aanpasbaar.
+    await toonScoreFormulier(score);
   }
 }
 
@@ -383,10 +396,7 @@ requestAnimationFrame(loop);
 
 // ── Leaderboard ──────────────────────────────────────────────
 
-let huidigScoreOmInSturen = 0;
-
 // Script staat onderaan body, DOM is al klaar — geen DOMContentLoaded nodig.
-// Gebruik getElementById live zodat een null-referentie bij late deploy geen probleem geeft.
 const flappyScoreFormEl = document.getElementById("flappyScoreForm");
 if (flappyScoreFormEl) {
   flappyScoreFormEl.addEventListener("submit", async (event) => {
@@ -407,12 +417,18 @@ if (flappyScoreFormEl) {
       return;
     }
 
+    if (!huidigScoreToken) {
+      if (statusEl) statusEl.textContent = "Ongeldige sessie. Speel opnieuw.";
+      submitBtn.disabled = false;
+      return;
+    }
+
     let res;
     try {
       res = await fetch(SCORES_EDGE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ naam, score: huidigScoreOmInSturen, token: turnstileToken }),
+        body: JSON.stringify({ naam, scoreToken: huidigScoreToken, token: turnstileToken }),
       });
     } catch {
       if (statusEl) statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";
@@ -431,29 +447,55 @@ if (flappyScoreFormEl) {
     if (statusEl) statusEl.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
     flappyScoreFormEl.style.display = "none";
     huidigScoreOmInSturen = 0;
+    huidigScoreToken = "";
     laadLeaderboard();
   });
 }
 
-function toonScoreFormulier(eindscore) {
+async function toonScoreFormulier(eindscore) {
   huidigScoreOmInSturen = eindscore;
-  // Elke keer live ophalen zodat late HTML-deploy geen probleem geeft
+  huidigScoreToken = "";
+
   const form = document.getElementById("flappyScoreForm");
   const statusEl = document.getElementById("flappyFormStatus");
   if (!form) return;
-  form.style.display = "flex";
+
   const naamInput = document.getElementById("flappyNaam");
   if (naamInput) naamInput.value = "";
-  if (statusEl) statusEl.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
   const submitBtn = form.querySelector("button[type=submit]");
-  if (submitBtn) submitBtn.disabled = false;
+  if (submitBtn) submitBtn.disabled = true;
+  if (statusEl) statusEl.textContent = "Score bevestigen...";
+  form.style.display = "flex";
+
+  // Haal server-gesignde token op — score is hierna niet meer aanpasbaar door de client.
+  try {
+    const res = await fetch(`${SCORES_EDGE_URL}?action=gameover`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ score: eindscore }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.token) {
+      huidigScoreToken = data.token;
+      if (statusEl) statusEl.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
+      if (submitBtn) submitBtn.disabled = false;
+    } else {
+      huidigScoreOmInSturen = 0;
+      huidigScoreToken = "";
+      if (statusEl) statusEl.textContent = data.error || "Kon score niet bevestigen. Probeer opnieuw.";
+    }
+  } catch {
+    huidigScoreOmInSturen = 0;
+    huidigScoreToken = "";
+    if (statusEl) statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";
+  }
 }
 
 async function laadLeaderboard() {
   const container = document.getElementById("flappyLeaderboard");
   if (!container) return;
 
-  container.innerHTML = `<p class="flappy-leaderboard-laden">Laden…</p>`;
+  container.innerHTML = `<p class="flappy-leaderboard-laden">Laden...</p>`;
 
   let res;
   try {
