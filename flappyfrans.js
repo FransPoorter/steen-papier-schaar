@@ -400,12 +400,19 @@ if (flappyScoreFormEl) {
     const statusEl = document.getElementById("flappyFormStatus");
     if (statusEl) statusEl.textContent = "Bezig met insturen…";
 
+    const turnstileToken = (document.querySelector('[name="cf-turnstile-response"]'))?.value ?? "";
+    if (!turnstileToken) {
+      if (statusEl) statusEl.textContent = "Voltooi de beveiligingscheck eerst.";
+      submitBtn.disabled = false;
+      return;
+    }
+
     let res;
     try {
       res = await fetch(SCORES_EDGE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ naam, score: huidigScoreOmInSturen }),
+        body: JSON.stringify({ naam, score: huidigScoreOmInSturen, token: turnstileToken }),
       });
     } catch {
       if (statusEl) statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";

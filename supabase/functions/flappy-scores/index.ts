@@ -45,11 +45,30 @@ Deno.serve(async (req) => {
 
   // ── POST: score insturen ─────────────────────────────────
   if (req.method === "POST") {
-    let body: { naam?: unknown; score?: unknown };
+    let body: { naam?: unknown; score?: unknown; token?: unknown };
     try {
       body = await req.json();
     } catch {
       return jsonResponse({ error: "Ongeldig verzoek." }, 400);
+    }
+
+    // Turnstile verificatie (OWASP A07 – bot-bescherming)
+    const turnstileSecret = Deno.env.get("TURNSTILE_SECRET");
+    if (!turnstileSecret) {
+      return jsonResponse({ error: "Server configuratiefout." }, 500);
+    }
+    const tsToken = String(body.token ?? "");
+    if (!tsToken) {
+      return jsonResponse({ error: "Beveiligingscheck vereist." }, 400);
+    }
+    const tsRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ secret: turnstileSecret, response: tsToken }),
+    });
+    const tsData = await tsRes.json().catch(() => ({ success: false }));
+    if (!tsData.success) {
+      return jsonResponse({ error: "Beveiligingscheck mislukt. Probeer opnieuw." }, 403);
     }
 
     const naamStr = String(body.naam ?? "").trim();
