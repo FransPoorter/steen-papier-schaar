@@ -1,0 +1,7 @@
+# Omgevingsvariabelen — nooit committen
+.env
+.env.*
+!.env.example
+
+# Supabase lokale config
+supabase/.temp/
