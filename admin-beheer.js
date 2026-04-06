@@ -2,7 +2,6 @@ const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
 // Admin-acties verlopen via een Edge Function — nooit via directe database-aanroepen vanuit de browser.
 const ADMIN_EDGE_URL = `${SUPABASE_URL}/functions/v1/admin-reviews`;
-const ADMIN_EMAIL = "poorterfrans@gmail.com";
 
 let beheerClient;
 let huidigTabblad = "pending";
@@ -167,12 +166,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Client-side snelle UX-check als eerste laag.
   // De werkelijke beveiliging zit server-side in de Edge Function (getUser() + email-check).
-  if (data.session.user.email !== ADMIN_EMAIL) {
-    await beheerClient.auth.signOut();
-    window.location.replace("/admin");
-    return;
+  // Client ontvangt alleen goedgekeurde antwoorden als admin-toegang geverifieerd is.
   }
 
   document.getElementById("adminUser").textContent = data.session.user.email;

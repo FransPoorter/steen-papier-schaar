@@ -1,8 +1,11 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// Enkel dit e-mailadres heeft admin-toegang.
-// Server-side gecontroleerd — niet te omzeilen via client-manipulatie.
-const ADMIN_EMAIL = "poorterfrans@gmail.com";
+// Enkel geconfigureerd admin-email heeft toegang.
+// Server-side gecontroleerd via Deno.env — niet te omzeilen.
+const ADMIN_EMAIL = Deno.env.get("ADMIN_EMAIL");
+if (!ADMIN_EMAIL) {
+  throw new Error("ADMIN_EMAIL environment variable niet ingesteld");
+}
 
 // Authorization header is vereist: tokens worden nooit via URL verstuurd (URL-logging).
 const CORS_HEADERS = {
