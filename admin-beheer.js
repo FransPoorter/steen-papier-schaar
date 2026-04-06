@@ -1,5 +1,7 @@
 const SUPABASE_URL = "https://hizdsaynfaqqmulmitql.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpemRzYXluZmFxcW11bG1pdHFsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMzY0NDIsImV4cCI6MjA5MDgxMjQ0Mn0.3BtB_5kmg6JsBrAgxd9cAcRRMdDz5Ppu5dJZVgdwNjA";
+// Admin-acties verlopen via een Edge Function — nooit via directe database-aanroepen vanuit de browser.
+const ADMIN_EDGE_URL = `${SUPABASE_URL}/functions/v1/admin-reviews`;
 const ADMIN_EMAIL = "poorterfrans@gmail.com";
 
 let beheerClient;
@@ -26,6 +28,60 @@ function formatteerDatum(waarde) {
   }).format(datum);
 }
 
+// ── Auth helpers ────────────────────────────────────────────
+// Haalt het JWT access token op uit de actieve Supabase sessie.
+// Dit token wordt bij elke admin-aanroep server-side gevalideerd via getUser().
+async function getAccessToken() {
+  const { data } = await beheerClient.auth.getSession();
+  return data?.session?.access_token || null;
+}
+
+// Centrale fetch naar de admin Edge Function.
+// Alle database-operaties verlopen server-side — de browser doet nooit directe DB-aanroepen.
+// CSRF is niet mogelijk: cross-site requests kunnen geen custom Authorization-header meesturen,
+// in tegenstelling tot cookies die automatisch worden meegestuurd.
+async function adminFetch(method, params = {}) {
+  const token = await getAccessToken();
+  if (!token) {
+    window.location.replace("/admin");
+    return null;
+  }
+
+  let url = ADMIN_EDGE_URL;
+  const options = {
+    method,
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  if (method === "GET") {
+    const qs = new URLSearchParams(params).toString();
+    if (qs) url += `?${qs}`;
+  } else {
+    options.body = JSON.stringify(params);
+  }
+
+  let res;
+  try {
+    res = await fetch(url, options);
+  } catch {
+    return { ok: false, status: 0, data: {} };
+  }
+
+  const data = await res.json().catch(() => ({}));
+
+  // Bij 401/403: sessie verlopen of geen toegang → uitloggen en doorsturen
+  if (res.status === 401 || res.status === 403) {
+    await beheerClient.auth.signOut();
+    window.location.replace("/admin");
+    return null;
+  }
+
+  return { ok: res.ok, status: res.status, data };
+}
+
 // ── Tabs ────────────────────────────────────────────────────
 function wisselTabblad(tabblad) {
   huidigTabblad = tabblad;
@@ -40,28 +96,27 @@ async function laadReviews() {
   const container = document.getElementById("reviewsContainer");
   container.innerHTML = `<p class="admin-loading">Laden…</p>`;
 
-  const goedgekeurd = huidigTabblad === "approved";
+  const status = huidigTabblad === "approved" ? "approved" : "pending";
+  const result = await adminFetch("GET", { status });
 
-  const { data, error } = await beheerClient
-    .from("reviews")
-    .select("id, name, message, rating, created_at, is_approved")
-    .eq("is_approved", goedgekeurd)
-    .order("created_at", { ascending: false });
+  if (!result) return;
 
-  if (error) {
-    container.innerHTML = `<p class="admin-error">Fout bij laden: ${escapeHtml(error.message)}</p>`;
+  if (!result.ok) {
+    container.innerHTML = `<p class="admin-error">Fout bij laden.</p>`;
     return;
   }
 
+  const reviews = result.data.data ?? [];
+  const goedgekeurd = huidigTabblad === "approved";
   const badgeId = goedgekeurd ? "approvedCount" : "pendingCount";
-  document.getElementById(badgeId).textContent = (data ?? []).length;
+  document.getElementById(badgeId).textContent = reviews.length;
 
-  if (!data || !data.length) {
+  if (!reviews.length) {
     container.innerHTML = `<p class="admin-leeg">Geen recensies gevonden.</p>`;
     return;
   }
 
-  container.innerHTML = data.map((r) => `
+  container.innerHTML = reviews.map((r) => `
     <article class="admin-review-card" data-id="${r.id}">
       <div class="admin-review-top">
         <div class="admin-review-meta">
@@ -83,23 +138,22 @@ async function laadReviews() {
 }
 
 // ── Acties ──────────────────────────────────────────────────
+// Alle acties worden server-side gevalideerd: de Edge Function controleert
+// het JWT, het admin-e-mailadres en de geldigheid van het review-id.
 async function keurGoed(id) {
-  const { error } = await beheerClient
-    .from("reviews").update({ is_approved: true }).eq("id", id);
-  if (!error) laadReviews();
+  const result = await adminFetch("POST", { action: "approve", id });
+  if (result?.ok) laadReviews();
 }
 
 async function trekTerug(id) {
-  const { error } = await beheerClient
-    .from("reviews").update({ is_approved: false }).eq("id", id);
-  if (!error) laadReviews();
+  const result = await adminFetch("POST", { action: "reject", id });
+  if (result?.ok) laadReviews();
 }
 
 async function verwijder(id) {
   if (!confirm("Weet je zeker dat je deze recensie wil verwijderen?")) return;
-  const { error } = await beheerClient
-    .from("reviews").delete().eq("id", id);
-  if (!error) laadReviews();
+  const result = await adminFetch("POST", { action: "delete", id });
+  if (result?.ok) laadReviews();
 }
 
 // ── Initialisatie ───────────────────────────────────────────
@@ -113,7 +167,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Extra check: alleen het admin-account heeft toegang
+  // Client-side snelle UX-check als eerste laag.
+  // De werkelijke beveiliging zit server-side in de Edge Function (getUser() + email-check).
   if (data.session.user.email !== ADMIN_EMAIL) {
     await beheerClient.auth.signOut();
     window.location.replace("/admin");
