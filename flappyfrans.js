@@ -389,22 +389,19 @@ requestAnimationFrame(loop);
 let huidigScoreOmInSturen = 0;
 
 // Script staat onderaan body, DOM is al klaar — geen DOMContentLoaded nodig.
-const flappyScoreForm = document.getElementById("flappyScoreForm");
-const flappyFormStatus = document.getElementById("flappyFormStatus");
-
-// Formulier begint verborgen — alleen zichtbaar na game over met score > 0
-if (flappyScoreForm) {
-  flappyScoreForm.style.display = "none";
-
-  flappyScoreForm.addEventListener("submit", async (event) => {
+// Gebruik getElementById live zodat een null-referentie bij late deploy geen probleem geeft.
+const flappyScoreFormEl = document.getElementById("flappyScoreForm");
+if (flappyScoreFormEl) {
+  flappyScoreFormEl.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const naam = document.getElementById("flappyNaam").value.trim();
     if (!naam || huidigScoreOmInSturen < 1) return;
 
-    const submitBtn = flappyScoreForm.querySelector("button[type=submit]");
+    const submitBtn = flappyScoreFormEl.querySelector("button[type=submit]");
     submitBtn.disabled = true;
-    flappyFormStatus.textContent = "Bezig met insturen…";
+    const statusEl = document.getElementById("flappyFormStatus");
+    if (statusEl) statusEl.textContent = "Bezig met insturen…";
 
     let res;
     try {
@@ -414,7 +411,7 @@ if (flappyScoreForm) {
         body: JSON.stringify({ naam, score: huidigScoreOmInSturen }),
       });
     } catch {
-      flappyFormStatus.textContent = "Verbindingsfout. Probeer opnieuw.";
+      if (statusEl) statusEl.textContent = "Verbindingsfout. Probeer opnieuw.";
       submitBtn.disabled = false;
       return;
     }
@@ -422,13 +419,13 @@ if (flappyScoreForm) {
     const result = await res.json().catch(() => ({}));
 
     if (!res.ok) {
-      flappyFormStatus.textContent = result.error || "Insturen mislukt.";
+      if (statusEl) statusEl.textContent = result.error || "Insturen mislukt.";
       submitBtn.disabled = false;
       return;
     }
 
-    flappyFormStatus.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
-    flappyScoreForm.style.display = "none";
+    if (statusEl) statusEl.textContent = `Score ${huidigScoreOmInSturen} opgeslagen. Goed gespeeld!`;
+    flappyScoreFormEl.style.display = "none";
     huidigScoreOmInSturen = 0;
     laadLeaderboard();
   });
@@ -436,15 +433,16 @@ if (flappyScoreForm) {
 
 function toonScoreFormulier(eindscore) {
   huidigScoreOmInSturen = eindscore;
-  if (flappyScoreForm) {
-    flappyScoreForm.style.display = "flex";
-    document.getElementById("flappyNaam").value = "";
-    if (flappyFormStatus) {
-      flappyFormStatus.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
-    }
-    const submitBtn = flappyScoreForm.querySelector("button[type=submit]");
-    if (submitBtn) submitBtn.disabled = false;
-  }
+  // Elke keer live ophalen zodat late HTML-deploy geen probleem geeft
+  const form = document.getElementById("flappyScoreForm");
+  const statusEl = document.getElementById("flappyFormStatus");
+  if (!form) return;
+  form.style.display = "flex";
+  const naamInput = document.getElementById("flappyNaam");
+  if (naamInput) naamInput.value = "";
+  if (statusEl) statusEl.textContent = `Je score: ${eindscore}. Vul je naam in om op het leaderboard te komen.`;
+  const submitBtn = form.querySelector("button[type=submit]");
+  if (submitBtn) submitBtn.disabled = false;
 }
 
 async function laadLeaderboard() {
