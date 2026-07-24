@@ -1718,6 +1718,31 @@
   margin-left: 6px;
 }
 
+/* Goal Card */
+.intro-dashboard__card--goal {
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+}
+
+.intro-goal__text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 500;
+  color: var(--afas-text-primary);
+  line-height: 1.15;
+  margin: 0;
+  padding: 12px 0;
+}
+
+.intro-goal__accent {
+  color: var(--afas-primary);
+}
+
 /* Formula Cards */
 .intro-formula {
   display: flex;
