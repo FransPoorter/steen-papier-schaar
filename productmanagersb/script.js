@@ -631,11 +631,6 @@
     // Ctrl+K / Cmd+K / Ctrl+Space shortcut
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === ' ')) {
-        // Don't open spotlight if another dialog is visible
-        var menuDialog = document.getElementById('menuWarningDialog');
-        var helpDialog = document.getElementById('helpWarningDialog');
-        if ((menuDialog && !menuDialog.hidden) || (helpDialog && !helpDialog.hidden)) return;
-
         var active = document.activeElement;
         var isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
         if (isInput && active.id !== 'spotlightInput') return;
