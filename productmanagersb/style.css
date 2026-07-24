@@ -774,6 +774,13 @@
   fill: var(--afas-text-secondary);
 }
 
+.jonas-chat__avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .jonas-chat__message--user .jonas-chat__message-avatar {
   background: var(--afas-primary);
 }

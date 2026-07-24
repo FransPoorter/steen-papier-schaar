@@ -143,7 +143,7 @@
   }
 
   // ==================== JONAS CHAT ====================
-  const JONAS_RESPONSE = 'Hoe leuk zou het zijn als je Jonas alles over Frans kon vragen? Vanwege privacy en veiligheid houden we dat toch liever persoonlijk. Nieuwsgierig geworden? Stel je vraag dan vooral aan Frans zelf tijdens een kennismaking \u2014 dat levert waarschijnlijk ook een veel leuker gesprek op.';
+  const JONAS_RESPONSE = 'Hoe leuk zou het zijn als je Jonas alles over Frans kon vragen? Vanwege privacy en veiligheid houden we dat toch liever persoonlijk. Nieuwsgierig geworden? Stel je vraag dan vooral aan Frans zelf! Dat levert waarschijnlijk ook een veel leuker gesprek op.';
   let jonasOpen = false;
 
   function openJonas() {
@@ -184,7 +184,7 @@
     const avatar = document.createElement('div');
     avatar.className = 'jonas-chat__message-avatar';
     avatar.innerHTML = role === 'jonas'
-      ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>'
+      ? '<img src="/Jonas.png" alt="Jonas" class="jonas-chat__avatar-img">'
       : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
 
     const content = document.createElement('div');
@@ -194,7 +194,7 @@
     meta.className = 'jonas-chat__message-meta';
     const name = document.createElement('span');
     name.className = 'jonas-chat__message-name';
-    name.textContent = role === 'jonas' ? 'Jonas' : 'Frans Poorter';
+    name.textContent = role === 'jonas' ? 'Jonas' : 'Jij';
     const time = document.createElement('span');
     time.className = 'jonas-chat__message-time';
     const now = new Date();
@@ -221,7 +221,7 @@
     wrapper.setAttribute('aria-label', 'Jonas is aan het typen');
     const avatar = document.createElement('div');
     avatar.className = 'jonas-chat__message-avatar';
-    avatar.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>';
+    avatar.innerHTML = '<img src="/Jonas.png" alt="Jonas" class="jonas-chat__avatar-img">';
     const dots = document.createElement('div');
     dots.className = 'jonas-chat__typing-dots';
     dots.innerHTML = '<span class="jonas-chat__typing-dot"></span><span class="jonas-chat__typing-dot"></span><span class="jonas-chat__typing-dot"></span>';
