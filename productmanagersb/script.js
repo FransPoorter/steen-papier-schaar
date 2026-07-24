@@ -5,15 +5,15 @@
   'use strict';
 
   const TABS = [
-    { id: 'introductie', title: 'Introductie', subtitle: 'Welkom', badge: null, check: true },
-    { id: 'motivatie', title: 'Mijn motivatie', subtitle: 'Waarom Productmanagement SB', badge: null, check: false },
-    { id: 'ervaring', title: 'Ervaring met SB', subtitle: 'Praktijk en klantprocessen', badge: '3', check: false },
-    { id: 'productvisie', title: 'Productvisie', subtitle: 'Richting en roadmap', badge: null, check: false },
-    { id: 'klantwaarde', title: 'Klantwaarde', subtitle: 'Behoeften en eenvoud', badge: '5', check: false },
-    { id: 'prioriteiten', title: 'Prioriteiten', subtitle: 'Kiezen en resultaat', badge: null, check: true },
-    { id: 'innovatie', title: 'Innovatie & AI', subtitle: 'Kansen voor SB', badge: '2', check: false },
-    { id: 'eerste100dagen', title: 'Eerste 100 dagen', subtitle: 'Van visie naar actie', badge: null, check: false },
-    { id: 'afsluiting', title: 'Afsluiting', subtitle: 'Kennismaken', badge: null, check: true }
+    { id: 'introductie', title: 'Introductie', subtitle: 'Welkom', badge: null, check: true, keywords: ['welkom', 'begin', 'introductie', 'frans'] },
+    { id: 'motivatie', title: 'Mijn motivatie', subtitle: 'Waarom Productmanagement SB', badge: null, check: false, keywords: ['motivatie', 'waarom', 'productmanagement', 'solliciteren'] },
+    { id: 'ervaring', title: 'Ervaring met SB', subtitle: 'Praktijk en klantprocessen', badge: '3', check: false, keywords: ['ervaring', 'sb', 'klanten', 'praktijk', 'processen'] },
+    { id: 'productvisie', title: 'Productvisie', subtitle: 'Richting en roadmap', badge: null, check: false, keywords: ['visie', 'roadmap', 'product', 'toekomst', 'richting'] },
+    { id: 'klantwaarde', title: 'Klantwaarde', subtitle: 'Behoeften en eenvoud', badge: '5', check: false, keywords: ['klant', 'waarde', 'eenvoud', 'behoefte', 'focussessie'] },
+    { id: 'prioriteiten', title: 'Prioriteiten', subtitle: 'Kiezen en resultaat', badge: null, check: true, keywords: ['keuzes', 'prioriteiten', 'resultaat', 'nee zeggen'] },
+    { id: 'innovatie', title: 'Innovatie & AI', subtitle: 'Kansen voor SB', badge: '2', check: false, keywords: ['innovatie', 'automatisering', 'ai', 'jonas', 'kansen'] },
+    { id: 'eerste100dagen', title: 'Eerste 100 dagen', subtitle: 'Van visie naar actie', badge: null, check: false, keywords: ['100 dagen', 'plan', 'aanpak', 'eerste periode'] },
+    { id: 'afsluiting', title: 'Afsluiting', subtitle: 'Kennismaken', badge: null, check: true, keywords: ['afsluiting', 'contact', 'kennismaken', 'gesprek'] }
   ];
 
   const DEFAULT_TAB = 'introductie';
@@ -297,6 +297,8 @@
     initNotifications();
     initJonas();
     initUserSettings();
+    initMenuWarning();
+    initSpotlight();
   }
 
   // ==================== USER SETTINGS MODAL ====================
@@ -305,14 +307,12 @@
     var modal = document.getElementById('userSettingsModal');
     var backdrop = document.getElementById('userSettingsBackdrop');
     var closeBtn = document.getElementById('userSettingsCloseBtn');
-    var saveBtn = document.getElementById('userSettingsSaveBtn');
-    var cancelBtn = document.getElementById('userSettingsCancelBtn');
     if (!btn || !modal || !backdrop) return;
 
     function openModal() {
       backdrop.hidden = false;
       modal.hidden = false;
-      backdrop.offsetHeight; // force reflow
+      backdrop.offsetHeight;
       backdrop.classList.add('is-visible');
       modal.classList.add('is-visible');
       btn.setAttribute('aria-expanded', 'true');
@@ -330,22 +330,257 @@
 
     btn.addEventListener('click', openModal);
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
-    if (saveBtn) saveBtn.addEventListener('click', closeModal);
     backdrop.addEventListener('click', closeModal);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !modal.hidden) closeModal();
     });
+  }
 
-    // Option selection
-    modal.addEventListener('click', function (e) {
-      var option = e.target.closest('.user-settings-option');
-      if (!option) return;
-      var setting = option.dataset.setting;
-      var siblings = modal.querySelectorAll('.user-settings-option[data-setting="' + setting + '"]');
-      siblings.forEach(function (s) { s.classList.remove('is-selected'); });
-      option.classList.add('is-selected');
+  // ==================== MENU WARNING DIALOG ====================
+  function initMenuWarning() {
+    var menuBtn = document.getElementById('menuBtn');
+    var dialog = document.getElementById('menuWarningDialog');
+    var backdrop = document.getElementById('menuWarningBackdrop');
+    var closeBtn = document.getElementById('menuWarningCloseBtn');
+    var actionBtn = document.getElementById('menuWarningActionBtn');
+    if (!menuBtn || !dialog || !backdrop) return;
+
+    function openWarning() {
+      backdrop.hidden = false;
+      dialog.hidden = false;
+      backdrop.offsetHeight;
+      backdrop.classList.add('is-visible');
+      dialog.classList.add('is-visible');
+      if (actionBtn) actionBtn.focus();
+    }
+
+    function closeWarning() {
+      backdrop.classList.remove('is-visible');
+      dialog.classList.remove('is-visible');
+      setTimeout(function () {
+        backdrop.hidden = true;
+        dialog.hidden = true;
+      }, 150);
+      menuBtn.focus();
+    }
+
+    menuBtn.addEventListener('click', openWarning);
+    if (closeBtn) closeBtn.addEventListener('click', closeWarning);
+    backdrop.addEventListener('click', closeWarning);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !dialog.hidden) {
+        e.stopPropagation();
+        closeWarning();
+      }
+    });
+
+    // Focus trap
+    dialog.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = dialog.querySelectorAll('button:not([hidden])');
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    if (actionBtn) {
+      actionBtn.addEventListener('click', function () {
+        closeWarning();
+        setTimeout(openSpotlight, 160);
+      });
+    }
+  }
+
+  // ==================== SPOTLIGHT SEARCH ====================
+  var spotlightOpen = false;
+  var spotlightSelectedIndex = 0;
+  var spotlightFiltered = [];
+  var spotlightOpener = null;
+
+  function openSpotlight(openerEl) {
+    var backdrop = document.getElementById('spotlightBackdrop');
+    var dialog = document.getElementById('spotlightDialog');
+    var input = document.getElementById('spotlightInput');
+    if (!backdrop || !dialog) return;
+
+    spotlightOpener = openerEl || document.activeElement;
+    backdrop.hidden = false;
+    dialog.hidden = false;
+    backdrop.offsetHeight;
+    backdrop.classList.add('is-visible');
+    dialog.classList.add('is-visible');
+    spotlightOpen = true;
+
+    input.value = '';
+    renderSpotlightResults('');
+    if (input) input.focus();
+  }
+
+  function closeSpotlight() {
+    var backdrop = document.getElementById('spotlightBackdrop');
+    var dialog = document.getElementById('spotlightDialog');
+    if (!backdrop || !dialog) return;
+
+    backdrop.classList.remove('is-visible');
+    dialog.classList.remove('is-visible');
+    spotlightOpen = false;
+
+    setTimeout(function () {
+      backdrop.hidden = true;
+      dialog.hidden = true;
+    }, 150);
+
+    if (spotlightOpener && spotlightOpener.focus) {
+      spotlightOpener.focus();
+    }
+  }
+
+  function filterTabs(query) {
+    var q = query.toLowerCase().trim();
+    if (!q) return TABS.slice();
+    return TABS.filter(function (tab) {
+      var haystack = (tab.title + ' ' + tab.subtitle + ' ' + tab.keywords.join(' ')).toLowerCase();
+      return haystack.indexOf(q) !== -1;
+    });
+  }
+
+  function renderSpotlightResults(query) {
+    var list = document.getElementById('spotlightResults');
+    var empty = document.getElementById('spotlightEmpty');
+    var input = document.getElementById('spotlightInput');
+    if (!list) return;
+
+    spotlightFiltered = filterTabs(query);
+    spotlightSelectedIndex = 0;
+    list.innerHTML = '';
+
+    if (spotlightFiltered.length === 0) {
+      if (empty) empty.hidden = false;
+      input.setAttribute('aria-activedescendant', '');
+      return;
+    }
+
+    if (empty) empty.hidden = true;
+
+    spotlightFiltered.forEach(function (tab, i) {
+      var li = document.createElement('li');
+      li.className = 'spotlight__result' + (i === 0 ? ' is-selected' : '');
+      li.setAttribute('role', 'option');
+      li.setAttribute('id', 'spotlight-opt-' + i);
+      li.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      li.dataset.tabId = tab.id;
+
+      var title = document.createElement('span');
+      title.className = 'spotlight__result-title';
+      title.textContent = tab.title;
+
+      var subtitle = document.createElement('span');
+      subtitle.className = 'spotlight__result-subtitle';
+      subtitle.textContent = tab.subtitle;
+
+      li.appendChild(title);
+      li.appendChild(subtitle);
+      list.appendChild(li);
+    });
+
+    input.setAttribute('aria-activedescendant', 'spotlight-opt-0');
+  }
+
+  function updateSpotlightSelection(newIndex) {
+    var list = document.getElementById('spotlightResults');
+    var input = document.getElementById('spotlightInput');
+    if (!list) return;
+
+    var items = list.querySelectorAll('.spotlight__result');
+    if (items.length === 0) return;
+
+    if (newIndex < 0) newIndex = items.length - 1;
+    if (newIndex >= items.length) newIndex = 0;
+
+    items[spotlightSelectedIndex].classList.remove('is-selected');
+    items[spotlightSelectedIndex].setAttribute('aria-selected', 'false');
+
+    spotlightSelectedIndex = newIndex;
+    items[spotlightSelectedIndex].classList.add('is-selected');
+    items[spotlightSelectedIndex].setAttribute('aria-selected', 'true');
+    items[spotlightSelectedIndex].scrollIntoView({ block: 'nearest' });
+    input.setAttribute('aria-activedescendant', 'spotlight-opt-' + spotlightSelectedIndex);
+  }
+
+  function selectSpotlightResult() {
+    if (spotlightFiltered.length === 0) return;
+    var tab = spotlightFiltered[spotlightSelectedIndex];
+    closeSpotlight();
+    activateTab(tab.id, true);
+  }
+
+  function initSpotlight() {
+    var backdrop = document.getElementById('spotlightBackdrop');
+    var input = document.getElementById('spotlightInput');
+    var list = document.getElementById('spotlightResults');
+    if (!backdrop || !input) return;
+
+    backdrop.addEventListener('click', closeSpotlight);
+
+    input.addEventListener('input', function () {
+      renderSpotlightResults(input.value);
+    });
+
+    input.addEventListener('keydown', function (e) {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          updateSpotlightSelection(spotlightSelectedIndex + 1);
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          updateSpotlightSelection(spotlightSelectedIndex - 1);
+          break;
+        case 'Enter':
+          e.preventDefault();
+          selectSpotlightResult();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          closeSpotlight();
+          break;
+      }
+    });
+
+    if (list) {
+      list.addEventListener('click', function (e) {
+        var li = e.target.closest('.spotlight__result');
+        if (!li) return;
+        var idx = Array.from(list.children).indexOf(li);
+        spotlightSelectedIndex = idx;
+        selectSpotlightResult();
+      });
+    }
+
+    // Ctrl+K / Cmd+K / Ctrl+Space shortcut
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === ' ')) {
+        var active = document.activeElement;
+        var isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+        if (isInput && active.id !== 'spotlightInput') return;
+        e.preventDefault();
+        if (spotlightOpen) {
+          closeSpotlight();
+        } else {
+          openSpotlight();
+        }
+      }
+      if (e.key === 'Escape' && spotlightOpen) {
+        closeSpotlight();
+      }
     });
   }
 
