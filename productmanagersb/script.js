@@ -440,14 +440,29 @@
       helpBtn.focus();
     }
 
-    helpBtn.addEventListener('click', openWarning);
-    if (closeBtn) closeBtn.addEventListener('click', function (e) {
+    helpBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      openWarning();
+    });
+
+    closeBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       closeWarning();
     });
-    backdrop.addEventListener('click', closeWarning);
-    dialog.addEventListener('click', function (e) {
+
+    actionBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      backdrop.classList.remove('is-visible');
+      dialog.classList.remove('is-visible');
+      setTimeout(function () {
+        backdrop.hidden = true;
+        dialog.hidden = true;
+        openJonas();
+      }, 160);
+    });
+
+    backdrop.addEventListener('click', function () {
+      closeWarning();
     });
 
     document.addEventListener('keydown', function (e) {
@@ -471,18 +486,6 @@
         first.focus();
       }
     });
-
-    if (actionBtn) {
-      actionBtn.addEventListener('click', function () {
-        backdrop.classList.remove('is-visible');
-        dialog.classList.remove('is-visible');
-        setTimeout(function () {
-          backdrop.hidden = true;
-          dialog.hidden = true;
-          openJonas();
-        }, 160);
-      });
-    }
   }
 
   // ==================== SPOTLIGHT SEARCH ====================
@@ -654,6 +657,11 @@
     // Ctrl+K / Cmd+K / Ctrl+Space shortcut
     document.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === ' ')) {
+        // Don't open spotlight if another dialog is visible
+        var menuDialog = document.getElementById('menuWarningDialog');
+        var helpDialog = document.getElementById('helpWarningDialog');
+        if ((menuDialog && !menuDialog.hidden) || (helpDialog && !helpDialog.hidden)) return;
+
         var active = document.activeElement;
         var isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
         if (isInput && active.id !== 'spotlightInput') return;
