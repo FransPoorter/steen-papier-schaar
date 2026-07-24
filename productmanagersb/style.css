@@ -1,0 +1,520 @@
+/* =============================================
+   AFAS Design Tokens
+   ============================================= */
+:root {
+  --afas-primary: #0074d0;
+  --afas-primary-dark: #005faa;
+  --afas-primary-light: #f3f9fd;
+  --afas-primary-100: #e6f2fb;
+
+  --afas-toolbar: #0f172a;
+  --afas-toolbar-hover: #1e293b;
+  --afas-white: #ffffff;
+
+  --afas-tab-background: #fafafa;
+  --afas-tab-border: #e5e5e5;
+  --afas-page-background: #ffffff;
+
+  --afas-text-primary: #0f172a;
+  --afas-text-secondary: #475569;
+  --afas-text-muted: #64748b;
+
+  --afas-positive: #15803d;
+  --afas-negative: #dc2626;
+
+  --afas-font-family: "Inter", sans-serif;
+  --afas-font-weight-light: 300;
+  --afas-font-weight-normal: 400;
+  --afas-font-weight-bold: 600;
+
+  --afas-topbar-height: 48px;
+  --afas-icon-size: 24px;
+  --afas-icon-opacity: 0.75;
+}
+
+/* =============================================
+   Page Shell
+   ============================================= */
+.product-manager-sb-page {
+  font-family: var(--afas-font-family);
+  font-weight: var(--afas-font-weight-normal);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--afas-page-background);
+  color: var(--afas-text-primary);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.product-manager-sb-page *,
+.product-manager-sb-page *::before,
+.product-manager-sb-page *::after {
+  box-sizing: border-box;
+}
+
+/* =============================================
+   Top Bar (AppToolbar)
+   ============================================= */
+.afas-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--afas-topbar-height);
+  background: var(--afas-toolbar);
+  width: 100%;
+  padding: 0;
+  position: relative;
+  z-index: 100;
+}
+
+.afas-topbar__left,
+.afas-topbar__right {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex: 0 0 auto;
+}
+
+.afas-topbar__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Icon Button */
+.afas-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+.afas-icon-btn svg {
+  width: var(--afas-icon-size);
+  height: var(--afas-icon-size);
+  fill: var(--afas-white);
+  opacity: var(--afas-icon-opacity);
+  transition: opacity 0.15s ease;
+}
+
+.afas-icon-btn:hover {
+  background: var(--afas-toolbar-hover);
+}
+
+.afas-icon-btn:hover svg {
+  opacity: 1;
+}
+
+.afas-icon-btn:focus-visible {
+  outline: 2px solid var(--afas-primary);
+  outline-offset: -2px;
+}
+
+/* Context Switcher / Center Title */
+.afas-context-switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  height: 100%;
+  cursor: default;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.afas-context-switcher__title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--afas-white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.afas-context-switcher__chevron {
+  width: 12px;
+  height: 12px;
+  fill: var(--afas-white);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Notification badge */
+.afas-icon-btn__badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: var(--afas-negative);
+  border-radius: 50%;
+  border: 1.5px solid var(--afas-toolbar);
+}
+
+/* =============================================
+   Work Process Tabs
+   ============================================= */
+.afas-tabs-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 8px 16px 0;
+  border-bottom: 1px solid var(--afas-tab-border);
+  background: var(--afas-white);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.afas-tabs-container::-webkit-scrollbar {
+  display: none;
+}
+
+.afas-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 auto;
+  max-width: 200px;
+  min-width: 120px;
+  padding: 6px 12px 8px;
+  background: var(--afas-tab-background);
+  border: 1px solid var(--afas-tab-border);
+  border-bottom: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family: var(--afas-font-family);
+  text-align: left;
+  outline: none;
+}
+
+.afas-tab + .afas-tab {
+  border-left: none;
+}
+
+.afas-tab:hover {
+  background: var(--afas-primary-light);
+}
+
+.afas-tab:focus-visible {
+  outline: 2px solid var(--afas-primary);
+  outline-offset: -2px;
+  z-index: 2;
+}
+
+/* Active tab */
+.afas-tab[aria-selected="true"] {
+  background: var(--afas-white);
+  font-weight: var(--afas-font-weight-bold);
+  z-index: 1;
+}
+
+.afas-tab[aria-selected="true"]::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -1px;
+  right: -1px;
+  height: 3px;
+  background: var(--afas-primary);
+  border-radius: 2px 2px 0 0;
+}
+
+/* Compensate for border-bottom removal on active tab */
+.afas-tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--afas-white);
+}
+
+/* Tab content */
+.afas-tab__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.afas-tab__title {
+  font-size: 13px;
+  font-weight: inherit;
+  color: var(--afas-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.afas-tab__subtitle {
+  font-size: 11px;
+  font-weight: var(--afas-font-weight-light);
+  color: var(--afas-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+  margin-top: 1px;
+}
+
+/* Badge */
+.afas-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: var(--afas-primary);
+  color: var(--afas-white);
+  font-size: 11px;
+  font-weight: var(--afas-font-weight-bold);
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Checkmark */
+.afas-tab-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.afas-tab-check svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--afas-positive);
+}
+
+/* =============================================
+   Tab Panel Content
+   ============================================= */
+.afas-tab-panel {
+  display: none;
+  padding: 32px 24px;
+  min-height: 400px;
+}
+
+.afas-tab-panel[aria-hidden="false"] {
+  display: block;
+}
+
+/* Content card placeholder */
+.afas-content-card {
+  background: var(--afas-tab-background);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 800px;
+}
+
+.afas-content-card__title {
+  font-size: 18px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.afas-content-card__subtitle {
+  font-size: 14px;
+  color: var(--afas-text-secondary);
+  margin: 0 0 16px;
+}
+
+.afas-content-card__placeholder {
+  font-size: 14px;
+  color: var(--afas-text-muted);
+  font-style: italic;
+}
+
+/* Section variants */
+.afas-content-section {
+  max-width: 800px;
+}
+
+.afas-content-section__heading {
+  font-size: 20px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.afas-content-section__description {
+  font-size: 14px;
+  color: var(--afas-text-secondary);
+  margin: 0 0 24px;
+}
+
+/* Timeline placeholder */
+.afas-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 24px;
+  border-left: 2px solid var(--afas-tab-border);
+  max-width: 600px;
+}
+
+.afas-timeline__item {
+  position: relative;
+  padding: 12px 16px;
+  background: var(--afas-tab-background);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 6px;
+}
+
+.afas-timeline__item::before {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  background: var(--afas-primary);
+  border-radius: 50%;
+}
+
+.afas-timeline__label {
+  font-size: 13px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 4px;
+}
+
+.afas-timeline__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  margin: 0;
+}
+
+/* Grid placeholder for priorities */
+.afas-priority-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 800px;
+}
+
+.afas-priority-card {
+  padding: 16px;
+  background: var(--afas-tab-background);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 6px;
+}
+
+.afas-priority-card__label {
+  font-size: 12px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px;
+}
+
+.afas-priority-card__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  margin: 0;
+}
+
+/* Contact block */
+.afas-contact-block {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  background: var(--afas-primary-100);
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+.afas-contact-block__icon {
+  width: 48px;
+  height: 48px;
+  background: var(--afas-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.afas-contact-block__icon svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--afas-white);
+}
+
+.afas-contact-block__text {
+  font-size: 14px;
+  color: var(--afas-text-primary);
+}
+
+.afas-contact-block__text strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 1024px) {
+  .afas-tab {
+    min-width: 100px;
+    max-width: 160px;
+  }
+
+  .afas-tab__subtitle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .afas-topbar__center {
+    max-width: 50%;
+  }
+
+  .afas-context-switcher__title {
+    font-size: 13px;
+  }
+
+  .afas-tab {
+    min-width: 90px;
+    max-width: 140px;
+    padding: 6px 8px 8px;
+  }
+
+  .afas-tab__title {
+    font-size: 12px;
+  }
+
+  .afas-tab-panel {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .afas-icon-btn:nth-child(n+3) {
+    display: none;
+  }
+
+  .afas-topbar__right .afas-icon-btn:nth-child(n+3) {
+    display: none;
+  }
+}
