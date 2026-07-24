@@ -1731,12 +1731,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(34px, 4vw, 48px);
+  font-size: clamp(20px, 2.8vw, 36px);
   font-weight: 500;
   color: var(--afas-text-primary);
   line-height: 1.15;
   margin: 0;
   padding: 12px 0;
+  white-space: nowrap;
 }
 
 .intro-goal__accent {
