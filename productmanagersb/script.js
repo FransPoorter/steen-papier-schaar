@@ -304,6 +304,87 @@
     }
   }
 
+  // ==================== INTRO DASHBOARD ====================
+  function initIntroDashboard() {
+    var visitedKey = 'introVisitedTabs';
+    var visited = [];
+    try {
+      visited = JSON.parse(sessionStorage.getItem(visitedKey)) || [];
+    } catch (e) { visited = []; }
+
+    // Always mark introductie as visited
+    if (visited.indexOf('introductie') === -1) visited.push('introductie');
+    sessionStorage.setItem(visitedKey, JSON.stringify(visited));
+
+    function markVisited(tabId) {
+      if (visited.indexOf(tabId) === -1) {
+        visited.push(tabId);
+        sessionStorage.setItem(visitedKey, JSON.stringify(visited));
+      }
+      updateNavBadges();
+    }
+
+    function updateNavBadges() {
+      var rows = document.querySelectorAll('.intro-nav-row');
+      rows.forEach(function (row) {
+        var tabId = row.getAttribute('data-target-tab');
+        var badge = row.querySelector('.intro-nav-row__badge');
+        if (!badge) return;
+        if (visited.indexOf(tabId) !== -1) {
+          badge.className = 'intro-nav-row__badge intro-nav-row__badge--check';
+          badge.setAttribute('aria-label', 'Bekeken');
+          badge.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="#15803d" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>';
+        }
+      });
+    }
+
+    function navigateToTab(tabId) {
+      markVisited(tabId);
+      activateTab(tabId, true);
+      var panel = document.getElementById('panel-' + tabId);
+      if (panel) panel.focus();
+    }
+
+    // Navigation rows
+    var navRows = document.querySelectorAll('.intro-nav-row[data-target-tab]');
+    navRows.forEach(function (row) {
+      row.addEventListener('click', function () {
+        var tabId = row.getAttribute('data-target-tab');
+        navigateToTab(tabId);
+      });
+    });
+
+    // Clickable KPI card
+    var kpiClickables = document.querySelectorAll('.intro-dashboard__card--clickable[data-target-tab]');
+    kpiClickables.forEach(function (card) {
+      card.addEventListener('click', function () {
+        var tabId = card.getAttribute('data-target-tab');
+        navigateToTab(tabId);
+      });
+    });
+
+    // Dashboard header nav
+    var headerNavItems = document.querySelectorAll('.intro-dashboard__nav-item[data-nav-tab]');
+    headerNavItems.forEach(function (item) {
+      item.addEventListener('click', function () {
+        var tabId = item.getAttribute('data-nav-tab');
+        navigateToTab(tabId);
+      });
+    });
+
+    // Track tab visits from main tab bar
+    var tabButtons = document.querySelectorAll('.afas-tab[data-tab]');
+    tabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var tabId = btn.getAttribute('data-tab') || btn.dataset.tab;
+        markVisited(tabId);
+      });
+    });
+
+    // Initial badge update
+    updateNavBadges();
+  }
+
   function initAll() {
     init();
     initNotifications();
@@ -312,6 +393,7 @@
     initMenuWarning();
     initHelpWarning();
     initSpotlight();
+    initIntroDashboard();
   }
 
   // ==================== USER SETTINGS MODAL ====================
