@@ -330,8 +330,14 @@
     }
 
     btn.addEventListener('click', openModal);
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtn) closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeModal();
+    });
     backdrop.addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !modal.hidden) closeModal();
@@ -367,8 +373,14 @@
     }
 
     menuBtn.addEventListener('click', openWarning);
-    if (closeBtn) closeBtn.addEventListener('click', closeWarning);
+    if (closeBtn) closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeWarning();
+    });
     backdrop.addEventListener('click', closeWarning);
+    dialog.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !dialog.hidden) {
@@ -429,8 +441,14 @@
     }
 
     helpBtn.addEventListener('click', openWarning);
-    if (closeBtn) closeBtn.addEventListener('click', closeWarning);
+    if (closeBtn) closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeWarning();
+    });
     backdrop.addEventListener('click', closeWarning);
+    dialog.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !dialog.hidden) {
@@ -457,10 +475,7 @@
     if (actionBtn) {
       actionBtn.addEventListener('click', function () {
         closeWarning();
-        setTimeout(function () {
-          var jonasBtn = document.getElementById('jonasBtn');
-          if (jonasBtn) jonasBtn.click();
-        }, 160);
+        setTimeout(openJonas, 160);
       });
     }
   }

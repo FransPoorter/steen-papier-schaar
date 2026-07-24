@@ -975,6 +975,7 @@
 
 .menu-warning-dialog__close svg {
   fill: currentColor;
+  pointer-events: none;
 }
 
 .menu-warning-dialog__text {
@@ -1238,6 +1239,7 @@
 
 .user-settings-modal__action-btn svg {
   fill: currentColor;
+  pointer-events: none;
 }
 
 .user-settings-modal__body {
