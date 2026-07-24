@@ -1929,6 +1929,28 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+  position: relative;
+}
+
+.intro-chart__bar-group[title] {
+  cursor: default;
+}
+
+.intro-chart__bar-group[title]:hover::after,
+.intro-chart__bar-group[title]:focus-within::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--afas-toolbar);
+  color: var(--afas-white);
+  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  z-index: 50;
+  pointer-events: none;
 }
 
 .intro-chart__bar-pair {
