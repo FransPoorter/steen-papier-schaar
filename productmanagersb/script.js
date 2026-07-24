@@ -4,6 +4,45 @@
 (function () {
   'use strict';
 
+  /* ====== Auth Gate ====== */
+  const AUTH_HASH = '491f32cf93f069ef5872636fcc931bfbfd3ce68f764cc2db25352f4acebcca62';
+  const AUTH_KEY = 'pmsb_auth';
+
+  async function sha256(text) {
+    const data = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function initAuthGate() {
+    const gate = document.getElementById('authGate');
+    if (!gate) return;
+
+    if (sessionStorage.getItem(AUTH_KEY) === '1') {
+      gate.hidden = true;
+      return;
+    }
+
+    const form = document.getElementById('authForm');
+    const input = document.getElementById('authInput');
+    const error = document.getElementById('authError');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const hash = await sha256(input.value);
+      if (hash === AUTH_HASH) {
+        sessionStorage.setItem(AUTH_KEY, '1');
+        gate.hidden = true;
+      } else {
+        error.hidden = false;
+        input.value = '';
+        input.focus();
+      }
+    });
+  }
+
+  initAuthGate();
+
   const TABS = [
     { id: 'introductie', title: 'Introductie', subtitle: 'Welkom', badge: null, check: true, keywords: ['welkom', 'begin', 'introductie', 'frans'] },
     { id: 'motivatie', title: 'Mijn motivatie', subtitle: 'Waarom Productmanagement SB', badge: null, check: false, keywords: ['motivatie', 'waarom', 'productmanagement', 'solliciteren'] },

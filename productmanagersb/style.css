@@ -2646,3 +2646,91 @@
     width: 100vw;
   }
 }
+
+/* =============================================
+   Auth Gate
+   ============================================= */
+.auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--afas-page-background, #fff);
+}
+
+.auth-gate[hidden] {
+  display: none;
+}
+
+.auth-gate__card {
+  width: 100%;
+  max-width: 360px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.auth-gate__logo {
+  margin-bottom: 20px;
+}
+
+.auth-gate__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.auth-gate__desc {
+  font-size: 0.875rem;
+  color: var(--afas-text-secondary);
+  margin: 0 0 24px;
+}
+
+.auth-gate__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-gate__input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--afas-tab-border);
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.auth-gate__input:focus {
+  border-color: var(--afas-primary);
+}
+
+.auth-gate__btn {
+  padding: 10px 14px;
+  background: var(--afas-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.auth-gate__btn:hover {
+  background: var(--afas-primary-dark);
+}
+
+.auth-gate__error {
+  margin: 12px 0 0;
+  font-size: 0.8125rem;
+  color: #dc2626;
+}
+
+.auth-gate__error[hidden] {
+  display: none;
+}
