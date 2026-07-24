@@ -1262,6 +1262,14 @@
   border-radius: 8px;
 }
 
+.user-settings-modal__version {
+  display: block;
+  text-align: right;
+  font-size: 11px;
+  color: var(--afas-text-muted);
+  margin-top: 12px;
+}
+
 @media (max-width: 768px) {
   .user-settings-modal {
     width: 95%;
