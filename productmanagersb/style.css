@@ -1811,17 +1811,26 @@
 }
 
 /* Donut Card: Wat ik meebreng */
-.intro-donut {
+.intro-dashboard__card--donut {
   display: flex;
+  flex-direction: column;
+}
+
+.intro-donut {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
   align-items: center;
-  gap: 40px;
+  gap: 48px;
+  width: min(100%, 820px);
+  margin: 0 auto;
+  padding: 16px 0;
 }
 
 .intro-donut__chart-wrap {
   position: relative;
   flex-shrink: 0;
-  width: 180px;
-  height: 180px;
+  width: 170px;
+  height: 170px;
 }
 
 .intro-donut__svg {
@@ -1858,18 +1867,18 @@
 }
 
 .intro-donut__center-line {
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 500;
   color: var(--afas-text-primary);
-  line-height: 1.3;
+  line-height: 1.15;
 }
 
 .intro-donut__legend {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 40px;
+  row-gap: 28px;
+  align-items: start;
 }
 
 .intro-donut__legend-item {
@@ -1888,8 +1897,8 @@
 }
 
 .intro-donut__legend-swatch {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 2px;
   flex-shrink: 0;
   margin-top: 3px;
@@ -1898,21 +1907,21 @@
 .intro-donut__legend-text {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 3px;
   min-width: 0;
 }
 
 .intro-donut__legend-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: var(--afas-font-weight-bold);
   color: var(--afas-text-primary);
   line-height: 1.3;
 }
 
 .intro-donut__legend-desc {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--afas-text-muted);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 /* Pillars Card */
@@ -2234,17 +2243,19 @@
   }
 
   .intro-donut {
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
   }
 
   .intro-donut__chart-wrap {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
   }
 
   .intro-donut__legend {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
     width: 100%;
   }
 
