@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=88" />
+  <link rel="stylesheet" href="style.css?v=89" />
 </head>
 <body class="product-manager-sb-page">
 
@@ -651,16 +651,113 @@
 
     <!-- Panel: Productvisie -->
     <section class="afas-tab-panel" id="panel-productvisie" role="tabpanel" aria-labelledby="tab-productvisie" aria-hidden="true">
-      <div class="afas-content-section">
-        <h1 class="afas-content-section__heading">Productvisie</h1>
-        <p class="afas-content-section__description">
-          Mijn kijk op richting en roadmap voor SB.
-        </p>
-      </div>
-      <div class="afas-content-card">
-        <h2 class="afas-content-card__title">Roadmap-denken</h2>
-        <p class="afas-content-card__subtitle">Strategische richting voor de komende jaren</p>
-        <p class="afas-content-card__placeholder">De productvisie en roadmap-uitwerking volgt hier.</p>
+      <div class="pv-dashboard">
+
+        <!-- Openingskaart -->
+        <div class="pv-card pv-card--opening">
+          <h1 class="pv-card__title">Mijn productvisie voor SB</h1>
+          <p class="pv-card__hero">Een goede administratie moet geen eindresultaat zijn waar je achteraf hard voor moet werken. SB moet klanten <span class="mot-accent">gedurende het hele jaar</span> helpen om het direct goed te doen.</p>
+          <p class="pv-card__text">Mijn doel is om van AFAS SB het beste boekhoudpakket van Nederland te maken. Niet door steeds meer functionaliteit toe te voegen, maar door boekhouden eenvoudiger, slimmer en betrouwbaarder te maken. Zonder ingewikkelde inrichting, met duidelijke ondersteuning en met grip voor zowel de ondernemer als de accountant.</p>
+        </div>
+
+        <!-- Vier pijlers -->
+        <div class="pv-section">
+          <h2 class="pv-section__title">Vier pijlers voor SB</h2>
+          <div class="pv-pillars">
+            <div class="pv-card pv-card--pillar">
+              <svg class="pv-card__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="var(--afas-primary)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              <h3 class="pv-card__subtitle">Goed vanaf het begin</h3>
+              <p class="pv-card__accent">Hoge kwaliteit zonder extra boekhoudwerk.</p>
+              <p class="pv-card__text">SB moet klanten helpen om gegevens direct goed vast te leggen. Hoe eerder we fouten, ontbrekende informatie en afwijkingen signaleren, hoe minder herstelwerk later nodig is.</p>
+            </div>
+            <div class="pv-card pv-card--pillar">
+              <svg class="pv-card__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="var(--afas-primary)" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              <h3 class="pv-card__subtitle">Minder piekdrukte</h3>
+              <p class="pv-card__accent">Niet achteraf herstellen, maar tussentijds bijsturen.</p>
+              <p class="pv-card__text">Veel druk ontstaat doordat problemen pas aan het einde van een periode of boekjaar zichtbaar worden. SB moet gedurende het jaar laten zien wat aandacht nodig heeft, zodat werk beter wordt verdeeld en verrassingen worden voorkomen.</p>
+            </div>
+            <div class="pv-card pv-card--pillar">
+              <svg class="pv-card__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="var(--afas-primary)" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+              <h3 class="pv-card__subtitle">Zonder uitgebreide inrichting starten</h3>
+              <p class="pv-card__accent">Starten met werken in plaats van starten met inrichten.</p>
+              <p class="pv-card__text">Een klant wil ondernemen en boekhouden, niet eerst een compleet softwarepakket configureren. SB moet zoveel mogelijk goede keuzes vooraf maken en alleen vragen stellen wanneer dat echt nodig is.</p>
+            </div>
+            <div class="pv-card pv-card--pillar">
+              <svg class="pv-card__icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="var(--afas-primary)" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <h3 class="pv-card__subtitle">Samenwerken rond dezelfde administratie</h3>
+              <p class="pv-card__accent">Eén administratie, duidelijke samenwerking.</p>
+              <p class="pv-card__text">De ondernemer en accountant hebben verschillende verantwoordelijkheden, maar werken aan dezelfde administratie. SB moet duidelijk maken wie iets moet doen, waar aandacht nodig is en hoe zij elkaar kunnen helpen.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drie productkansen -->
+        <div class="pv-section">
+          <h2 class="pv-section__title">Waar ik de grootste kansen zie</h2>
+          <p class="pv-section__intro">Drie richtingen waarmee we de eenvoud van SB kunnen behouden en tegelijkertijd meer waarde kunnen bieden aan ondernemers en accountants.</p>
+          <div class="pv-kansen">
+            <div class="pv-card pv-card--kans">
+              <h3 class="pv-card__subtitle">Admin Center als onderscheidende kracht</h3>
+              <p class="pv-card__richting">Accountants vanuit één plek inzicht en grip geven over al hun administraties.</p>
+              <p class="pv-card__text">Het Admin Center kan veel meer zijn dan een overzicht van klanten. Het kan de werkplek worden waar een accountant direct ziet welke administraties goed lopen, waar gegevens ontbreken en waar actie nodig is. Daarmee helpt SB accountants om hun aandacht te richten op de klanten die deze het meeste nodig hebben.</p>
+              <div class="pv-kans-label">
+                <span class="pv-kans-label__tag">De kans</span>
+                <p class="pv-kans-label__text">Van administraties afzonderlijk controleren naar gericht sturen over de volledige klantenportefeuille.</p>
+              </div>
+            </div>
+            <div class="pv-card pv-card--kans">
+              <h3 class="pv-card__subtitle">SB en Profit slimmer laten samenwerken</h3>
+              <p class="pv-card__richting">Klanten niet laten merken waar het ene product stopt en het andere begint.</p>
+              <p class="pv-card__text">AFAS heeft met SB en Profit verschillende oplossingen voor verschillende klantgroepen. Juist op de momenten waarop processen elkaar raken, moeten gegevens en werkzaamheden logisch doorlopen. Geen dubbel werk en geen onnodige handmatige tussenstappen.</p>
+              <div class="pv-kans-label">
+                <span class="pv-kans-label__tag">De kans</span>
+                <p class="pv-kans-label__text">De kracht van het volledige AFAS-platform benutten zonder de eenvoud van SB kwijt te raken.</p>
+              </div>
+            </div>
+            <div class="pv-card pv-card--kans">
+              <h3 class="pv-card__subtitle">Jonas waarde laten toevoegen</h3>
+              <p class="pv-card__richting">Niet alleen vragen beantwoorden, maar klanten helpen om de volgende goede stap te zetten.</p>
+              <p class="pv-card__text">Jonas kan klanten ondersteunen bij het begrijpen van hun administratie, uitleggen waarom iets aandacht vraagt en helpen bij het uitvoeren van een vervolgstap. Daarbij moet altijd duidelijk blijven wat Jonas signaleert, waarop een advies is gebaseerd en welke keuze de gebruiker zelf maakt.</p>
+              <div class="pv-kans-label">
+                <span class="pv-kans-label__tag">De kans</span>
+                <p class="pv-kans-label__text">Slimme ondersteuning die werk vermindert, zonder dat de gebruiker de grip verliest.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Keuzecriteria -->
+        <div class="pv-card pv-card--wide">
+          <h2 class="pv-card__subtitle">Hoe ik keuzes voor SB wil maken</h2>
+          <p class="pv-card__text">Voor SB zullen er altijd meer wensen en mogelijkheden zijn dan we kunnen realiseren. Daarom wil ik keuzes niet alleen baseren op wie het hardst vraagt, maar op de bijdrage aan de richting van SB.</p>
+          <div class="pv-criteria">
+            <div class="pv-criterium">
+              <h3 class="pv-criterium__title">Lost het een herkenbaar klantprobleem op?</h3>
+              <p class="pv-criterium__text">Niet beginnen met de gewenste functionaliteit, maar met het probleem dat klanten ervaren.</p>
+            </div>
+            <div class="pv-criterium">
+              <h3 class="pv-criterium__title">Maakt het SB eenvoudiger?</h3>
+              <p class="pv-criterium__text">Een nieuwe mogelijkheid mag de rest van SB niet onnodig ingewikkelder maken.</p>
+            </div>
+            <div class="pv-criterium">
+              <h3 class="pv-criterium__title">Verbetert het de kwaliteit?</h3>
+              <p class="pv-criterium__text">Automatisering moet niet alleen tijd besparen, maar ook bijdragen aan betrouwbare administraties.</p>
+            </div>
+            <div class="pv-criterium">
+              <h3 class="pv-criterium__title">Past het bij de lange termijn?</h3>
+              <p class="pv-criterium__text">Een snelle oplossing mag geen structurele beperking voor SB worden.</p>
+            </div>
+          </div>
+          <p class="pv-card__closing-line">Soms betekent productvisie iets bouwen. Soms betekent het iets <span class="mot-accent">bewust niet bouwen</span>.</p>
+        </div>
+
+        <!-- Afsluitende visiekaart -->
+        <div class="pv-card pv-card--closing">
+          <h2 class="pv-card__subtitle">De richting die ik wil bewaken</h2>
+          <p class="pv-card__text">Ik wil dat SB bekendstaat als het boekhoudpakket waarmee klanten snel kunnen beginnen, gedurende het jaar grip houden en samen met hun accountant een administratie van hoge kwaliteit opbouwen. Innovatie, automatisering en AI zijn daarbij geen doel op zichzelf. Ze zijn waardevol wanneer ze boekhouden aantoonbaar eenvoudiger en beter maken.</p>
+          <p class="pv-card__slogan">Eenvoud waar het kan. Grip waar het moet. Kwaliteit als uitgangspunt.</p>
+        </div>
+
       </div>
     </section>
 
@@ -678,6 +775,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=88"></script>
+  <script src="script.js?v=89"></script>
 </body>
 </html>

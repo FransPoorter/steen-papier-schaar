@@ -2410,6 +2410,256 @@
 }
 
 /* =============================================
+   PRODUCTVISIE – Dashboard
+   ============================================= */
+.pv-dashboard {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pv-card {
+  background: var(--afas-white);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.pv-card__title {
+  font-size: 13px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 0 16px;
+}
+
+.pv-card__hero {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+.pv-card__icon {
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.pv-card__subtitle {
+  font-size: 16px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.pv-card__accent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--afas-primary);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+.pv-card__richting {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.pv-card__text {
+  font-size: 14px;
+  color: var(--afas-text-muted);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.pv-card__text:last-child {
+  margin-bottom: 0;
+}
+
+.pv-card__closing-line {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  margin: 20px 0 0;
+  line-height: 1.5;
+}
+
+.pv-card__slogan {
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 20px 0 0;
+  line-height: 1.4;
+}
+
+/* Section titles */
+.pv-section__title {
+  font-size: 18px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 6px;
+}
+
+.pv-section__intro {
+  font-size: 14px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+/* Pijlers grid */
+.pv-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.pv-card--pillar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Kansen grid */
+.pv-kansen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pv-card--kans {
+  display: flex;
+  flex-direction: column;
+}
+
+.pv-kans-label {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.pv-kans-label__tag {
+  font-size: 11px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.pv-kans-label__text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+/* Criteria grid */
+.pv-criteria {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 20px 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.pv-criterium {
+  padding: 0 20px;
+  border-left: 1px solid var(--afas-tab-border);
+}
+
+.pv-criterium:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.pv-criterium__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 6px;
+}
+
+.pv-criterium__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Productvisie responsive */
+@media (max-width: 900px) {
+  .pv-pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pv-kansen {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pv-kansen .pv-card--kans:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .pv-criteria {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .pv-criterium {
+    padding: 0;
+    border-left: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .pv-dashboard {
+    padding: 16px;
+  }
+
+  .pv-card {
+    padding: 20px;
+  }
+
+  .pv-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-kansen {
+    grid-template-columns: 1fr;
+  }
+
+  .pv-kansen .pv-card--kans:last-child {
+    grid-column: auto;
+  }
+
+  .pv-criteria {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pv-criterium {
+    padding: 0;
+    border-left: none;
+    padding-top: 16px;
+    border-top: 1px solid var(--afas-tab-border);
+  }
+
+  .pv-criterium:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+/* =============================================
    ERVARING MET SB – Dashboard
    ============================================= */
 .exp-dashboard {
