@@ -344,16 +344,16 @@
     });
   }
 
-  // ==================== MENU WARNING DIALOG ====================
-  function initMenuWarning() {
-    var menuBtn = document.getElementById('menuBtn');
-    var dialog = document.getElementById('menuWarningDialog');
-    var backdrop = document.getElementById('menuWarningBackdrop');
-    var closeBtn = document.getElementById('menuWarningCloseBtn');
-    var actionBtn = document.getElementById('menuWarningActionBtn');
-    if (!menuBtn || !dialog || !backdrop) return;
+  // ==================== WARNING DIALOG FACTORY ====================
+  function createWarningDialog(config) {
+    var triggerBtn = document.getElementById(config.triggerBtnId);
+    var dialog = document.getElementById(config.dialogId);
+    var backdrop = document.getElementById(config.backdropId);
+    var closeBtn = document.getElementById(config.closeBtnId);
+    var actionBtn = document.getElementById(config.actionBtnId);
+    if (!triggerBtn || !dialog || !backdrop) return;
 
-    function openWarning() {
+    function open() {
       backdrop.hidden = false;
       dialog.hidden = false;
       backdrop.offsetHeight;
@@ -362,30 +362,51 @@
       if (actionBtn) actionBtn.focus();
     }
 
-    function closeWarning() {
+    function close() {
       backdrop.classList.remove('is-visible');
       dialog.classList.remove('is-visible');
       setTimeout(function () {
         backdrop.hidden = true;
         dialog.hidden = true;
       }, 150);
-      menuBtn.focus();
+      triggerBtn.focus();
     }
 
-    menuBtn.addEventListener('click', openWarning);
-    if (closeBtn) closeBtn.addEventListener('click', function (e) {
+    triggerBtn.addEventListener('click', function (e) {
       e.stopPropagation();
-      closeWarning();
+      open();
     });
-    backdrop.addEventListener('click', closeWarning);
-    dialog.addEventListener('click', function (e) {
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        close();
+      });
+    }
+
+    backdrop.addEventListener('click', function (e) {
       e.stopPropagation();
+      close();
     });
+
+    if (actionBtn) {
+      actionBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        backdrop.classList.remove('is-visible');
+        dialog.classList.remove('is-visible');
+        setTimeout(function () {
+          backdrop.hidden = true;
+          dialog.hidden = true;
+          if (config.onAction) config.onAction();
+        }, 160);
+      });
+    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !dialog.hidden) {
-        e.stopPropagation();
-        closeWarning();
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        close();
       }
     });
 
@@ -403,88 +424,29 @@
         first.focus();
       }
     });
+  }
 
-    if (actionBtn) {
-      actionBtn.addEventListener('click', function () {
-        closeWarning();
-        setTimeout(openSpotlight, 160);
-      });
-    }
+  // ==================== MENU WARNING DIALOG ====================
+  function initMenuWarning() {
+    createWarningDialog({
+      triggerBtnId: 'menuBtn',
+      dialogId: 'menuWarningDialog',
+      backdropId: 'menuWarningBackdrop',
+      closeBtnId: 'menuWarningCloseBtn',
+      actionBtnId: 'menuWarningActionBtn',
+      onAction: function () { openSpotlight(); }
+    });
   }
 
   // ==================== HELP WARNING DIALOG ====================
   function initHelpWarning() {
-    var helpBtn = document.getElementById('helpBtn');
-    var dialog = document.getElementById('helpWarningDialog');
-    var backdrop = document.getElementById('helpWarningBackdrop');
-    var closeBtn = document.getElementById('helpWarningCloseBtn');
-    var actionBtn = document.getElementById('helpWarningActionBtn');
-    if (!helpBtn || !dialog || !backdrop) return;
-
-    function openWarning() {
-      backdrop.hidden = false;
-      dialog.hidden = false;
-      backdrop.offsetHeight;
-      backdrop.classList.add('is-visible');
-      dialog.classList.add('is-visible');
-      if (actionBtn) actionBtn.focus();
-    }
-
-    function closeWarning() {
-      backdrop.classList.remove('is-visible');
-      dialog.classList.remove('is-visible');
-      setTimeout(function () {
-        backdrop.hidden = true;
-        dialog.hidden = true;
-      }, 150);
-      helpBtn.focus();
-    }
-
-    helpBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      openWarning();
-    });
-
-    closeBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      closeWarning();
-    });
-
-    actionBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      backdrop.classList.remove('is-visible');
-      dialog.classList.remove('is-visible');
-      setTimeout(function () {
-        backdrop.hidden = true;
-        dialog.hidden = true;
-        openJonas();
-      }, 160);
-    });
-
-    backdrop.addEventListener('click', function () {
-      closeWarning();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !dialog.hidden) {
-        e.stopPropagation();
-        closeWarning();
-      }
-    });
-
-    // Focus trap
-    dialog.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var focusable = dialog.querySelectorAll('button:not([hidden])');
-      var first = focusable[0];
-      var last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
+    createWarningDialog({
+      triggerBtnId: 'helpBtn',
+      dialogId: 'helpWarningDialog',
+      backdropId: 'helpWarningBackdrop',
+      closeBtnId: 'helpWarningCloseBtn',
+      actionBtnId: 'helpWarningActionBtn',
+      onAction: function () { openJonas(); }
     });
   }
 
