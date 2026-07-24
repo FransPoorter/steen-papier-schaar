@@ -657,11 +657,13 @@
 .jonas-chat[hidden] {
   display: flex;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .jonas-chat.is-open {
   transform: translateX(0);
   pointer-events: auto;
+  visibility: visible;
 }
 
 .jonas-chat__header {
