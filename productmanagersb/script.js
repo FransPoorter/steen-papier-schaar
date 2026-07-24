@@ -501,12 +501,12 @@
         detail: {
           heading: 'WEA Deltaland van Profit naar SB',
           sections: [
-            { title: 'Situatie', text: 'WEA Deltaland stapte met haar administraties over van Profit naar AFAS SB. Die overgang ging verder dan alleen het technisch migreren van gegevens. Ook de manier van werken veranderde en tegelijkertijd werd de nieuwe Agro-functionaliteit in gebruik genomen.' },
-            { title: 'Mijn rol', text: 'Tijdens dit traject vervulde ik een centrale rol. Voor inhoudelijke vragen was ik het eerste aanspreekpunt en ik begeleidde WEA bij de volledige overstap naar SB.' },
-            { title: 'Mijn aanpak', text: 'Om tempo te maken, organiseerden we migratiedagen op het AFAS-kantoor. Medewerkers van WEA kwamen langs en werkten samen met ons aan het overzetten van zoveel mogelijk administraties. Dat vroeg veel tijd en inzet van de medewerkers. Daarom vond ik het belangrijk om energie in die dagen te brengen, mensen te motiveren en er samen een positieve ervaring van te maken.' },
-            { title: 'Resultaat', text: 'Met enthousiasme, creativiteit en intensieve begeleiding kregen we de beweging erin en zijn de geplande migraties succesvol afgerond. De ervaringen uit dit traject hebben bovendien inzichten opgeleverd waar ook andere klanten bij volgende migraties van profiteren.' }
+            { title: 'Situatie', text: 'WEA Deltaland stapte met haar administraties over van Profit naar AFAS SB. Daarbij ging het niet alleen om het migreren van gegevens. Ook de medewerkers moesten leren werken met SB en tegelijkertijd werd de nieuwe Agro-functionaliteit in gebruik genomen.' },
+            { title: 'Mijn rol', text: 'Ik had tijdens dit traject een centrale rol. Voor inhoudelijke vragen over SB was ik het eerste aanspreekpunt en ik begeleidde WEA bij de volledige overstap: van de migratie tot het daadwerkelijk werken met SB.' },
+            { title: 'Mijn aanpak', text: 'Om samen tempo te maken, organiseerden we migratiedagen op het AFAS-kantoor. Medewerkers van WEA kwamen naar Leusden en we probeerden op zo\u2019n dag zoveel mogelijk administraties over te zetten.\n\nDie dagen vroegen veel tijd en inzet van WEA en waren niet altijd eenvoudig. Ik vond het daarom belangrijk om de energie erin te houden, mensen te motiveren en er samen iets positiefs van te maken. Met enthousiasme, persoonlijke begeleiding en soms een creatieve aanpak zorgden we ervoor dat iedereen bleef aanhaken.' },
+            { title: 'Resultaat', text: 'Uiteindelijk zijn alle geplande administraties succesvol naar SB gemigreerd. WEA kon met SB \u00e9n de Agro-functionaliteit aan de slag.\n\nDe ervaringen uit dit traject hebben daarnaast waardevolle inzichten opgeleverd waarmee ook het migratieproces voor andere SB-klanten verder kon worden verbeterd.' }
           ],
-          insight: 'Een migratie is pas echt geslaagd wanneer niet alleen de gegevens zijn overgezet, maar de klant ook met vertrouwen in het nieuwe product kan werken.'
+          insight: 'Een migratie naar SB is pas echt geslaagd als niet alleen de administratie is overgezet, maar de klant ook begrijpt hoe SB werkt en er met vertrouwen mee verder kan.'
         }
       },
       {
