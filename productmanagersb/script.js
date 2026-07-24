@@ -442,7 +442,7 @@
       }
     }
 
-    // Donut chart interaction
+    // Donut chart interaction (legend only)
     (function initDonut() {
       var centerTexts = [
         ['Mijn', 'kracht'],
@@ -451,44 +451,39 @@
         ['Rust', 'bewaren'],
         ['Mensen', 'meenemen']
       ];
-      var segments = document.querySelectorAll('.intro-donut__segment');
+      var svgCircles = document.querySelectorAll('#donutCard svg circle');
       var legendItems = document.querySelectorAll('.intro-donut__legend-item');
       var center = document.getElementById('donutCenter');
-      if (!segments.length || !center) return;
+      if (!legendItems.length || !center) return;
 
-      var prefersReducedDonut = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var activeIndex = -1;
 
       function setActive(index) {
+        if (index === activeIndex) return;
+        activeIndex = index;
         var lines = center.querySelectorAll('.intro-donut__center-line');
         var text = index === -1 ? centerTexts[0] : centerTexts[index + 1];
         if (lines.length >= 2) {
           lines[0].textContent = text[0];
           lines[1].textContent = text[1];
         }
-        segments.forEach(function(seg, i) {
-          if (index === -1) {
-            seg.classList.remove('intro-donut__segment--dimmed');
-          } else {
-            seg.classList.toggle('intro-donut__segment--dimmed', i !== index);
-          }
+        svgCircles.forEach(function(circle, i) {
+          circle.style.opacity = (index === -1) ? '' : (i === index ? '1' : '0.3');
         });
         legendItems.forEach(function(item, i) {
-          item.classList.toggle('intro-donut__legend-item--active', i === index);
+          if (i === index) {
+            item.classList.add('intro-donut__legend-item--active');
+          } else {
+            item.classList.remove('intro-donut__legend-item--active');
+          }
         });
       }
 
-      function onEnter(index) { setActive(index); }
-      function onLeave() { setActive(-1); }
-
-      segments.forEach(function(seg, i) {
-        seg.addEventListener('mouseenter', function() { onEnter(i); });
-        seg.addEventListener('mouseleave', onLeave);
-        seg.addEventListener('focus', function() { onEnter(i); });
-        seg.addEventListener('blur', onLeave);
-      });
       legendItems.forEach(function(item, i) {
-        item.addEventListener('mouseenter', function() { onEnter(i); });
-        item.addEventListener('mouseleave', onLeave);
+        item.addEventListener('mouseenter', function() { setActive(i); });
+        item.addEventListener('mouseleave', function() { setActive(-1); });
+        item.addEventListener('focusin', function() { setActive(i); });
+        item.addEventListener('focusout', function() { setActive(-1); });
       });
     })();
   }

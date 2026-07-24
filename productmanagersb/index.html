@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=80" />
+  <link rel="stylesheet" href="style.css?v=81" />
 </head>
 <body class="product-manager-sb-page">
 
@@ -360,11 +360,11 @@
               <div class="intro-donut">
                 <div class="intro-donut__chart-wrap">
                   <svg class="intro-donut__svg" viewBox="0 0 200 200" aria-hidden="true">
-                    <!-- 4 arc segments of 87° each, 3° gap, r=86, center=(100,100) -->
-                    <path class="intro-donut__segment" data-index="0" d="M102.2 14.0 A86 86 0 0 1 186.0 97.8" fill="none" stroke="#0074d0" stroke-width="28" stroke-linecap="butt" tabindex="0" role="button" aria-label="SB-kennis: Ervaring met SB en de praktijk van klanten."/>
-                    <path class="intro-donut__segment" data-index="1" d="M186.0 102.2 A86 86 0 0 1 102.2 186.0" fill="none" stroke="#f59e0b" stroke-width="28" stroke-linecap="butt" tabindex="0" role="button" aria-label="Creativiteit: Nieuwe mogelijkheden zien en oplossingen bedenken."/>
-                    <path class="intro-donut__segment" data-index="2" d="M97.8 186.0 A86 86 0 0 1 14.0 102.2" fill="none" stroke="#7c3aed" stroke-width="28" stroke-linecap="butt" tabindex="0" role="button" aria-label="Stressbestendigheid: Rust en overzicht bewaren wanneer de druk toeneemt."/>
-                    <path class="intro-donut__segment" data-index="3" d="M14.0 97.8 A86 86 0 0 1 97.8 14.0" fill="none" stroke="#15803d" stroke-width="28" stroke-linecap="butt" tabindex="0" role="button" aria-label="Enthousiasme: Energie overbrengen en anderen meenemen."/>
+                    <!-- 4 equal segments using circle + dasharray, no interaction on SVG -->
+                    <circle cx="100" cy="100" r="72" fill="none" stroke="#0074d0" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+                    <circle cx="100" cy="100" r="72" fill="none" stroke="#f59e0b" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-113.8" transform="rotate(-90 100 100)"/>
+                    <circle cx="100" cy="100" r="72" fill="none" stroke="#7c3aed" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-227.6" transform="rotate(-90 100 100)"/>
+                    <circle cx="100" cy="100" r="72" fill="none" stroke="#15803d" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-341.4" transform="rotate(-90 100 100)"/>
                   </svg>
                   <div class="intro-donut__center" id="donutCenter">
                     <span class="intro-donut__center-line">Mijn</span>
@@ -372,28 +372,28 @@
                   </div>
                 </div>
                 <div class="intro-donut__legend" id="donutLegend">
-                  <div class="intro-donut__legend-item" data-index="0">
+                  <div class="intro-donut__legend-item" data-index="0" tabindex="0">
                     <span class="intro-donut__legend-swatch" style="background:#0074d0"></span>
                     <div class="intro-donut__legend-text">
                       <span class="intro-donut__legend-title">SB-kennis</span>
                       <span class="intro-donut__legend-desc">Ervaring met SB en de praktijk van klanten.</span>
                     </div>
                   </div>
-                  <div class="intro-donut__legend-item" data-index="1">
+                  <div class="intro-donut__legend-item" data-index="1" tabindex="0">
                     <span class="intro-donut__legend-swatch" style="background:#f59e0b"></span>
                     <div class="intro-donut__legend-text">
                       <span class="intro-donut__legend-title">Creativiteit</span>
                       <span class="intro-donut__legend-desc">Nieuwe mogelijkheden zien en oplossingen bedenken.</span>
                     </div>
                   </div>
-                  <div class="intro-donut__legend-item" data-index="2">
+                  <div class="intro-donut__legend-item" data-index="2" tabindex="0">
                     <span class="intro-donut__legend-swatch" style="background:#7c3aed"></span>
                     <div class="intro-donut__legend-text">
                       <span class="intro-donut__legend-title">Stressbestendigheid</span>
                       <span class="intro-donut__legend-desc">Rust en overzicht bewaren wanneer de druk toeneemt.</span>
                     </div>
                   </div>
-                  <div class="intro-donut__legend-item" data-index="3">
+                  <div class="intro-donut__legend-item" data-index="3" tabindex="0">
                     <span class="intro-donut__legend-swatch" style="background:#15803d"></span>
                     <div class="intro-donut__legend-text">
                       <span class="intro-donut__legend-title">Enthousiasme</span>
@@ -693,6 +693,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=80"></script>
+  <script src="script.js?v=81"></script>
 </body>
 </html>

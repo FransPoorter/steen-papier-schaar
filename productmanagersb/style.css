@@ -1838,20 +1838,8 @@
   height: 100%;
 }
 
-.intro-donut__segment {
-  cursor: pointer;
+.intro-donut__svg circle {
   transition: opacity 50ms ease;
-  outline: none;
-}
-
-.intro-donut__segment:focus-visible {
-  filter: brightness(1.2);
-  outline: 2px solid var(--afas-primary);
-  outline-offset: 2px;
-}
-
-.intro-donut__segment--dimmed {
-  opacity: 0.3;
 }
 
 .intro-donut__center {
