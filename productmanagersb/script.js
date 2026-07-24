@@ -474,8 +474,13 @@
 
     if (actionBtn) {
       actionBtn.addEventListener('click', function () {
-        closeWarning();
-        setTimeout(openJonas, 160);
+        backdrop.classList.remove('is-visible');
+        dialog.classList.remove('is-visible');
+        setTimeout(function () {
+          backdrop.hidden = true;
+          dialog.hidden = true;
+          openJonas();
+        }, 160);
       });
     }
   }
