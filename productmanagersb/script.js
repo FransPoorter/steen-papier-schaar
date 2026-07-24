@@ -543,11 +543,11 @@
       },
       {
         category: 'Praktisch productidee',
-        title: 'Van handmatig mappen naar een slimme SB-migratie',
+        title: 'Van handmatig mappen naar een Slimme SB Auditfile mapper',
         summary: 'Een Mapping Manager gebouwd die mappingbestanden samenvoegt, automatisch koppelingen voorstelt en waarschuwt voor conflicten en ontbrekende instellingen.',
         tags: ['Migratie', 'Automatisering', 'Productverbetering', 'Kwaliteitscontrole'],
         detail: {
-          heading: 'Van handmatig mappen naar een slimme SB-migratie',
+          heading: 'Van handmatig mappen naar een Slimme SB Auditfile mapper',
           image: {
             src: 'afassbmappingmanager.png',
             alt: 'AFAS SB Mapping Manager voor het importeren, controleren en exporteren van mappingbestanden',
