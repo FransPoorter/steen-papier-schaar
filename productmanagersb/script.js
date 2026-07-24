@@ -488,11 +488,11 @@
     // KPI Configuration
     var experienceKpis = [
       { id: 'own-administrations', title: 'Eigen administraties', value: 4, subtitle: 'SB ook ervaren als dagelijkse gebruiker.', tone: 'primary', tooltip: 'Naast mijn werkervaring gebruik ik SB ook voor vier eigen administraties.' },
-      { id: 'incidents', title: 'Incidenten opgelost', value: null, subtitle: 'Van analyse tot een werkende oplossing.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal opgeloste incidenten invullen
-      { id: 'implementations', title: 'SB-implementaties', value: null, subtitle: 'Klanten begeleid bij een goede start met SB.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal begeleide implementaties invullen
-      { id: 'migrations', title: 'Migraties uitgevoerd', value: null, subtitle: 'Administraties succesvol naar SB gebracht.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal uitgevoerde migraties invullen
-      { id: 'practice-hours', title: 'Praktijkuren in SB', value: null, subtitle: 'Gewerkt met het product en de bijbehorende klantprocessen.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal praktijkuren in SB invullen
-      { id: 'client-hours', title: 'Uren met klanten', value: null, subtitle: 'Luisteren, uitleggen en samen verbeteren.', emptyLabel: 'Wordt nog aangevuld' } // TODO: definitief aantal uren in klantgesprekken invullen
+      { id: 'incidents', title: 'Incidenten opgelost', value: '1770+', subtitle: 'Van analyse tot een werkende oplossing.' },
+      { id: 'implementations', title: 'SB-implementaties', value: '100+', subtitle: 'Klanten begeleid bij een goede start met SB.' },
+      { id: 'migrations', title: 'Migraties uitgevoerd', value: '3000+', subtitle: 'Administraties succesvol naar SB gebracht.' },
+      { id: 'practice-hours', title: 'Praktijkuren in SB', value: '≈ 5000', subtitle: 'Gewerkt met het product en de bijbehorende klantprocessen.' },
+      { id: 'client-hours', title: 'Uren met klanten', value: '≈ 2000', subtitle: 'Luisteren, uitleggen en samen verbeteren.' }
     ];
 
     // Practice stories configuration
