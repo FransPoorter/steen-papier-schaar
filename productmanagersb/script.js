@@ -444,6 +444,165 @@
 
   }
 
+  // ==================== ERVARING MET SB ====================
+  function initExperience() {
+    // KPI Configuration
+    var experienceKpis = [
+      { id: 'own-administrations', title: 'Eigen administraties', value: 4, subtitle: 'SB ook ervaren als dagelijkse gebruiker.', tone: 'primary', tooltip: 'Naast mijn werkervaring gebruik ik SB ook voor vier eigen administraties.' },
+      { id: 'incidents', title: 'Incidenten opgelost', value: null, subtitle: 'Van analyse tot een werkende oplossing.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal opgeloste incidenten invullen
+      { id: 'implementations', title: 'SB-implementaties', value: null, subtitle: 'Klanten begeleid bij een goede start met SB.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal begeleide implementaties invullen
+      { id: 'migrations', title: 'Migraties uitgevoerd', value: null, subtitle: 'Administraties succesvol naar SB gebracht.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal uitgevoerde migraties invullen
+      { id: 'practice-hours', title: 'Praktijkuren in SB', value: null, subtitle: 'Gewerkt met het product en de bijbehorende klantprocessen.', emptyLabel: 'Wordt nog aangevuld' }, // TODO: definitief aantal praktijkuren in SB invullen
+      { id: 'client-hours', title: 'Uren met klanten', value: null, subtitle: 'Luisteren, uitleggen en samen verbeteren.', emptyLabel: 'Wordt nog aangevuld' } // TODO: definitief aantal uren in klantgesprekken invullen
+    ];
+
+    // Practice stories configuration
+    var practiceStories = [
+      {
+        category: 'Klant en adoptie',
+        title: 'WEA Deltaland van Profit naar SB',
+        summary: 'WEA Deltaland begeleid bij de volledige overstap naar SB, inclusief migratie, ingebruikname en de nieuwe Agro-functionaliteit.',
+        tags: ['Klantbegeleiding', 'Migratie', 'Adoptie', 'Agro'],
+        detail: {
+          heading: 'WEA Deltaland van Profit naar SB',
+          sections: [
+            { title: 'Situatie', text: 'WEA Deltaland stapte met haar administraties over van Profit naar AFAS SB. Die overgang ging verder dan alleen het technisch migreren van gegevens. Ook de manier van werken veranderde en tegelijkertijd werd de nieuwe Agro-functionaliteit in gebruik genomen.' },
+            { title: 'Mijn rol', text: 'Tijdens dit traject vervulde ik een centrale rol. Voor inhoudelijke vragen was ik het eerste aanspreekpunt en ik begeleidde WEA bij de volledige overstap naar SB.' },
+            { title: 'Mijn aanpak', text: 'Om tempo te maken, organiseerden we migratiedagen op het AFAS-kantoor. Medewerkers van WEA kwamen langs en werkten samen met ons aan het overzetten van zoveel mogelijk administraties. Dat vroeg veel tijd en inzet van de medewerkers. Daarom vond ik het belangrijk om energie in die dagen te brengen, mensen te motiveren en er samen een positieve ervaring van te maken.' },
+            { title: 'Resultaat', text: 'Met enthousiasme, creativiteit en intensieve begeleiding kregen we de beweging erin en zijn de geplande migraties succesvol afgerond. De ervaringen uit dit traject hebben bovendien inzichten opgeleverd waar ook andere klanten bij volgende migraties van profiteren.' }
+          ],
+          insight: 'Een migratie is pas echt geslaagd wanneer niet alleen de gegevens zijn overgezet, maar de klant ook met vertrouwen in het nieuwe product kan werken.'
+        }
+      },
+      {
+        category: 'Productverbetering',
+        title: 'Migratie verbeteren vanuit de praktijk',
+        summary: 'Knelpunten uit eerdere migraties verzameld en samen met collega\u2019s vertaald naar concrete verbeteringen in het product.',
+        tags: ['Productverbetering', 'Migratie', 'Samenwerking', 'Klantinzicht'],
+        detail: {
+          heading: 'Migratie verbeteren vanuit de praktijk',
+          sections: [
+            { title: 'Situatie', text: 'Tijdens eerdere migraties hield ik voor mezelf een lijst bij van zaken die volgens mij slimmer, duidelijker of eenvoudiger konden. Toen ook de Boekhoudfabriek naar SB zou worden overgezet, was dat een goed moment om deze inzichten breder te bespreken.' },
+            { title: 'Mijn rol', text: 'Ik bracht de signalen uit de praktijk bij elkaar en nam het initiatief om ze samen met collega\u2019s inhoudelijk uit te werken.' },
+            { title: 'Mijn aanpak', text: 'Samen met Michiel, Brand-Jan en Arnoud heb ik de punten doorgenomen en verder uitgewerkt. Daarmee brachten we concrete praktijkervaring naar het product en konden verschillende onderdelen van het migratieproces worden verbeterd.' },
+            { title: 'Resultaat', text: 'Bij een latere presentatie aan VvAA konden we daardoor een veel sterkere migratiedemo geven. Het verschil met eerdere migraties was duidelijk zichtbaar.' }
+          ],
+          insight: 'Productverbetering begint vaak bij kleine signalen die je consequent vastlegt en op het juiste moment bij elkaar brengt.'
+        }
+      },
+      {
+        category: 'Visie en keuzes',
+        title: 'Inspraaksessie AFAS SB',
+        summary: 'Vanuit productkennis en praktijkervaring meegedacht over de visie achter SB en de keuzes die daarbij horen.',
+        tags: ['Productvisie', 'Prioritering', 'SB-kennis', 'Samenwerking'],
+        detail: {
+          heading: 'Meedenken over de koers van AFAS SB',
+          sections: [
+            { title: 'Situatie', text: 'Diederik organiseerde een inspraaksessie over AFAS SB. Ik wilde daar graag bij aansluiten, omdat ik vanuit mijn ervaring met klanten, migraties en het dagelijkse gebruik van SB een inhoudelijke bijdrage kon leveren.' },
+            { title: 'Mijn rol', text: 'Tijdens de sessie bracht ik kennis uit de praktijk in en dacht ik mee over zowel de inhoud van het product als de achterliggende visie.' },
+            { title: 'Mijn aanpak', text: 'Ik keek niet alleen naar wat technisch of functioneel mogelijk is, maar stelde ook vragen over het probleem dat we willen oplossen, de richting die bij SB past en waarom we een bepaalde wens wel of juist niet zouden moeten oppakken.' },
+            { title: 'Resultaat', text: 'Tijdens de sessie merkte ik dat ik inhoudelijk kon meepraten over SB en tegelijkertijd kon bijdragen aan het gesprek over visie, richting en prioritering.' }
+          ],
+          insight: 'Niet iedere goede wens is automatisch de juiste keuze voor SB. De productvisie moet bepalen waar we wel en niet op inzetten.'
+        }
+      }
+    ];
+
+    // Calculate AFAS experience duration
+    function calcDuration() {
+      var start = new Date(2022, 10, 1); // 1 november 2022
+      var now = new Date();
+      var years = now.getFullYear() - start.getFullYear();
+      var months = now.getMonth() - start.getMonth();
+      if (now.getDate() < start.getDate()) months--;
+      if (months < 0) { years--; months += 12; }
+      var parts = [];
+      if (years > 0) parts.push(years + (years === 1 ? ' jaar' : ' jaar'));
+      if (months > 0) parts.push(months + (months === 1 ? ' maand' : ' maanden'));
+      return parts.join(' en ') || '0 maanden';
+    }
+
+    var durationEl = document.getElementById('afasExperienceDuration');
+    if (durationEl) durationEl.textContent = calcDuration();
+
+    // Render KPIs
+    var kpiGrid = document.getElementById('expKpiGrid');
+    if (kpiGrid) {
+      kpiGrid.innerHTML = experienceKpis.map(function(kpi) {
+        var isEmpty = kpi.value === null || kpi.value === undefined;
+        var displayValue = isEmpty ? '\u2014' : kpi.value;
+        var valueClass = 'exp-dashboard__kpi-value' + (isEmpty ? ' exp-dashboard__kpi-value--empty' : '');
+        var cardClass = 'exp-dashboard__kpi-card' + (isEmpty ? ' exp-dashboard__kpi-card--empty' : '');
+        var tooltipAttr = kpi.tooltip ? ' title="' + kpi.tooltip.replace(/"/g, '&quot;') + '"' : '';
+        var emptyLabel = isEmpty && kpi.emptyLabel ? '<span class="exp-dashboard__kpi-empty">' + kpi.emptyLabel + '</span>' : '';
+        return '<div class="' + cardClass + '"' + tooltipAttr + '>' +
+          '<span class="exp-dashboard__kpi-title">' + kpi.title + '</span>' +
+          '<span class="' + valueClass + '">' + displayValue + '</span>' +
+          '<span class="exp-dashboard__kpi-subtitle">' + kpi.subtitle + '</span>' +
+          emptyLabel +
+          '</div>';
+      }).join('');
+    }
+
+    // Render story cards
+    var storiesGrid = document.getElementById('expStoriesGrid');
+    if (storiesGrid) {
+      storiesGrid.innerHTML = practiceStories.map(function(story, i) {
+        var tagsHtml = story.tags.map(function(t) { return '<span class="exp-story-card__tag">' + t + '</span>'; }).join('');
+        return '<button class="exp-story-card" type="button" data-story-index="' + i + '" aria-label="Bekijk praktijkverhaal: ' + story.title + '">' +
+          '<span class="exp-story-card__category">' + story.category + '</span>' +
+          '<h4 class="exp-story-card__title">' + story.title + '</h4>' +
+          '<p class="exp-story-card__summary">' + story.summary + '</p>' +
+          '<div class="exp-story-card__tags">' + tagsHtml + '</div>' +
+          '<span class="exp-story-card__action">Bekijk praktijkverhaal \u2192</span>' +
+          '</button>';
+      }).join('');
+    }
+
+    // Story panel interaction
+    var panel = document.getElementById('expStoryPanel');
+    var panelTitle = document.getElementById('expStoryPanelTitle');
+    var panelBody = document.getElementById('expStoryPanelBody');
+    var panelClose = document.getElementById('expStoryCloseBtn');
+    var panelBackdrop = document.getElementById('expStoryBackdrop');
+    var lastFocusedEl = null;
+
+    function openStory(index) {
+      var story = practiceStories[index];
+      if (!story || !panel) return;
+      lastFocusedEl = document.activeElement;
+      panelTitle.textContent = story.detail.heading;
+      var html = story.detail.sections.map(function(s) {
+        return '<div class="exp-story-panel__section"><h4>' + s.title + '</h4><p>' + s.text + '</p></div>';
+      }).join('');
+      html += '<div class="exp-story-panel__insight"><h4>Productinzicht</h4><p>' + story.detail.insight + '</p></div>';
+      panelBody.innerHTML = html;
+      panel.hidden = false;
+      document.body.style.overflow = 'hidden';
+      panelClose.focus();
+    }
+
+    function closeStory() {
+      if (!panel) return;
+      panel.hidden = true;
+      document.body.style.overflow = '';
+      if (lastFocusedEl) lastFocusedEl.focus();
+    }
+
+    if (storiesGrid) {
+      storiesGrid.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-story-index]');
+        if (btn) openStory(parseInt(btn.getAttribute('data-story-index'), 10));
+      });
+    }
+
+    if (panelClose) panelClose.addEventListener('click', closeStory);
+    if (panelBackdrop) panelBackdrop.addEventListener('click', closeStory);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && panel && !panel.hidden) closeStory();
+    });
+  }
+
   function initAll() {
     init();
     initNotifications();
@@ -453,6 +612,7 @@
     initHelpWarning();
     initSpotlight();
     initIntroDashboard();
+    initExperience();
   }
 
   // ==================== USER SETTINGS MODAL ====================

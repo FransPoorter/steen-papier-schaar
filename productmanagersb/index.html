@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=81" />
+  <link rel="stylesheet" href="style.css?v=82" />
 </head>
 <body class="product-manager-sb-page">
 
@@ -537,24 +537,66 @@
 
     <!-- Panel: Ervaring -->
     <section class="afas-tab-panel" id="panel-ervaring" role="tabpanel" aria-labelledby="tab-ervaring" aria-hidden="true">
-      <div class="afas-content-section">
-        <h1 class="afas-content-section__heading">Ervaring met SB</h1>
-        <p class="afas-content-section__description">
-          Praktijkervaring met klantprocessen en het SB-domein.
-        </p>
+      <div class="exp-dashboard">
+
+        <!-- Intro -->
+        <div class="exp-dashboard__intro">
+          <h2 class="exp-dashboard__title">Ervaring met SB</h2>
+          <p class="exp-dashboard__subtitle">Van praktijkervaring naar productwaarde</p>
+          <p class="exp-dashboard__desc">Mijn ervaring met SB is opgebouwd in de dagelijkse praktijk: klanten begeleiden, problemen oplossen, migraties uitvoeren en continu zoeken naar manieren waarop het product slimmer en eenvoudiger kan.</p>
+        </div>
+
+        <!-- Top row: Leerschool + AFAS-ervaring -->
+        <div class="exp-dashboard__top">
+          <!-- Leerschool Card -->
+          <div class="exp-dashboard__card exp-dashboard__card--wide">
+            <div class="exp-dashboard__card-header">
+              <h3 class="exp-dashboard__card-title">Mijn SB-leerschool</h3>
+              <button class="intro-tooltip-trigger" type="button" aria-label="Meer informatie over mijn SB-leerschool" data-tooltip="Mijn kennis van SB is niet alleen ontstaan door ermee te werken, maar vooral door te leren van ervaren collega's.">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#94a3b8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+              </button>
+            </div>
+            <p class="exp-dashboard__card-big">Opgeleid door reuzen</p>
+            <p class="exp-dashboard__card-sub">Onder anderen Ariaan, Koopie, Brand-Jan, Robert Adema, Anne-Carlijn — en nog veel meer collega's die hun kennis en ervaring met mij deelden.</p>
+          </div>
+
+          <!-- AFAS-ervaring KPI -->
+          <div class="exp-dashboard__card exp-dashboard__card--kpi">
+            <h3 class="exp-dashboard__card-title">Ervaring bij AFAS</h3>
+            <div class="exp-kpi__value">
+              <span class="exp-kpi__number exp-kpi__number--primary" id="afasExperienceDuration"></span>
+            </div>
+            <p class="exp-kpi__subtitle">Sinds 1 november 2022</p>
+          </div>
+        </div>
+
+        <!-- KPI row -->
+        <div class="exp-dashboard__kpis" id="expKpiGrid">
+          <!-- Rendered by JS from config -->
+        </div>
+
+        <!-- Practice stories section -->
+        <div class="exp-dashboard__stories">
+          <h3 class="exp-dashboard__section-title">Van praktijkervaring naar productwaarde</h3>
+          <p class="exp-dashboard__section-desc">Drie voorbeelden waarin ik klanten heb meegenomen, praktijkinzichten heb vertaald naar verbeteringen en heb meegedacht over de koers van SB.</p>
+          <div class="exp-dashboard__stories-grid" id="expStoriesGrid">
+            <!-- Rendered by JS from config -->
+          </div>
+        </div>
+
       </div>
-      <div class="afas-priority-grid">
-        <div class="afas-priority-card">
-          <p class="afas-priority-card__label">Case 1</p>
-          <p class="afas-priority-card__text">Praktijkervaring wordt hier beschreven.</p>
-        </div>
-        <div class="afas-priority-card">
-          <p class="afas-priority-card__label">Case 2</p>
-          <p class="afas-priority-card__text">Klantproces-inzichten volgen hier.</p>
-        </div>
-        <div class="afas-priority-card">
-          <p class="afas-priority-card__label">Case 3</p>
-          <p class="afas-priority-card__text">Domeinkennis wordt hier uitgelicht.</p>
+
+      <!-- Practice Story Detail Panel -->
+      <div class="exp-story-panel" id="expStoryPanel" role="dialog" aria-modal="true" aria-labelledby="expStoryPanelTitle" hidden>
+        <div class="exp-story-panel__backdrop" id="expStoryBackdrop"></div>
+        <div class="exp-story-panel__content">
+          <div class="exp-story-panel__header">
+            <h2 class="exp-story-panel__title" id="expStoryPanelTitle"></h2>
+            <button class="exp-story-panel__close" type="button" id="expStoryCloseBtn" aria-label="Sluit verhaal">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="exp-story-panel__body" id="expStoryPanelBody"></div>
         </div>
       </div>
     </section>
@@ -693,6 +735,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=81"></script>
+  <script src="script.js?v=82"></script>
 </body>
 </html>
