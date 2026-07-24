@@ -356,98 +356,34 @@
     });
   }
 
-  // ==================== WARNING DIALOG FACTORY ====================
-  function createWarningDialog(config) {
-    var triggerBtn = document.getElementById(config.triggerBtnId);
-    var dialog = document.getElementById(config.dialogId);
-    var backdrop = document.getElementById(config.backdropId);
-    var closeBtn = document.getElementById(config.closeBtnId);
-    var actionBtn = document.getElementById(config.actionBtnId);
-    if (!triggerBtn || !dialog || !backdrop) return;
-
-    function open() {
-      backdrop.hidden = false;
-      dialog.hidden = false;
-      backdrop.offsetHeight;
-      backdrop.classList.add('is-visible');
-      dialog.classList.add('is-visible');
-      if (actionBtn) actionBtn.focus();
-    }
-
-    function close() {
-      backdrop.classList.remove('is-visible');
-      dialog.classList.remove('is-visible');
-      setTimeout(function () {
-        backdrop.hidden = true;
-        dialog.hidden = true;
-      }, 150);
-      triggerBtn.focus();
-    }
-
-    triggerBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      open();
-    });
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        close();
-      });
-    }
-
-    backdrop.addEventListener('click', function (e) {
-      e.stopPropagation();
-      close();
-    });
-
-    if (actionBtn) {
-      actionBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        backdrop.classList.remove('is-visible');
-        dialog.classList.remove('is-visible');
-        setTimeout(function () {
-          backdrop.hidden = true;
-          dialog.hidden = true;
-          if (config.onAction) config.onAction();
-        }, 160);
-      });
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !dialog.hidden) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        close();
-      }
-    });
-
-    // Focus trap
-    dialog.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var focusable = dialog.querySelectorAll('button:not([hidden])');
-      var first = focusable[0];
-      var last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
-  }
-
   // ==================== MENU WARNING DIALOG ====================
   function initMenuWarning() {
-    createWarningDialog({
-      triggerBtnId: 'menuBtn',
-      dialogId: 'menuWarningDialog',
-      backdropId: 'menuWarningBackdrop',
-      closeBtnId: 'menuWarningCloseBtn',
-      actionBtnId: 'menuWarningActionBtn',
-      onAction: function () { openSpotlight(); }
-    });
+    var menuBtn = document.getElementById('menuBtn');
+    var menuDialog = document.getElementById('menuWarningDialog');
+    var menuBackdrop = document.getElementById('menuWarningBackdrop');
+    var menuCloseBtn = document.getElementById('menuWarningCloseBtn');
+    var menuActionBtn = document.getElementById('menuWarningActionBtn');
+    if (!menuBtn || !menuDialog || !menuBackdrop) return;
+
+    function showMenu() {
+      menuBackdrop.hidden = false;
+      menuDialog.hidden = false;
+      menuBackdrop.offsetHeight;
+      menuBackdrop.classList.add('is-visible');
+      menuDialog.classList.add('is-visible');
+    }
+
+    function hideMenu() {
+      menuBackdrop.classList.remove('is-visible');
+      menuDialog.classList.remove('is-visible');
+      menuBackdrop.hidden = true;
+      menuDialog.hidden = true;
+    }
+
+    menuBtn.onclick = function () { showMenu(); };
+    menuCloseBtn.onclick = function () { hideMenu(); menuBtn.focus(); };
+    menuBackdrop.onclick = function () { hideMenu(); menuBtn.focus(); };
+    menuActionBtn.onclick = function () { hideMenu(); openSpotlight(); };
   }
 
   // ==================== HELP WARNING DIALOG ====================
@@ -459,10 +395,7 @@
     var helpActionBtn = document.getElementById('helpWarningActionBtn');
     if (!helpBtn || !helpDialog || !helpBackdrop) return;
 
-    var helpDialogOpen = false;
-
-    function showHelpDialog() {
-      helpDialogOpen = true;
+    function showHelp() {
       helpBackdrop.hidden = false;
       helpDialog.hidden = false;
       helpBackdrop.offsetHeight;
@@ -470,49 +403,17 @@
       helpDialog.classList.add('is-visible');
     }
 
-    function hideHelpDialog() {
-      helpDialogOpen = false;
+    function hideHelp() {
       helpBackdrop.classList.remove('is-visible');
       helpDialog.classList.remove('is-visible');
       helpBackdrop.hidden = true;
       helpDialog.hidden = true;
     }
 
-    helpBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      showHelpDialog();
-    }, true);
-
-    helpCloseBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      hideHelpDialog();
-      helpBtn.focus();
-    }, true);
-
-    helpBackdrop.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      hideHelpDialog();
-      helpBtn.focus();
-    }, true);
-
-    helpActionBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      hideHelpDialog();
-      openJonas();
-    }, true);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && helpDialogOpen) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        hideHelpDialog();
-        helpBtn.focus();
-      }
-    }, true);
+    helpBtn.onclick = function () { showHelp(); };
+    helpCloseBtn.onclick = function () { hideHelp(); helpBtn.focus(); };
+    helpBackdrop.onclick = function () { hideHelp(); helpBtn.focus(); };
+    helpActionBtn.onclick = function () { hideHelp(); openJonas(); };
   }
 
   // ==================== SPOTLIGHT SEARCH ====================
