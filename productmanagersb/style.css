@@ -2430,6 +2430,28 @@
   margin: 0;
 }
 
+/* Example block */
+.mot-example {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.mot-example__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 12px;
+}
+
+.mot-example__closing {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  margin: 16px 0 0;
+  line-height: 1.5;
+}
+
 /* Motivatie responsive */
 @media (max-width: 900px) {
   .mot-trio {
