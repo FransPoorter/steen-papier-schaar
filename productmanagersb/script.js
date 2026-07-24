@@ -383,7 +383,7 @@
     menuBtn.onclick = function () { showMenu(); };
     menuCloseBtn.onclick = function () { hideMenu(); menuBtn.focus(); };
     menuBackdrop.onclick = function () { hideMenu(); menuBtn.focus(); };
-    menuActionBtn.onclick = function () { hideMenu(); openSpotlight(); };
+    menuActionBtn.onclick = function () { hideMenu(); setTimeout(openSpotlight, 0); };
   }
 
   // ==================== HELP WARNING DIALOG ====================
@@ -419,12 +419,19 @@
   var spotlightSelectedIndex = 0;
   var spotlightFiltered = [];
   var spotlightOpener = null;
+  var spotlightHideTimeout = null;
+  var spotlightOpenTime = 0;
 
   function openSpotlight(openerEl) {
     var backdrop = document.getElementById('spotlightBackdrop');
     var dialog = document.getElementById('spotlightDialog');
     var input = document.getElementById('spotlightInput');
     if (!backdrop || !dialog) return;
+
+    if (spotlightHideTimeout) {
+      clearTimeout(spotlightHideTimeout);
+      spotlightHideTimeout = null;
+    }
 
     spotlightOpener = openerEl || document.activeElement;
     backdrop.hidden = false;
@@ -433,6 +440,7 @@
     backdrop.classList.add('is-visible');
     dialog.classList.add('is-visible');
     spotlightOpen = true;
+    spotlightOpenTime = Date.now();
 
     input.value = '';
     renderSpotlightResults('');
@@ -443,14 +451,16 @@
     var backdrop = document.getElementById('spotlightBackdrop');
     var dialog = document.getElementById('spotlightDialog');
     if (!backdrop || !dialog) return;
+    if (!spotlightOpen) return;
 
     backdrop.classList.remove('is-visible');
     dialog.classList.remove('is-visible');
     spotlightOpen = false;
 
-    setTimeout(function () {
+    spotlightHideTimeout = setTimeout(function () {
       backdrop.hidden = true;
       dialog.hidden = true;
+      spotlightHideTimeout = null;
     }, 150);
 
     if (spotlightOpener && spotlightOpener.focus) {
@@ -543,7 +553,10 @@
     var list = document.getElementById('spotlightResults');
     if (!backdrop || !input) return;
 
-    backdrop.addEventListener('click', closeSpotlight);
+    backdrop.addEventListener('click', function () {
+      if (Date.now() - spotlightOpenTime < 100) return;
+      closeSpotlight();
+    });
 
     input.addEventListener('input', function () {
       renderSpotlightResults(input.value);
