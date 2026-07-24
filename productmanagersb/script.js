@@ -601,9 +601,27 @@
     });
   }
 
+  // ==================== AUTO VERSION ====================
+  function fetchVersion() {
+    var el = document.getElementById('appVersion');
+    if (!el) return;
+    fetch('https://api.github.com/repos/FransPoorter/steen-papier-schaar/commits/main', {
+      headers: { Accept: 'application/vnd.github.v3+json' }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data && data.commit && data.commit.message) {
+          var version = data.commit.message.trim().split('\n')[0];
+          el.textContent = 'v' + version;
+        }
+      })
+      .catch(function () { /* keep fallback */ });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAll);
+    document.addEventListener('DOMContentLoaded', function () { initAll(); fetchVersion(); });
   } else {
     initAll();
+    fetchVersion();
   }
 })();
