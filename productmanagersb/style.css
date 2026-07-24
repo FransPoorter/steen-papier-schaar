@@ -2618,6 +2618,78 @@
   margin: 0;
 }
 
+/* SB Leerschool Card */
+.sb-learning-content {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+}
+
+.sb-learning-kpi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sb-learning-kpi__value {
+  font-size: 48px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  line-height: 1;
+}
+
+.sb-learning-kpi__label {
+  font-size: 13px;
+  color: var(--afas-text-secondary);
+  margin-top: 4px;
+}
+
+.sb-mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 20px;
+}
+
+.sb-mentor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sb-mentor__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sb-mentor__avatar--more {
+  background: var(--afas-tab-border) !important;
+  color: var(--afas-text-secondary);
+  font-size: 16px;
+}
+
+.sb-mentor__name {
+  font-size: 13px;
+  color: var(--afas-text-primary);
+  white-space: nowrap;
+}
+
+.sb-learning-footer {
+  margin: 16px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--afas-text-secondary);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .exp-dashboard__top {
@@ -2626,6 +2698,10 @@
 
   .exp-dashboard__stories-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sb-mentor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -2640,6 +2716,20 @@
 
   .exp-dashboard__kpis {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sb-learning-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .sb-learning-kpi {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .sb-mentor-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .exp-story-panel__content {
