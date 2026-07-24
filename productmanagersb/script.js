@@ -383,6 +383,35 @@
 
     // Initial badge update
     updateNavBadges();
+
+    // Energie KPI count-up animation (0% → 100%, once)
+    var energieEl = document.getElementById('energieKpiValue');
+    if (energieEl) {
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        energieEl.textContent = '100%';
+      } else {
+        energieEl.textContent = '0%';
+        var animated = false;
+        var observer = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting && !animated) {
+            animated = true;
+            observer.disconnect();
+            var start = null;
+            var duration = 700;
+            function step(ts) {
+              if (!start) start = ts;
+              var progress = Math.min((ts - start) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              energieEl.textContent = Math.round(eased * 100) + '%';
+              if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          }
+        }, { threshold: 0.3 });
+        observer.observe(energieEl);
+      }
+    }
   }
 
   function initAll() {
