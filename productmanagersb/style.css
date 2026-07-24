@@ -1814,14 +1814,14 @@
 .intro-donut {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 40px;
 }
 
 .intro-donut__chart-wrap {
   position: relative;
   flex-shrink: 0;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
 }
 
 .intro-donut__svg {
