@@ -1843,6 +1843,7 @@
   cursor: pointer;
   transition: opacity 50ms ease;
   outline: none;
+  pointer-events: visibleStroke;
 }
 
 .intro-donut__segment:focus-visible {
