@@ -48,7 +48,8 @@
     { id: 'motivatie', title: 'Mijn motivatie', subtitle: 'Waarom Productmanagement SB', badge: null, check: false, keywords: ['motivatie', 'waarom', 'productmanagement', 'solliciteren'] },
     { id: 'ervaring', title: 'Ervaring met SB', subtitle: 'Praktijk en klantprocessen', badge: null, check: false, keywords: ['ervaring', 'sb', 'klanten', 'praktijk', 'processen'] },
     { id: 'productvisie', title: 'Productvisie', subtitle: 'Richting, keuzes en kansen', badge: null, check: false, keywords: ['visie', 'roadmap', 'product', 'toekomst', 'richting', 'keuzes', 'kansen', 'innovatie', 'ai', 'prioriteiten'] },
-    { id: 'ontwikkeling', title: 'Mijn ontwikkeling', subtitle: 'Bewust groeien in de rol', badge: null, check: false, keywords: ['ontwikkeling', 'groeien', 'leren', 'rol', '100 dagen', 'plan'] }
+    { id: 'ontwikkeling', title: 'Mijn ontwikkeling', subtitle: 'Bewust groeien in de rol', badge: null, check: false, keywords: ['ontwikkeling', 'groeien', 'leren', 'rol', '100 dagen', 'plan'] },
+    { id: 'afsluiting', title: 'Afsluiting', subtitle: 'Waarom deze sollicitatie', badge: null, check: false, keywords: ['afsluiting', 'slot', 'ai', 'salamander', 'contact', 'sollicitatie', 'productmanager'] }
   ];
 
   const DEFAULT_TAB = 'introductie';
