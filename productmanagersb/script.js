@@ -452,13 +452,68 @@
 
   // ==================== HELP WARNING DIALOG ====================
   function initHelpWarning() {
-    createWarningDialog({
-      triggerBtnId: 'helpBtn',
-      dialogId: 'helpWarningDialog',
-      backdropId: 'helpWarningBackdrop',
-      closeBtnId: 'helpWarningCloseBtn',
-      actionBtnId: 'helpWarningActionBtn',
-      onAction: function () { openJonas(); }
+    var helpBtn = document.getElementById('helpBtn');
+    var helpDialog = document.getElementById('helpWarningDialog');
+    var helpBackdrop = document.getElementById('helpWarningBackdrop');
+    var helpCloseBtn = document.getElementById('helpWarningCloseBtn');
+    var helpActionBtn = document.getElementById('helpWarningActionBtn');
+    if (!helpBtn || !helpDialog || !helpBackdrop) return;
+
+    function showHelpDialog() {
+      helpBackdrop.hidden = false;
+      helpDialog.hidden = false;
+      helpBackdrop.offsetHeight;
+      helpBackdrop.classList.add('is-visible');
+      helpDialog.classList.add('is-visible');
+      if (helpActionBtn) helpActionBtn.focus();
+    }
+
+    function hideHelpDialog() {
+      helpBackdrop.classList.remove('is-visible');
+      helpDialog.classList.remove('is-visible');
+      setTimeout(function () {
+        helpBackdrop.hidden = true;
+        helpDialog.hidden = true;
+      }, 150);
+      helpBtn.focus();
+    }
+
+    helpBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showHelpDialog();
+    });
+
+    helpCloseBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      hideHelpDialog();
+    });
+
+    helpBackdrop.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      hideHelpDialog();
+    });
+
+    helpActionBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Close dialog immediately
+      helpBackdrop.classList.remove('is-visible');
+      helpDialog.classList.remove('is-visible');
+      helpBackdrop.hidden = true;
+      helpDialog.hidden = true;
+      // Open Jonas chat
+      openJonas();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !helpDialog.hidden) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        hideHelpDialog();
+      }
     });
   }
 
