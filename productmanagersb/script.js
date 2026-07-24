@@ -412,6 +412,35 @@
         observer.observe(energieEl);
       }
     }
+
+    // Twijfel KPI count-down animation (100% → 0%, once)
+    var twijfelEl = document.getElementById('twijfelKpiValue');
+    if (twijfelEl) {
+      var prefersReducedT = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedT) {
+        twijfelEl.textContent = '0%';
+      } else {
+        twijfelEl.textContent = '100%';
+        var animatedT = false;
+        var observerT = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting && !animatedT) {
+            animatedT = true;
+            observerT.disconnect();
+            var startT = null;
+            var durationT = 700;
+            function stepT(ts) {
+              if (!startT) startT = ts;
+              var progress = Math.min((ts - startT) / durationT, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              twijfelEl.textContent = Math.round(100 - eased * 100) + '%';
+              if (progress < 1) requestAnimationFrame(stepT);
+            }
+            requestAnimationFrame(stepT);
+          }
+        }, { threshold: 0.3 });
+        observerT.observe(twijfelEl);
+      }
+    }
   }
 
   function initAll() {
