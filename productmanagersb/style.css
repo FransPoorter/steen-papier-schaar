@@ -2660,6 +2660,275 @@
 }
 
 /* =============================================
+   MIJN ONTWIKKELING – Dashboard
+   ============================================= */
+.ont-dashboard {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ont-card {
+  background: var(--afas-white);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.ont-card__title {
+  font-size: 13px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 0 16px;
+}
+
+.ont-card__hero {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+.ont-card__icon {
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.ont-card__subtitle {
+  font-size: 16px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.ont-card__text {
+  font-size: 14px;
+  color: var(--afas-text-muted);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.ont-card__text:last-of-type {
+  margin-bottom: 0;
+}
+
+.ont-card__goal {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--afas-primary);
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--afas-tab-border);
+  line-height: 1.4;
+}
+
+.ont-card__closing-line {
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--afas-tab-border);
+  line-height: 1.5;
+}
+
+/* Trio */
+.ont-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ont-card--grow {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Evidence */
+.ont-evidence {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.ont-evidence__item {
+  padding: 0 20px;
+  border-left: 1px solid var(--afas-tab-border);
+}
+
+.ont-evidence__item:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.ont-evidence__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 6px;
+}
+
+.ont-evidence__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Trajectory */
+.ont-trajectory {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.ont-trajectory__step {
+  flex: 1;
+}
+
+.ont-trajectory__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--afas-primary);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.ont-trajectory__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 6px;
+}
+
+.ont-trajectory__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ont-trajectory__arrow {
+  color: var(--afas-text-secondary);
+  font-size: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Closing columns */
+.ont-closing-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.ont-closing-col__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 6px;
+}
+
+.ont-closing-col__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Ontwikkeling responsive */
+@media (max-width: 900px) {
+  .ont-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ont-trio .ont-card--grow:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .ont-evidence {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .ont-evidence__item {
+    padding: 0;
+    border-left: none;
+  }
+
+  .ont-evidence__item:nth-child(3) {
+    grid-column: 1 / -1;
+    padding-top: 16px;
+    border-top: 1px solid var(--afas-tab-border);
+  }
+}
+
+@media (max-width: 600px) {
+  .ont-dashboard {
+    padding: 16px;
+  }
+
+  .ont-card {
+    padding: 20px;
+  }
+
+  .ont-trio {
+    grid-template-columns: 1fr;
+  }
+
+  .ont-trio .ont-card--grow:last-child {
+    grid-column: auto;
+  }
+
+  .ont-evidence {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ont-evidence__item {
+    padding: 0;
+    border-left: none;
+    padding-top: 16px;
+    border-top: 1px solid var(--afas-tab-border);
+  }
+
+  .ont-evidence__item:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .ont-trajectory {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ont-trajectory__arrow {
+    display: none;
+  }
+
+  .ont-closing-cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* =============================================
    ERVARING MET SB – Dashboard
    ============================================= */
 .exp-dashboard {
