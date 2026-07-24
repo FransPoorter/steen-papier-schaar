@@ -2516,6 +2516,10 @@
   justify-content: flex-end;
 }
 
+.exp-story-panel[hidden] {
+  display: none;
+}
+
 .exp-story-panel__backdrop {
   position: absolute;
   inset: 0;
