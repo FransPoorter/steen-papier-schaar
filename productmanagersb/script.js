@@ -491,8 +491,8 @@
       { id: 'incidents', title: 'Incidenten opgelost', value: '1770+', subtitle: 'Van analyse tot een werkende oplossing.' },
       { id: 'implementations', title: 'SB-implementaties', value: '100+', subtitle: 'Klanten begeleid bij een goede start met SB.' },
       { id: 'migrations', title: 'Migraties uitgevoerd', value: '3000+', subtitle: 'Administraties succesvol naar SB gebracht.' },
-      { id: 'practice-hours', title: 'Praktijkuren in SB', value: '≈ 5000', subtitle: 'Gewerkt met het product en de bijbehorende klantprocessen.' },
-      { id: 'client-hours', title: 'Uren met klanten', value: '≈ 2000', subtitle: 'Luisteren, uitleggen en samen verbeteren.' }
+      { id: 'practice-hours', title: 'Praktijkuren in SB', value: '≈ 5000', subtitle: 'Gewerkt in AFAS SB.' },
+      { id: 'client-hours', title: 'Uren met klanten', value: '≈ 2000', subtitle: 'Klanten helpen met het werken met SB.' }
     ];
 
     // Practice stories configuration
