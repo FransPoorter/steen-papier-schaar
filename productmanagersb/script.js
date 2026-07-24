@@ -46,13 +46,9 @@
   const TABS = [
     { id: 'introductie', title: 'Introductie', subtitle: 'Welkom', badge: null, check: true, keywords: ['welkom', 'begin', 'introductie', 'frans'] },
     { id: 'motivatie', title: 'Mijn motivatie', subtitle: 'Waarom Productmanagement SB', badge: null, check: false, keywords: ['motivatie', 'waarom', 'productmanagement', 'solliciteren'] },
-    { id: 'ervaring', title: 'Ervaring met SB', subtitle: 'Praktijk en klantprocessen', badge: '3', check: false, keywords: ['ervaring', 'sb', 'klanten', 'praktijk', 'processen'] },
-    { id: 'productvisie', title: 'Productvisie', subtitle: 'Richting en roadmap', badge: null, check: false, keywords: ['visie', 'roadmap', 'product', 'toekomst', 'richting'] },
-    { id: 'klantwaarde', title: 'Klantwaarde', subtitle: 'Behoeften en eenvoud', badge: '5', check: false, keywords: ['klant', 'waarde', 'eenvoud', 'behoefte', 'focussessie'] },
-    { id: 'prioriteiten', title: 'Prioriteiten', subtitle: 'Kiezen en resultaat', badge: null, check: true, keywords: ['keuzes', 'prioriteiten', 'resultaat', 'nee zeggen'] },
-    { id: 'innovatie', title: 'Innovatie & AI', subtitle: 'Kansen voor SB', badge: '2', check: false, keywords: ['innovatie', 'automatisering', 'ai', 'jonas', 'kansen'] },
-    { id: 'eerste100dagen', title: 'Eerste 100 dagen', subtitle: 'Van visie naar actie', badge: null, check: false, keywords: ['100 dagen', 'plan', 'aanpak', 'eerste periode'] },
-    { id: 'afsluiting', title: 'Afsluiting', subtitle: 'Kennismaken', badge: null, check: true, keywords: ['afsluiting', 'contact', 'kennismaken', 'gesprek'] }
+    { id: 'ervaring', title: 'Ervaring met SB', subtitle: 'Praktijk en klantprocessen', badge: null, check: false, keywords: ['ervaring', 'sb', 'klanten', 'praktijk', 'processen'] },
+    { id: 'productvisie', title: 'Productvisie', subtitle: 'Richting, keuzes en kansen', badge: null, check: false, keywords: ['visie', 'roadmap', 'product', 'toekomst', 'richting', 'keuzes', 'kansen', 'innovatie', 'ai', 'prioriteiten'] },
+    { id: 'ontwikkeling', title: 'Mijn ontwikkeling', subtitle: 'Bewust groeien in de rol', badge: null, check: false, keywords: ['ontwikkeling', 'groeien', 'leren', 'rol', '100 dagen', 'plan'] }
   ];
 
   const DEFAULT_TAB = 'introductie';
