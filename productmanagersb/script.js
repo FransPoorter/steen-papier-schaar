@@ -587,12 +587,10 @@
     var storiesGrid = document.getElementById('expStoriesGrid');
     if (storiesGrid) {
       storiesGrid.innerHTML = practiceStories.map(function(story, i) {
-        var tagsHtml = story.tags.map(function(t) { return '<span class="exp-story-card__tag">' + t + '</span>'; }).join('');
         return '<button class="exp-story-card" type="button" data-story-index="' + i + '" aria-label="Bekijk praktijkverhaal: ' + story.title + '">' +
           '<span class="exp-story-card__category">' + story.category + '</span>' +
           '<h4 class="exp-story-card__title">' + story.title + '</h4>' +
           '<p class="exp-story-card__summary">' + story.summary + '</p>' +
-          '<div class="exp-story-card__tags">' + tagsHtml + '</div>' +
           '<span class="exp-story-card__action">Bekijk praktijkverhaal \u2192</span>' +
           '</button>';
       }).join('');
