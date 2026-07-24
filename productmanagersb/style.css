@@ -1917,9 +1917,9 @@
 
 .intro-chart {
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   gap: 12px;
-  height: 140px;
+  height: 180px;
   padding-top: 10px;
 }
 
@@ -1989,6 +1989,10 @@
   line-height: 1.2;
   hyphens: auto;
   word-break: break-word;
+  min-height: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .intro-chart__legend-group {
