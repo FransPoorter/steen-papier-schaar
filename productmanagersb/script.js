@@ -445,7 +445,7 @@
     // Donut chart interaction
     (function initDonut() {
       var centerTexts = [
-        ['Mijn', 'profiel'],
+        ['Mijn', 'kracht'],
         ['Praktijk', 'begrepen'],
         ['Kansen', 'zien'],
         ['Rust', 'bewaren'],
