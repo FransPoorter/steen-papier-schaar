@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=78" />
+  <link rel="stylesheet" href="style.css?v=79" />
 </head>
 <body class="product-manager-sb-page">
 
@@ -347,22 +347,61 @@
               </div>
             </div>
 
-            <!-- Formula Card 3: Productmanagement -->
-            <div class="intro-dashboard__card intro-dashboard__card--formula">
+            <!-- Donut Card: Wat ik meebreng -->
+            <div class="intro-dashboard__card intro-dashboard__card--donut" id="donutCard">
               <div class="intro-dashboard__card-header">
-                <h2 class="intro-dashboard__card-title">Productmanagement</h2>
-                <button class="intro-tooltip-trigger" type="button" aria-label="Meer informatie over productmanagement" data-tooltip="Een goede roadmap vraagt om richting, prioritering en duidelijke keuzes.">
+                <h2 class="intro-dashboard__card-title">Wat ik meebreng</h2>
+                <button class="intro-tooltip-trigger" type="button" aria-label="Meer informatie over wat ik meebreng" data-tooltip="Een combinatie van productkennis en persoonlijke eigenschappen die ik meebreng naar Productmanagement SB.">
                   <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#94a3b8" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
                 </button>
               </div>
-              <div class="intro-formula">
-                <div class="intro-formula__part"><span class="intro-formula__value">Visie</span><span class="intro-formula__label">Een duidelijke richting</span></div>
-                <span class="intro-formula__operator" aria-hidden="true">&minus;</span>
-                <div class="intro-formula__part"><span class="intro-formula__value">Ruis</span><span class="intro-formula__label">Niet iedere wens hoeft op de roadmap</span></div>
-                <span class="intro-formula__operator intro-formula__operator--eq" aria-hidden="true">=</span>
-                <div class="intro-formula__part intro-formula__part--result"><span class="intro-formula__value intro-formula__value--result intro-formula__value--positive">Focus</span><span class="intro-formula__label">Duidelijke keuzes</span></div>
+              <!-- Accessible summary -->
+              <p class="visually-hidden">Vier eigenschappen die ik meebreng: SB-kennis, Creativiteit, Stressbestendigheid en Enthousiasme.</p>
+              <div class="intro-donut">
+                <div class="intro-donut__chart-wrap">
+                  <svg class="intro-donut__svg" viewBox="0 0 200 200" aria-hidden="true">
+                    <!-- gap = 2° per segment, segment = 88° each -->
+                    <circle class="intro-donut__segment" data-index="0" cx="100" cy="100" r="72" fill="none" stroke="#0074d0" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="0" tabindex="0" role="button" aria-label="SB-kennis: Ervaring met het product en de praktijk van klanten."/>
+                    <circle class="intro-donut__segment" data-index="1" cx="100" cy="100" r="72" fill="none" stroke="#f59e0b" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-113.8" tabindex="0" role="button" aria-label="Creativiteit: Nieuwe mogelijkheden zien en oplossingen bedenken."/>
+                    <circle class="intro-donut__segment" data-index="2" cx="100" cy="100" r="72" fill="none" stroke="#7c3aed" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-227.6" tabindex="0" role="button" aria-label="Stressbestendigheid: Rust en overzicht bewaren wanneer de druk toeneemt."/>
+                    <circle class="intro-donut__segment" data-index="3" cx="100" cy="100" r="72" fill="none" stroke="#15803d" stroke-width="28" stroke-dasharray="110.6 341.4" stroke-dashoffset="-341.4" tabindex="0" role="button" aria-label="Enthousiasme: Energie overbrengen en anderen meenemen."/>
+                  </svg>
+                  <div class="intro-donut__center" id="donutCenter">
+                    <span class="intro-donut__center-line">Mijn</span>
+                    <span class="intro-donut__center-line">profiel</span>
+                  </div>
+                </div>
+                <div class="intro-donut__legend" id="donutLegend">
+                  <div class="intro-donut__legend-item" data-index="0">
+                    <span class="intro-donut__legend-swatch" style="background:#0074d0"></span>
+                    <div class="intro-donut__legend-text">
+                      <span class="intro-donut__legend-title">SB-kennis</span>
+                      <span class="intro-donut__legend-desc">Ervaring met het product en de praktijk van klanten.</span>
+                    </div>
+                  </div>
+                  <div class="intro-donut__legend-item" data-index="1">
+                    <span class="intro-donut__legend-swatch" style="background:#f59e0b"></span>
+                    <div class="intro-donut__legend-text">
+                      <span class="intro-donut__legend-title">Creativiteit</span>
+                      <span class="intro-donut__legend-desc">Nieuwe mogelijkheden zien en oplossingen bedenken.</span>
+                    </div>
+                  </div>
+                  <div class="intro-donut__legend-item" data-index="2">
+                    <span class="intro-donut__legend-swatch" style="background:#7c3aed"></span>
+                    <div class="intro-donut__legend-text">
+                      <span class="intro-donut__legend-title">Stressbestendigheid</span>
+                      <span class="intro-donut__legend-desc">Rust en overzicht bewaren wanneer de druk toeneemt.</span>
+                    </div>
+                  </div>
+                  <div class="intro-donut__legend-item" data-index="3">
+                    <span class="intro-donut__legend-swatch" style="background:#15803d"></span>
+                    <div class="intro-donut__legend-text">
+                      <span class="intro-donut__legend-title">Enthousiasme</span>
+                      <span class="intro-donut__legend-desc">Energie overbrengen en anderen meenemen.</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p class="intro-dashboard__card-footnote">Waarde toevoegen betekent soms ook bewust nee zeggen.</p>
             </div>
 
           </div>
@@ -654,6 +693,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=78"></script>
+  <script src="script.js?v=79"></script>
 </body>
 </html>

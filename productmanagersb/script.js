@@ -441,6 +441,56 @@
         observerT.observe(twijfelEl);
       }
     }
+
+    // Donut chart interaction
+    (function initDonut() {
+      var centerTexts = [
+        ['Mijn', 'profiel'],
+        ['Praktijk', 'begrepen'],
+        ['Kansen', 'zien'],
+        ['Rust', 'bewaren'],
+        ['Mensen', 'meenemen']
+      ];
+      var segments = document.querySelectorAll('.intro-donut__segment');
+      var legendItems = document.querySelectorAll('.intro-donut__legend-item');
+      var center = document.getElementById('donutCenter');
+      if (!segments.length || !center) return;
+
+      var prefersReducedDonut = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function setActive(index) {
+        var lines = center.querySelectorAll('.intro-donut__center-line');
+        var text = index === -1 ? centerTexts[0] : centerTexts[index + 1];
+        if (lines.length >= 2) {
+          lines[0].textContent = text[0];
+          lines[1].textContent = text[1];
+        }
+        segments.forEach(function(seg, i) {
+          if (index === -1) {
+            seg.classList.remove('intro-donut__segment--dimmed');
+          } else {
+            seg.classList.toggle('intro-donut__segment--dimmed', i !== index);
+          }
+        });
+        legendItems.forEach(function(item, i) {
+          item.classList.toggle('intro-donut__legend-item--active', i === index);
+        });
+      }
+
+      function onEnter(index) { setActive(index); }
+      function onLeave() { setActive(-1); }
+
+      segments.forEach(function(seg, i) {
+        seg.addEventListener('mouseenter', function() { onEnter(i); });
+        seg.addEventListener('mouseleave', onLeave);
+        seg.addEventListener('focus', function() { onEnter(i); });
+        seg.addEventListener('blur', onLeave);
+      });
+      legendItems.forEach(function(item, i) {
+        item.addEventListener('mouseenter', function() { onEnter(i); });
+        item.addEventListener('mouseleave', onLeave);
+      });
+    })();
   }
 
   function initAll() {
