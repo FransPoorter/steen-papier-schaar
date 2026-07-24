@@ -2412,6 +2412,7 @@
 /* Stories section */
 .exp-dashboard__stories {
   margin-top: 8px;
+  width: 100%;
 }
 
 .exp-dashboard__section-title {
@@ -2433,6 +2434,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  align-items: stretch;
 }
 
 /* Story card */
@@ -2446,18 +2448,20 @@
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
-  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   text-align: left;
   font-family: var(--afas-font-family);
   width: 100%;
+  height: 100%;
   -webkit-appearance: none;
   appearance: none;
 }
 
 .exp-story-card:hover,
 .exp-story-card:focus-visible {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border-color: var(--afas-primary);
+  transform: translateY(-2px);
   outline: none;
 }
 
