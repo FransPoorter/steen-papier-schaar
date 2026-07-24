@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=87" />
+  <link rel="stylesheet" href="style.css?v=88" />
 </head>
 <body class="product-manager-sb-page">
 
@@ -499,15 +499,66 @@
 
     <!-- Panel: Motivatie -->
     <section class="afas-tab-panel" id="panel-motivatie" role="tabpanel" aria-labelledby="tab-motivatie" aria-hidden="true">
-      <div class="afas-content-section">
-        <h1 class="afas-content-section__heading">Mijn motivatie</h1>
-        <p class="afas-content-section__description">
-          Waarom ik kies voor Productmanagement SB bij AFAS.
-        </p>
-      </div>
-      <div class="afas-content-card">
-        <h2 class="afas-content-card__title">Drijfveren</h2>
-        <p class="afas-content-card__placeholder">Motivatie-inhoud volgt hier. Elke sectie wordt apart uitgewerkt.</p>
+      <div class="mot-dashboard">
+
+        <!-- Openingskaart -->
+        <div class="mot-card mot-card--opening">
+          <h1 class="mot-card__title">Mijn motivatie</h1>
+          <p class="mot-card__hero">Ik wil niet alleen uitleggen hoe SB werkt. Ik wil meebepalen <span class="mot-accent">waarom</span> we iets bouwen, <span class="mot-accent">voor wie</span> we het bouwen en wat we <span class="mot-accent">bewust niet</span> doen.</p>
+          <p class="mot-card__text">De afgelopen jaren heb ik SB leren kennen vanuit implementaties, migraties, klantgesprekken en dagelijks gebruik. Daarbij merkte ik dat ik steeds vaker verder kijk dan de vraag van vandaag. Waar komt een probleem vandaan? Kunnen we het voor alle klanten slimmer oplossen? En past die oplossing bij de richting van SB? Juist daar krijg ik energie van.</p>
+        </div>
+
+        <!-- Drie motivatiekaarten -->
+        <div class="mot-trio">
+          <div class="mot-card mot-card--reason">
+            <svg class="mot-card__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="var(--afas-primary)" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <h2 class="mot-card__subtitle">Waarom SB?</h2>
+            <p class="mot-card__accent">Een product dat ik ken én waarin ik nog veel kansen zie.</p>
+            <p class="mot-card__text">SB is het product waar mijn kennis, ervaring en enthousiasme samenkomen. Ik ken de praktijk van klanten, weet waar zij tegenaan lopen en zie hoeveel potentie er nog in het product zit. Ik wil eraan bijdragen dat SB niet alleen eenvoudig voelt, maar klanten ook helpt om hun administratie aantoonbaar beter te voeren.</p>
+          </div>
+          <div class="mot-card mot-card--reason">
+            <svg class="mot-card__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="var(--afas-primary)" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <h2 class="mot-card__subtitle">Waarom Productmanagement?</h2>
+            <p class="mot-card__accent">Van losse signalen naar één duidelijke koers.</p>
+            <p class="mot-card__text">Ik krijg energie van luisteren naar klanten, patronen herkennen en complexe problemen terugbrengen tot een duidelijke oplossing. Maar ook van keuzes maken, ideeën uitwerken en anderen meenemen in een richting. Productmanagement brengt precies die onderdelen bij elkaar.</p>
+          </div>
+          <div class="mot-card mot-card--reason">
+            <svg class="mot-card__icon" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="var(--afas-primary)" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            <h2 class="mot-card__subtitle">Waarom nu?</h2>
+            <p class="mot-card__accent">Van bijdragen aan SB naar verantwoordelijkheid nemen voor SB.</p>
+            <p class="mot-card__text">In mijn huidige werk ben ik steeds vaker bezig met meer dan alleen het uitvoeren van een proces. Ik denk mee over hoe het slimmer kan, bouw prototypes, verbeter implementaties en breng praktijkervaring terug naar het product. Voor mij voelt Productmanagement daarom niet als een volledig nieuwe richting, maar als een logische volgende stap.</p>
+          </div>
+        </div>
+
+        <!-- Waarom ik deze stap wil maken -->
+        <div class="mot-card mot-card--wide">
+          <h2 class="mot-card__subtitle">Waarom ik deze stap wil maken</h2>
+          <p class="mot-card__text">Tijdens mijn werk merkte ik dat ik niet alleen energie krijg van het oplossen van een vraag voor één klant. Ik wil begrijpen waarom een probleem vaker voorkomt en hoe we het voor alle SB-klanten beter kunnen maken.</p>
+          <p class="mot-card__text">Dat zie ik terug in het opzetten van het implementatieproces, het verbeteren van migraties en het bouwen van de SB Auditfile Mapper. Ik wacht niet alleen af tot een oplossing er is, maar denk erover na, werk hem uit en probeer hem zichtbaar te maken.</p>
+          <p class="mot-card__text">Als Productmanager wil ik daar meer verantwoordelijkheid voor nemen: signalen uit de praktijk vertalen naar keuzes die SB structureel beter maken.</p>
+          <div class="mot-statements">
+            <div class="mot-statement">
+              <h3 class="mot-statement__title">Niet alleen oplossen</h3>
+              <p class="mot-statement__text">Maar voorkomen dat hetzelfde probleem terugkomt.</p>
+            </div>
+            <div class="mot-statement">
+              <h3 class="mot-statement__title">Niet alleen ideeën hebben</h3>
+              <p class="mot-statement__text">Maar ze uitwerken en zichtbaar maken.</p>
+            </div>
+            <div class="mot-statement">
+              <h3 class="mot-statement__title">Niet alleen bijdragen aan SB</h3>
+              <p class="mot-statement__text">Maar verantwoordelijkheid nemen voor de richting.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Afsluitende kaart -->
+        <div class="mot-card mot-card--closing">
+          <h2 class="mot-card__subtitle">Wat mij hierin het meeste aanspreekt</h2>
+          <p class="mot-card__text">Het mooiste aan deze functie vind ik dat je dicht bij de klant én dicht bij het product staat. Je moet begrijpen wat er in de praktijk gebeurt, maar ook afstand kunnen nemen om een koers te bepalen. Die combinatie past bij mij. Ik wil mijn kennis van SB gebruiken om keuzes te maken die niet alleen vandaag helpen, maar het product op de lange termijn sterker maken.</p>
+          <p class="mot-card__closing-line">Mijn doel is helder: samen van AFAS SB <span class="intro-goal__accent">het beste</span> boekhoudpakket van Nederland maken.</p>
+        </div>
+
       </div>
     </section>
 
@@ -627,6 +678,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=87"></script>
+  <script src="script.js?v=88"></script>
 </body>
 </html>

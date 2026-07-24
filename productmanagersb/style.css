@@ -2239,6 +2239,177 @@
 }
 
 /* =============================================
+   MIJN MOTIVATIE – Dashboard
+   ============================================= */
+.mot-dashboard {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mot-card {
+  background: var(--afas-white);
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.mot-card__title {
+  font-size: 13px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin: 0 0 16px;
+}
+
+.mot-card__hero {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  line-height: 1.4;
+  margin: 0 0 16px;
+}
+
+.mot-accent {
+  color: var(--afas-primary);
+}
+
+.mot-card__icon {
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.mot-card__subtitle {
+  font-size: 16px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 8px;
+}
+
+.mot-card__accent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--afas-primary);
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+.mot-card__text {
+  font-size: 14px;
+  color: var(--afas-text-muted);
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.mot-card__text:last-child {
+  margin-bottom: 0;
+}
+
+/* Trio grid */
+.mot-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.mot-card--reason {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Statements */
+.mot-statements {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.mot-statement {
+  padding: 0 20px;
+  border-left: 1px solid var(--afas-tab-border);
+}
+
+.mot-statement:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.mot-statement__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 4px;
+}
+
+.mot-statement__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Closing card */
+.mot-card__closing-line {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 20px 0 0;
+  line-height: 1.4;
+}
+
+/* Motivatie responsive */
+@media (max-width: 900px) {
+  .mot-trio {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mot-trio .mot-card--reason:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .mot-dashboard {
+    padding: 16px;
+  }
+
+  .mot-card {
+    padding: 20px;
+  }
+
+  .mot-trio {
+    grid-template-columns: 1fr;
+  }
+
+  .mot-trio .mot-card--reason:last-child {
+    grid-column: auto;
+  }
+
+  .mot-statements {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .mot-statement {
+    padding: 0;
+    border-left: none;
+    padding-top: 16px;
+    border-top: 1px solid var(--afas-tab-border);
+  }
+
+  .mot-statement:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+}
+
+/* =============================================
    ERVARING MET SB – Dashboard
    ============================================= */
 .exp-dashboard {
