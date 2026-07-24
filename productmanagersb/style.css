@@ -1836,14 +1836,12 @@
 .intro-donut__svg {
   width: 100%;
   height: 100%;
-  transform: rotate(-90deg);
 }
 
 .intro-donut__segment {
   cursor: pointer;
   transition: opacity 50ms ease;
   outline: none;
-  pointer-events: visibleStroke;
 }
 
 .intro-donut__segment:focus-visible {
