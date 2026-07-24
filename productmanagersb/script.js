@@ -298,6 +298,7 @@
     initJonas();
     initUserSettings();
     initMenuWarning();
+    initHelpWarning();
     initSpotlight();
   }
 
@@ -395,6 +396,71 @@
       actionBtn.addEventListener('click', function () {
         closeWarning();
         setTimeout(openSpotlight, 160);
+      });
+    }
+  }
+
+  // ==================== HELP WARNING DIALOG ====================
+  function initHelpWarning() {
+    var helpBtn = document.getElementById('helpBtn');
+    var dialog = document.getElementById('helpWarningDialog');
+    var backdrop = document.getElementById('helpWarningBackdrop');
+    var closeBtn = document.getElementById('helpWarningCloseBtn');
+    var actionBtn = document.getElementById('helpWarningActionBtn');
+    if (!helpBtn || !dialog || !backdrop) return;
+
+    function openWarning() {
+      backdrop.hidden = false;
+      dialog.hidden = false;
+      backdrop.offsetHeight;
+      backdrop.classList.add('is-visible');
+      dialog.classList.add('is-visible');
+      if (actionBtn) actionBtn.focus();
+    }
+
+    function closeWarning() {
+      backdrop.classList.remove('is-visible');
+      dialog.classList.remove('is-visible');
+      setTimeout(function () {
+        backdrop.hidden = true;
+        dialog.hidden = true;
+      }, 150);
+      helpBtn.focus();
+    }
+
+    helpBtn.addEventListener('click', openWarning);
+    if (closeBtn) closeBtn.addEventListener('click', closeWarning);
+    backdrop.addEventListener('click', closeWarning);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !dialog.hidden) {
+        e.stopPropagation();
+        closeWarning();
+      }
+    });
+
+    // Focus trap
+    dialog.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusable = dialog.querySelectorAll('button:not([hidden])');
+      var first = focusable[0];
+      var last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    if (actionBtn) {
+      actionBtn.addEventListener('click', function () {
+        closeWarning();
+        setTimeout(function () {
+          var jonasBtn = document.getElementById('jonasBtn');
+          if (jonasBtn) jonasBtn.click();
+        }, 160);
       });
     }
   }
