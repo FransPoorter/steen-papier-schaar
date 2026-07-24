@@ -459,62 +459,60 @@
     var helpActionBtn = document.getElementById('helpWarningActionBtn');
     if (!helpBtn || !helpDialog || !helpBackdrop) return;
 
+    var helpDialogOpen = false;
+
     function showHelpDialog() {
+      helpDialogOpen = true;
       helpBackdrop.hidden = false;
       helpDialog.hidden = false;
       helpBackdrop.offsetHeight;
       helpBackdrop.classList.add('is-visible');
       helpDialog.classList.add('is-visible');
-      if (helpActionBtn) helpActionBtn.focus();
     }
 
     function hideHelpDialog() {
-      helpBackdrop.classList.remove('is-visible');
-      helpDialog.classList.remove('is-visible');
-      setTimeout(function () {
-        helpBackdrop.hidden = true;
-        helpDialog.hidden = true;
-      }, 150);
-      helpBtn.focus();
-    }
-
-    helpBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      showHelpDialog();
-    });
-
-    helpCloseBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      hideHelpDialog();
-    });
-
-    helpBackdrop.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      hideHelpDialog();
-    });
-
-    helpActionBtn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      // Close dialog immediately
+      helpDialogOpen = false;
       helpBackdrop.classList.remove('is-visible');
       helpDialog.classList.remove('is-visible');
       helpBackdrop.hidden = true;
       helpDialog.hidden = true;
-      // Open Jonas chat
+    }
+
+    helpBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      showHelpDialog();
+    }, true);
+
+    helpCloseBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      hideHelpDialog();
+      helpBtn.focus();
+    }, true);
+
+    helpBackdrop.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      hideHelpDialog();
+      helpBtn.focus();
+    }, true);
+
+    helpActionBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      hideHelpDialog();
       openJonas();
-    });
+    }, true);
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !helpDialog.hidden) {
+      if (e.key === 'Escape' && helpDialogOpen) {
         e.preventDefault();
         e.stopImmediatePropagation();
         hideHelpDialog();
+        helpBtn.focus();
       }
-    });
+    }, true);
   }
 
   // ==================== SPOTLIGHT SEARCH ====================
