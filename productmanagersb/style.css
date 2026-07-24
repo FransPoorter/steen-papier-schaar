@@ -1839,10 +1839,6 @@
   height: 100%;
 }
 
-.intro-donut__svg circle {
-  transition: opacity 50ms ease;
-}
-
 .intro-donut__center {
   position: absolute;
   inset: 0;
@@ -1851,7 +1847,6 @@
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  transition: opacity 50ms ease;
 }
 
 .intro-donut__center-line {
@@ -1873,19 +1868,8 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  cursor: pointer;
   padding: 6px 8px;
   border-radius: 6px;
-  transition: background 50ms ease;
-}
-
-.intro-donut__legend-item > * {
-  pointer-events: none;
-}
-
-.intro-donut__legend-item:hover,
-.intro-donut__legend-item--active {
-  background: var(--afas-primary-light);
 }
 
 .intro-donut__legend-swatch {

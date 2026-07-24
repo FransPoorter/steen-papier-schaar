@@ -442,50 +442,6 @@
       }
     }
 
-    // Donut chart interaction (legend only)
-    (function initDonut() {
-      var centerTexts = [
-        ['Mijn', 'kracht'],
-        ['Praktijk', 'begrepen'],
-        ['Kansen', 'zien'],
-        ['Rust', 'bewaren'],
-        ['Mensen', 'meenemen']
-      ];
-      var svgCircles = document.querySelectorAll('#donutCard svg circle');
-      var legendItems = document.querySelectorAll('.intro-donut__legend-item');
-      var center = document.getElementById('donutCenter');
-      if (!legendItems.length || !center) return;
-
-      var activeIndex = -1;
-
-      function setActive(index) {
-        if (index === activeIndex) return;
-        activeIndex = index;
-        var lines = center.querySelectorAll('.intro-donut__center-line');
-        var text = index === -1 ? centerTexts[0] : centerTexts[index + 1];
-        if (lines.length >= 2) {
-          lines[0].textContent = text[0];
-          lines[1].textContent = text[1];
-        }
-        svgCircles.forEach(function(circle, i) {
-          circle.style.opacity = (index === -1) ? '' : (i === index ? '1' : '0.3');
-        });
-        legendItems.forEach(function(item, i) {
-          if (i === index) {
-            item.classList.add('intro-donut__legend-item--active');
-          } else {
-            item.classList.remove('intro-donut__legend-item--active');
-          }
-        });
-      }
-
-      legendItems.forEach(function(item, i) {
-        item.addEventListener('mouseenter', function() { setActive(i); });
-        item.addEventListener('mouseleave', function() { setActive(-1); });
-        item.addEventListener('focusin', function() { setActive(i); });
-        item.addEventListener('focusout', function() { setActive(-1); });
-      });
-    })();
   }
 
   function initAll() {
