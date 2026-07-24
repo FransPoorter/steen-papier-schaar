@@ -296,6 +296,57 @@
     init();
     initNotifications();
     initJonas();
+    initUserSettings();
+  }
+
+  // ==================== USER SETTINGS MODAL ====================
+  function initUserSettings() {
+    var btn = document.getElementById('userBtn');
+    var modal = document.getElementById('userSettingsModal');
+    var backdrop = document.getElementById('userSettingsBackdrop');
+    var closeBtn = document.getElementById('userSettingsCloseBtn');
+    var saveBtn = document.getElementById('userSettingsSaveBtn');
+    var cancelBtn = document.getElementById('userSettingsCancelBtn');
+    if (!btn || !modal || !backdrop) return;
+
+    function openModal() {
+      backdrop.hidden = false;
+      modal.hidden = false;
+      backdrop.offsetHeight; // force reflow
+      backdrop.classList.add('is-visible');
+      modal.classList.add('is-visible');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('is-visible');
+      modal.classList.remove('is-visible');
+      btn.setAttribute('aria-expanded', 'false');
+      setTimeout(function () {
+        backdrop.hidden = true;
+        modal.hidden = true;
+      }, 200);
+    }
+
+    btn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    if (saveBtn) saveBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+
+    // Option selection
+    modal.addEventListener('click', function (e) {
+      var option = e.target.closest('.user-settings-option');
+      if (!option) return;
+      var setting = option.dataset.setting;
+      var siblings = modal.querySelectorAll('.user-settings-option[data-setting="' + setting + '"]');
+      siblings.forEach(function (s) { s.classList.remove('is-selected'); });
+      option.classList.add('is-selected');
+    });
   }
 
   if (document.readyState === 'loading') {
