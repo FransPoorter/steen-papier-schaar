@@ -2363,6 +2363,73 @@
   line-height: 1.4;
 }
 
+/* Enterprise card */
+.mot-enterprise {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+.mot-quote {
+  background: rgba(0, 116, 208, 0.06);
+  border-left: 3px solid var(--afas-primary);
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.mot-quote__icon {
+  margin-bottom: 8px;
+}
+
+.mot-quote__text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--afas-text-primary);
+  line-height: 1.5;
+  margin: 0 0 12px;
+}
+
+.mot-quote__explanation {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mot-principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--afas-tab-border);
+}
+
+.mot-principle {
+  padding: 0 20px;
+  border-left: 1px solid var(--afas-tab-border);
+}
+
+.mot-principle:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.mot-principle__title {
+  font-size: 14px;
+  font-weight: var(--afas-font-weight-bold);
+  color: var(--afas-text-primary);
+  margin: 0 0 4px;
+}
+
+.mot-principle__text {
+  font-size: 13px;
+  color: var(--afas-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* Motivatie responsive */
 @media (max-width: 900px) {
   .mot-trio {
@@ -2371,6 +2438,10 @@
 
   .mot-trio .mot-card--reason:last-child {
     grid-column: 1 / -1;
+  }
+
+  .mot-enterprise {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2404,6 +2475,23 @@
   }
 
   .mot-statement:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .mot-principles {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .mot-principle {
+    padding: 0;
+    border-left: none;
+    padding-top: 16px;
+    border-top: 1px solid var(--afas-tab-border);
+  }
+
+  .mot-principle:first-child {
     padding-top: 0;
     border-top: none;
   }
