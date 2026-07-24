@@ -526,19 +526,19 @@
         }
       },
       {
-        category: 'Visie en keuzes',
-        title: 'Inspraaksessie AFAS SB',
-        summary: 'Vanuit productkennis en praktijkervaring meegedacht over de visie achter SB en de keuzes die daarbij horen.',
-        tags: ['Productvisie', 'Prioritering', 'SB-kennis', 'Samenwerking'],
+        category: 'Implementatie en adoptie',
+        title: 'Van nul naar een vaste SB-implementatie',
+        summary: 'Een volledige implementatieaanpak opgezet waarmee administratie- en accountantskantoren sneller en consistenter met SB aan de slag kunnen.',
+        tags: ['Implementatie', 'Kennisoverdracht', 'Procesverbetering', 'Servicemanagement'],
         detail: {
-          heading: 'Meedenken over de koers van AFAS SB',
+          heading: 'Van nul naar een vaste SB-implementatie',
           sections: [
-            { title: 'Situatie', text: 'Diederik organiseerde een inspraaksessie over AFAS SB. Ik wilde daar graag bij aansluiten, omdat ik vanuit mijn ervaring met klanten, migraties en het dagelijkse gebruik van SB een inhoudelijke bijdrage kon leveren.' },
-            { title: 'Mijn rol', text: 'Tijdens de sessie bracht ik kennis uit de praktijk in en dacht ik mee over zowel de inhoud van het product als de achterliggende visie.' },
-            { title: 'Mijn aanpak', text: 'Ik keek niet alleen naar wat technisch of functioneel mogelijk is, maar stelde ook vragen over het probleem dat we willen oplossen, de richting die bij SB past en waarom we een bepaalde wens wel of juist niet zouden moeten oppakken.' },
-            { title: 'Resultaat', text: 'Tijdens de sessie merkte ik dat ik inhoudelijk kon meepraten over SB en tegelijkertijd kon bijdragen aan het gesprek over visie, richting en prioritering.' }
+            { title: 'Situatie', text: 'Toen ik bij Team SB kwam, bestond er nog geen vaste aanpak voor de implementatie van administratie- en accountantskantoren. Kantoren moesten SB leren kennen, inrichten en in gebruik nemen, maar een duidelijk proces om hen daarbij te begeleiden ontbrak nog.' },
+            { title: 'Mijn rol', text: 'Samen met het team heb ik het implementatieproces van begin tot eind opgebouwd. Daarbij keken we niet alleen naar de inrichting van SB, maar ook naar de manier waarop we kennis het beste konden overdragen en klanten stap voor stap konden meenemen.' },
+            { title: 'Mijn aanpak', text: 'We hebben een vaste implementatieroute ingericht waarmee kantoren zelfstandig en in een logische volgorde aan de slag kunnen. Via het leerportaal deelden we de benodigde kennis, namen we instructievideo\u2019s op en legden we duidelijk vast welke stappen een kantoor moest doorlopen om SB goed in te richten.\n\nOok het proces daaromheen hebben we uitgewerkt. Daardoor weten klanten wat er van hen wordt verwacht en kunnen collega\u2019s vanuit Servicemanagement sneller ondersteunen wanneer dat nodig is. De kennis zit daarmee niet alleen bij een paar mensen, maar is op een vaste en herhaalbare manier beschikbaar.' },
+            { title: 'Resultaat', text: 'Door de vaste aanpak kost een implementatie merkbaar minder tijd en kunnen we klanten sneller en consistenter begeleiden. Ook collega\u2019s van Servicemanagement kunnen klanten hierdoor eenvoudiger meenemen in SB en de kennis op een vaste manier overdragen. Van kantoren hebben we veel positieve reacties gekregen over de duidelijkheid van het proces en de manier waarop de kennis wordt aangeboden.' }
           ],
-          insight: 'Niet iedere goede wens is automatisch de juiste keuze voor SB. De productvisie moet bepalen waar we wel en niet op inzetten.'
+          insight: 'Een goede implementatie draait niet alleen om uitleg geven. Door het proces, de kennis en de verantwoordelijkheden vooraf goed in te richten, kunnen klanten sneller zelfstandig met SB werken en kunnen we meer kantoren op dezelfde goede manier begeleiden.'
         }
       }
     ];
