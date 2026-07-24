@@ -578,6 +578,7 @@
       html += '<div class="exp-story-panel__insight"><h4>Productinzicht</h4><p>' + story.detail.insight + '</p></div>';
       panelBody.innerHTML = html;
       panel.hidden = false;
+      panel.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       panelClose.focus();
     }
@@ -585,6 +586,7 @@
     function closeStory() {
       if (!panel) return;
       panel.hidden = true;
+      panel.style.display = 'none';
       document.body.style.overflow = '';
       if (lastFocusedEl) lastFocusedEl.focus();
     }
