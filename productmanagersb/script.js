@@ -392,7 +392,6 @@
     var helpDialog = document.getElementById('helpWarningDialog');
     var helpBackdrop = document.getElementById('helpWarningBackdrop');
     var helpCloseBtn = document.getElementById('helpWarningCloseBtn');
-    var helpActionBtn = document.getElementById('helpWarningActionBtn');
     if (!helpBtn || !helpDialog || !helpBackdrop) return;
 
     function showHelp() {
@@ -411,9 +410,8 @@
     }
 
     helpBtn.onclick = function () { showHelp(); };
-    helpCloseBtn.onclick = function () { hideHelp(); helpBtn.focus(); };
+    if (helpCloseBtn) helpCloseBtn.onclick = function () { hideHelp(); helpBtn.focus(); };
     helpBackdrop.onclick = function () { hideHelp(); helpBtn.focus(); };
-    helpActionBtn.onclick = function () { hideHelp(); openJonas(); };
   }
 
   // ==================== SPOTLIGHT SEARCH ====================
