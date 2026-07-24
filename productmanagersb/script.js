@@ -140,6 +140,18 @@
         btn.focus();
       }
     });
+
+    // Tab switching within notification panel
+    var tabs = panel.querySelectorAll('.afas-notification-panel__tab');
+    var contents = panel.querySelectorAll('.afas-notification-panel__content');
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        contents.forEach(function (c) { c.hidden = true; });
+        if (contents[i]) contents[i].hidden = false;
+      });
+    });
   }
 
   // ==================== JONAS CHAT ====================
