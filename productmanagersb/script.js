@@ -540,6 +540,27 @@
           ],
           insight: 'Een goede implementatie draait niet alleen om uitleg geven. Door het proces, de kennis en de verantwoordelijkheden vooraf goed in te richten, kunnen klanten sneller zelfstandig met SB werken en kunnen we meer kantoren op dezelfde goede manier begeleiden.'
         }
+      },
+      {
+        category: 'Praktisch productidee',
+        title: 'Van handmatig mappen naar een slimme SB-migratie',
+        summary: 'Een Mapping Manager gebouwd die mappingbestanden samenvoegt, automatisch koppelingen voorstelt en waarschuwt voor conflicten en ontbrekende instellingen.',
+        tags: ['Migratie', 'Automatisering', 'Productverbetering', 'Kwaliteitscontrole'],
+        detail: {
+          heading: 'Van handmatig mappen naar een slimme SB-migratie',
+          image: {
+            src: 'afassbmappingmanager.png',
+            alt: 'AFAS SB Mapping Manager voor het importeren, controleren en exporteren van mappingbestanden',
+            caption: 'Prototype van de AFAS SB Mapping Manager.'
+          },
+          sections: [
+            { title: 'Situatie', text: 'Bij een migratie met ADOS moeten de oude grootboekrekeningen worden gekoppeld aan de juiste grootboekrekeningen in SB. Wanneer meerdere administraties hetzelfde rekeningschema gebruiken, kan daarvoor een mappingbestand worden hergebruikt.\n\nIn de praktijk ontbrak alleen een eenvoudige manier om mappings uit meerdere administraties samen te voegen tot \u00e9\u00e9n bruikbaar geheel. Daardoor bleef veel handmatig werk nodig en werd het lastiger om overzicht te houden bij grotere migraties.' },
+            { title: 'Mijn rol', text: 'Vanuit mijn ervaring met migraties zag ik dat dit proces slimmer kon. Daarom heb ik de AFAS SB Mapping Manager gebouwd: een werkend prototype waarmee mappingbestanden kunnen worden ge\u00efmporteerd, samengevoegd, gecontroleerd en opnieuw ge\u00ebxporteerd.' },
+            { title: 'Mijn aanpak', text: 'In de Mapping Manager kunnen meerdere bestaande mappingbestanden worden ingelezen en samengevoegd tot \u00e9\u00e9n centrale mapping. Daarbij wordt rekening gehouden met verschillen tussen rechtsvormen en met functionaliteiten zoals Agro.\n\nDaarnaast heb ik een automatische mapper uitgewerkt. Hierbij wordt een ADOS-bestand ingelezen en maakt de tool een voorstel voor de koppeling tussen de oude grootboekrekeningen en de rekeningen in SB. De gebruiker kan het resultaat vervolgens filteren, controleren en waar nodig aanpassen.\n\nDe tool signaleert ook mogelijke problemen, zoals dubbel gemapte rekeningen, conflicten tussen mappingbestanden, ontbrekende koppelingen en activaties die mogelijk nodig zijn voor de administratie.' },
+            { title: 'Resultaat', text: 'Het resultaat is een werkend prototype dat laat zien hoe een tijdrovend en foutgevoelig onderdeel van een migratie overzichtelijker kan worden gemaakt.\n\nIn plaats van iedere administratie volledig met de hand te mappen, kan bestaande kennis worden hergebruikt en gecontroleerd. Daarmee wordt tijd bespaard en ontstaat meer grip op de kwaliteit van de uiteindelijke mapping naar SB.' }
+          ],
+          insight: 'Een goede migratieoplossing moet niet alleen gegevens kunnen overzetten. Door eerder gemaakte keuzes slim te hergebruiken, controles automatisch uit te voeren en uitzonderingen duidelijk zichtbaar te maken, kunnen migraties naar SB sneller en betrouwbaarder worden.'
+        }
       }
     ];
 
@@ -605,9 +626,16 @@
       if (!story || !panel) return;
       lastFocusedEl = document.activeElement;
       panelTitle.textContent = story.detail.heading;
-      var html = story.detail.sections.map(function(s) {
-        return '<div class="exp-story-panel__section"><h4>' + s.title + '</h4><p>' + s.text + '</p></div>';
-      }).join('');
+      var html = '';
+      story.detail.sections.forEach(function(s, i) {
+        html += '<div class="exp-story-panel__section"><h4>' + s.title + '</h4><p>' + s.text + '</p></div>';
+        if (i === 1 && story.detail.image) {
+          html += '<figure class="exp-story-panel__figure">' +
+            '<img class="exp-story-panel__image" src="' + story.detail.image.src + '" alt="' + story.detail.image.alt + '">' +
+            '<figcaption class="exp-story-panel__caption">' + story.detail.image.caption + '</figcaption>' +
+            '</figure>';
+        }
+      });
       html += '<div class="exp-story-panel__insight"><h4>Productinzicht</h4><p>' + story.detail.insight + '</p></div>';
       panelBody.innerHTML = html;
       panel.hidden = false;

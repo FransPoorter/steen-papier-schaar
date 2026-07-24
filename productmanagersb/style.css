@@ -2431,7 +2431,7 @@
 
 .exp-dashboard__stories-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -2616,6 +2616,27 @@
   color: var(--afas-text-primary);
   line-height: 1.6;
   margin: 0;
+}
+
+/* Story panel image */
+.exp-story-panel__figure {
+  margin: 16px 0;
+}
+
+.exp-story-panel__image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid var(--afas-tab-border);
+  border-radius: 8px;
+  background: var(--afas-page-background, #f8fafc);
+}
+
+.exp-story-panel__caption {
+  font-size: 12px;
+  color: var(--afas-text-muted);
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* SB Leerschool Card */
