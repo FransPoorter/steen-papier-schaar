@@ -3704,7 +3704,7 @@
   font-style: italic;
 }
 
-/* --- Split card (AI + Salamander) --- */
+/* --- Split card (AI + Kameleon) --- */
 .afs-split {
   background: var(--afas-white);
   border: 1px solid var(--afas-tab-border);
@@ -3784,7 +3784,7 @@
   line-height: 1.4;
 }
 
-/* Quote block (salamander side) */
+/* Quote block (kameleon side) */
 .afs-quote {
   background: #f1f5f9;
   border-radius: 8px;
@@ -3797,7 +3797,7 @@
   justify-content: center;
 }
 
-.afs-quote__salamander {
+.afs-quote__chameleon {
   flex-shrink: 0;
   margin-bottom: 16px;
   opacity: 0.85;
