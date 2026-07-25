@@ -4015,9 +4015,17 @@
 }
 
 .afs-slot__result {
-  border-top: 1px solid var(--afas-tab-border);
-  padding-top: 32px;
+  border-top: none;
+  padding-top: 8px;
   text-align: center;
+}
+
+.afs-slot__equals {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--afas-primary);
+  margin-bottom: 16px;
 }
 
 .afs-slot__result-label {
