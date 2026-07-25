@@ -2320,6 +2320,11 @@
   flex-direction: column;
 }
 
+.mot-card--reason .mot-card__accent:last-child {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
 /* Statements */
 .mot-statements {
   display: grid;
